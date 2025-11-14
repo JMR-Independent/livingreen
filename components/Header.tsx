@@ -42,18 +42,18 @@ export default function Header() {
       }}
     >
       <nav className="container-custom h-full">
-        <div className="flex items-center justify-between gap-8 h-full relative">
-          {/* Logo - Izquierda - Sobrepuesto sobre el fondo blanco */}
-          <Link href="/" className="absolute top-1/2 -translate-y-1/2 group" style={{ zIndex: 10, left: '-200px' }}>
+        <div className="flex items-center justify-between gap-8 h-full">
+          {/* Logo - Izquierda */}
+          <Link href="/" className="relative group flex-shrink-0" style={{ zIndex: 10 }}>
             {/* Contenedor del logo limpio */}
             <div
               className="relative transition-transform duration-300 group-hover:scale-105"
               style={{
-                width: isScrolled ? '1300px' : '1625px',
-                height: isScrolled ? '325px' : '422px',
+                width: isScrolled ? '140px' : '180px',
+                height: isScrolled ? '35px' : '45px',
               }}
             >
-              {/* La imagen del logo - NÍTIDA Y LIMPIA SIN EFECTOS */}
+              {/* La imagen del logo */}
               <Image
                 src="/images/logo.png"
                 alt={COMPANY_INFO.name}
@@ -66,13 +66,13 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation - Centrado con efectos modernos */}
-          <div className="hidden lg:flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 gap-2" style={{ zIndex: 200 }}>
+          <div className="hidden lg:flex items-center justify-center flex-1 gap-2">
             {navigation.map((item, index) => (
               <Link
                 key={item.name}
                 href={item.href}
                 prefetch={true}
-                className="relative px-6 py-2.5 text-base font-bold text-neutral-700 transition-all duration-300 group tracking-wide"
+                className="relative px-3 py-2.5 text-sm font-bold text-neutral-700 transition-all duration-300 group tracking-wide"
               >
                 <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
                   {item.name}
@@ -96,7 +96,7 @@ export default function Header() {
           </div>
 
           {/* CTA Button - Derecha */}
-          <div className="hidden lg:flex items-center space-x-4 absolute" style={{ zIndex: 200, right: '-100px' }}>
+          <div className="hidden lg:flex items-center space-x-4">
             <a
               href={`tel:${COMPANY_INFO.phone}`}
               className="text-sm font-bold text-neutral-700 transition-colors duration-300 hover:text-primary"
