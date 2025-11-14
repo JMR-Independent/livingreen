@@ -167,7 +167,7 @@ export default function Header() {
               style={{ zIndex: 9999 }}
             >
               {/* Header del menú */}
-              <div className="bg-white border-b-2 border-neutral-200 px-6 py-3">
+              <div className="bg-white border-b-2 border-neutral-200 px-6 py-2">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <Image
