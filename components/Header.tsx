@@ -49,8 +49,8 @@ export default function Header() {
             <div
               className="relative transition-transform duration-300 group-hover:scale-105"
               style={{
-                width: isScrolled ? '140px' : '180px',
-                height: isScrolled ? '35px' : '45px',
+                width: isScrolled ? '200px' : '240px',
+                height: isScrolled ? '50px' : '60px',
               }}
             >
               {/* La imagen del logo */}
