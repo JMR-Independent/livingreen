@@ -38,14 +38,11 @@ export default function ServicesPage() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 to-transparent" />
-                  <div className="absolute bottom-6 left-6">
-                    <h2 className="text-white text-3xl font-bold">{service.title}</h2>
-                  </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-8">
+                  <h2 className="text-primary text-3xl font-bold mb-4">{service.title}</h2>
                   <p className="text-neutral-700 text-lg mb-6 leading-relaxed">
                     {service.description}
                   </p>
