@@ -139,48 +139,96 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
+      </nav>
+
+      {/* Mobile Menu Overlay & Panel */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop Overlay */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              style={{ top: '70px' }}
+            />
+
+            {/* Slide-in Menu Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-[70px] bottom-0 w-[85vw] max-w-sm bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
             >
-              <div className="pt-4 pb-6 space-y-2">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    prefetch={true}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block px-4 py-3 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors duration-300"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                <div className="pt-4 space-y-3">
+              {/* Menu Content */}
+              <div className="flex flex-col h-full">
+                {/* Navigation Links */}
+                <div className="flex-1 px-6 py-8 space-y-1">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        prefetch={true}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block px-5 py-4 rounded-xl text-base font-semibold text-neutral-800 hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 hover:text-primary transition-all duration-300 border-b border-neutral-100 last:border-0"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{item.name}</span>
+                          <svg
+                            className="w-5 h-5 text-neutral-400 group-hover:text-primary transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="px-6 py-6 space-y-3 border-t border-neutral-200 bg-gradient-to-b from-white to-neutral-50"
+                >
                   <a
                     href={`tel:${COMPANY_INFO.phone}`}
-                    className="block px-4 py-3 rounded-lg text-sm font-medium text-center bg-neutral-100 text-neutral-700"
+                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-neutral-700 to-neutral-900 hover:from-neutral-800 hover:to-neutral-950 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
                   >
-                    Call {COMPANY_INFO.phoneDisplay}
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    {COMPANY_INFO.phoneDisplay}
                   </a>
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-4 py-3 rounded-lg text-sm font-medium text-center bg-primary text-white"
+                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-primary via-accent to-primary hover:shadow-xl transition-all duration-300 shadow-lg transform hover:scale-[1.02] bg-[length:200%_100%] hover:bg-right"
                   >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
                     Get a Quote
                   </Link>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
