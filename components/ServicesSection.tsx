@@ -21,8 +21,8 @@ export default function ServicesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {SERVICES.map((service, index) => (
-            <ScrollAnimation key={service.id} delay={index * 0.1}>
-              <Link href={`/services/${service.slug}`} className="block">
+            <ScrollAnimation key={service.id} delay={index * 0.1} className="h-full">
+              <Link href={`/services/${service.slug}`} className="block h-full">
                 <motion.div
                   whileHover={{ y: -8 }}
                   transition={{ duration: 0.3 }}
