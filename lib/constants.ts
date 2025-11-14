@@ -33,7 +33,7 @@ export const SERVICES = [
     slug: 'carpet-cleaning',
     shortDescription: 'Professional cleaning for all types of area rugs',
     description: 'Deep cleaning that restores your area rugs to their original beauty. Safe for all materials including wool, silk, and synthetic fibers.',
-    image: '/images/2020/04/Servicio-Alfombras-OK.jpg',
+    image: '/images/services/carpet-cleaning.jpg',
     features: [
       'Deep extraction cleaning',
       'Stain removal treatment',
@@ -50,7 +50,7 @@ export const SERVICES = [
     slug: 'upholstery-cleaning',
     shortDescription: 'Expert cleaning for sofas, chairs, and furniture',
     description: 'Restore the beauty and freshness of your upholstered furniture with our professional cleaning service.',
-    image: '/images/2020/04/1.jpg',
+    image: '/images/services/upholstery-cleaning.jpg',
     features: [
       'Safe for all fabric types',
       'Stain and odor removal',
@@ -60,6 +60,23 @@ export const SERVICES = [
       'Color restoration'
     ],
     price: 'Starting at $119',
+  },
+  {
+    id: 'chair-cleaning',
+    title: 'Chair Cleaning',
+    slug: 'chair-cleaning',
+    shortDescription: 'Professional cleaning for dining and office chairs',
+    description: 'Specialized cleaning service for all types of chairs, from dining room sets to office furniture, restoring comfort and appearance.',
+    image: '/images/services/chair-cleaning.jpg',
+    features: [
+      'All chair types welcome',
+      'Fabric and leather cleaning',
+      'Stain removal',
+      'Odor elimination',
+      'Quick drying process',
+      'Safe for all materials'
+    ],
+    price: 'Starting at $79',
   },
   {
     id: 'mattress-cleaning',
@@ -84,7 +101,7 @@ export const SERVICES = [
     slug: 'car-interior',
     shortDescription: 'Complete interior cleaning and detailing',
     description: 'Professional cleaning for your vehicle interior including seats, carpets, and all surfaces.',
-    image: '/images/2020/04/3.jpg',
+    image: '/images/services/car-interior.jpg',
     features: [
       'Seat and carpet cleaning',
       'Dashboard and console detailing',
