@@ -167,30 +167,28 @@ export default function Header() {
               style={{ zIndex: 9999 }}
             >
               {/* Header del menú */}
-              <div className="bg-white border-b-2 border-neutral-200 px-6 py-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <Image
-                      src="/images/logo.png"
-                      alt="LivinGreen"
-                      width={180}
-                      height={45}
-                      className="object-contain object-left"
-                      style={{ width: '180px', height: 'auto' }}
-                      priority
-                      quality={100}
-                    />
-                  </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 hover:bg-neutral-100 rounded-lg transition-colors flex-shrink-0"
-                    aria-label="Close menu"
-                  >
-                    <svg className="w-6 h-6 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+              <div className="bg-white border-b-2 border-neutral-200 px-6 py-1 flex items-center justify-between">
+                <div className="flex-1">
+                  <Image
+                    src="/images/logo.png"
+                    alt="LivinGreen"
+                    width={180}
+                    height={40}
+                    className="object-contain object-left"
+                    style={{ width: '180px', height: 'auto', maxHeight: '40px' }}
+                    priority
+                    quality={100}
+                  />
                 </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 hover:bg-neutral-100 rounded-lg transition-colors flex-shrink-0"
+                  aria-label="Close menu"
+                >
+                  <svg className="w-6 h-6 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
 
               {/* Navigation Links */}
