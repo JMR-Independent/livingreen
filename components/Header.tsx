@@ -168,17 +168,19 @@ export default function Header() {
             >
               {/* Header del menú */}
               <div className="bg-white border-b-2 border-neutral-200 px-6 py-0 flex items-center justify-between h-16">
-                <div className="flex-1 flex items-center">
-                  <Image
-                    src="/images/logo.png"
-                    alt="LivinGreen"
-                    width={240}
-                    height={60}
-                    className="object-contain object-left"
-                    style={{ width: '240px', height: 'auto', maxHeight: '50px' }}
-                    priority
-                    quality={100}
-                  />
+                <div className="flex-1 flex items-center overflow-hidden" style={{ height: '100%' }}>
+                  <div style={{ transform: 'scale(1.3)', transformOrigin: 'left center', marginLeft: '-10px' }}>
+                    <Image
+                      src="/images/logo.png"
+                      alt="LivinGreen"
+                      width={240}
+                      height={60}
+                      className="object-contain object-left"
+                      style={{ width: '240px', height: 'auto' }}
+                      priority
+                      quality={100}
+                    />
+                  </div>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
