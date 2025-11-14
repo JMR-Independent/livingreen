@@ -46,19 +46,18 @@ export default function Header() {
           {/* Logo - Izquierda */}
           <Link href="/" className="relative group flex-shrink-0" style={{ zIndex: 10 }}>
             {/* Contenedor del logo limpio */}
-            <div
-              className="relative transition-transform duration-300 group-hover:scale-105"
-              style={{
-                width: isScrolled ? '200px' : '240px',
-                height: isScrolled ? '50px' : '60px',
-              }}
-            >
+            <div className="relative transition-transform duration-300 group-hover:scale-105">
               {/* La imagen del logo */}
               <Image
                 src="/images/logo.png"
                 alt={COMPANY_INFO.name}
-                fill
+                width={240}
+                height={60}
                 className="object-contain object-left"
+                style={{
+                  width: isScrolled ? '200px' : '240px',
+                  height: 'auto',
+                }}
                 priority
                 quality={100}
               />

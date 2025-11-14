@@ -7,28 +7,28 @@ import { COMPANY_INFO } from '@/lib/constants';
 
 const heroSlides = [
   {
-    image: '/images/2020/04/Header5-2.jpg',
+    image: '/images/hero-1.jpg',
     title: 'Professional',
     titleHighlight: 'Cleaning',
     subtitle: 'Services',
     description: 'Experience the pleasure of walking on clean carpets',
   },
   {
-    image: '/images/2020/04/Servicio-Alfombras-OK.jpg',
+    image: '/images/hero-2.jpg',
     title: 'Expert',
     titleHighlight: 'Carpet',
     subtitle: 'Cleaning',
     description: 'Deep cleaning that restores your rugs to their original beauty',
   },
   {
-    image: '/images/2020/04/1.jpg',
+    image: '/images/hero-3.jpg',
     title: 'Trusted',
     titleHighlight: 'Upholstery',
     subtitle: 'Care',
     description: 'Professional furniture cleaning for a healthier home',
   },
   {
-    image: '/images/2020/04/6.jpg',
+    image: '/images/hero-4.jpg',
     title: 'Certified',
     titleHighlight: 'Cleaning',
     subtitle: 'Experts',
