@@ -167,15 +167,15 @@ export default function Header() {
               style={{ zIndex: 9999 }}
             >
               {/* Header del menú */}
-              <div className="bg-white border-b-2 border-neutral-200 px-6 py-1 flex items-center justify-between">
+              <div className="bg-white border-b-2 border-neutral-200 px-6 py-2 flex items-center justify-between">
                 <div className="flex-1">
                   <Image
                     src="/images/logo.png"
                     alt="LivinGreen"
                     width={240}
-                    height={50}
+                    height={60}
                     className="object-contain object-left"
-                    style={{ width: '240px', height: 'auto', maxHeight: '42px' }}
+                    style={{ width: '240px', height: 'auto' }}
                     priority
                     quality={100}
                   />
