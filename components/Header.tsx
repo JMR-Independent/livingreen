@@ -172,10 +172,10 @@ export default function Header() {
                   <Image
                     src="/images/logo.png"
                     alt="LivinGreen"
-                    width={180}
-                    height={40}
+                    width={240}
+                    height={50}
                     className="object-contain object-left"
-                    style={{ width: '180px', height: 'auto', maxHeight: '40px' }}
+                    style={{ width: '240px', height: 'auto', maxHeight: '42px' }}
                     priority
                     quality={100}
                   />
