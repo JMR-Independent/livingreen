@@ -169,13 +169,21 @@ export default function Header() {
               {/* Header del menú */}
               <div className="bg-white border-b-2 border-neutral-200 p-6">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold text-primary">LivinGreen</h3>
-                    <p className="text-sm text-neutral-600">Professional Cleaning</p>
+                  <div className="flex-1">
+                    <Image
+                      src="/images/logo.png"
+                      alt="LivinGreen"
+                      width={180}
+                      height={45}
+                      className="object-contain object-left"
+                      style={{ width: '180px', height: 'auto' }}
+                      priority
+                      quality={100}
+                    />
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-neutral-100 rounded-lg transition-colors flex-shrink-0"
                     aria-label="Close menu"
                   >
                     <svg className="w-6 h-6 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
