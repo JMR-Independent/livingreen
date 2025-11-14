@@ -29,10 +29,10 @@ export const COMPANY_INFO = {
 export const SERVICES = [
   {
     id: 'carpet-cleaning',
-    title: 'Area Rug Cleaning',
+    title: 'Carpet Cleaning',
     slug: 'carpet-cleaning',
-    shortDescription: 'Professional cleaning for all types of area rugs',
-    description: 'Deep cleaning that restores your area rugs to their original beauty. Safe for all materials including wool, silk, and synthetic fibers.',
+    shortDescription: 'Professional cleaning for all types of carpets',
+    description: 'Deep cleaning that restores your carpets to their original beauty. Safe for all materials including wool, silk, and synthetic fibers.',
     image: '/images/services/carpet-cleaning.jpg',
     features: [
       'Deep extraction cleaning',
@@ -84,7 +84,7 @@ export const SERVICES = [
     slug: 'mattress-cleaning',
     shortDescription: 'Deep sanitization for healthier sleep',
     description: 'Eliminate dust mites, allergens, and bacteria from your mattress for a cleaner, healthier sleep environment.',
-    image: '/images/2020/04/2.jpg',
+    image: '/images/services/mattress-cleaning.jpg',
     features: [
       'Dust mite elimination',
       'Deep sanitization',
@@ -118,7 +118,7 @@ export const SERVICES = [
     slug: 'protection',
     shortDescription: 'Shield your carpets and upholstery',
     description: 'Professional fabric protection treatment to repel stains, spills, and dirt, extending the life of your furnishings.',
-    image: '/images/2020/04/5.jpg',
+    image: '/images/services/protection.webp',
     features: [
       'Scotchgard protection',
       'Water and stain repellent',
