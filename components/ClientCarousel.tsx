@@ -8,13 +8,43 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import ScrollAnimation from './ScrollAnimation';
 
-const clients = [
-  { name: 'Consorcio', logo: '/images/2018/01/2-consorcio.png' },
-  { name: 'Armas', logo: '/images/2018/01/1-armas.png' },
-  { name: 'Centro Cultural', logo: '/images/2018/01/3-centro-cultural-la-moneda.png' },
-  { name: 'Socovesa', logo: '/images/2018/01/4-socovesa.png' },
-  { name: 'UDD', logo: '/images/2018/01/6-udd.png' },
-  { name: 'Demaria', logo: '/images/2018/01/5-demaria.png' },
+const certifications = [
+  {
+    name: 'EPA Certified',
+    icon: '🌿',
+    color: 'from-green-500 to-emerald-600',
+    description: 'Environmentally Safe Products'
+  },
+  {
+    name: 'Pet & Family Safe',
+    icon: '🐾',
+    color: 'from-blue-500 to-cyan-600',
+    description: 'Non-Toxic Cleaning Solutions'
+  },
+  {
+    name: 'Green Seal Certified',
+    icon: '✓',
+    color: 'from-teal-500 to-green-600',
+    description: 'Eco-Friendly Standards'
+  },
+  {
+    name: 'Biodegradable Products',
+    icon: '♻️',
+    color: 'from-lime-500 to-green-600',
+    description: 'Earth-Friendly Solutions'
+  },
+  {
+    name: 'No Harsh Chemicals',
+    icon: '🛡️',
+    color: 'from-emerald-500 to-teal-600',
+    description: 'Safe for All Surfaces'
+  },
+  {
+    name: 'Professional Grade',
+    icon: '⭐',
+    color: 'from-yellow-500 to-orange-500',
+    description: 'Industry Leading Quality'
+  },
 ];
 
 export default function ClientCarousel() {
@@ -57,17 +87,18 @@ export default function ClientCarousel() {
               }}
               className="pb-12"
             >
-              {clients.map((client, index) => (
+              {certifications.map((cert, index) => (
                 <SwiperSlide key={index}>
-                  <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-32 flex items-center justify-center group">
-                    <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all duration-300">
-                      <Image
-                        src={client.logo}
-                        alt={client.name}
-                        fill
-                        className="object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                      />
+                  <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-40 flex flex-col items-center justify-center group">
+                    <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${cert.color} flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      {cert.icon}
                     </div>
+                    <h3 className="text-sm font-bold text-neutral-800 text-center mb-1">
+                      {cert.name}
+                    </h3>
+                    <p className="text-xs text-neutral-500 text-center">
+                      {cert.description}
+                    </p>
                   </div>
                 </SwiperSlide>
               ))}
