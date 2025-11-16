@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, ReactElement } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import ScrollAnimation from './ScrollAnimation';
 
 const CertBadge = ({ type, className }: { type: string, className?: string }) => {
-  const badges: { [key: string]: JSX.Element } = {
+  const badges: { [key: string]: ReactElement } = {
     epa: (
       <svg className={className} viewBox="0 0 100 100" fill="none">
         <circle cx="50" cy="50" r="45" fill="#4CAF50"/>
