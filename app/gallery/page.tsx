@@ -1,4 +1,4 @@
-import Gallery from '@/components/Gallery';
+import FullGallery from '@/components/FullGallery';
 import PageHero from '@/components/PageHero';
 
 export const metadata = {
@@ -14,10 +14,10 @@ export default function GalleryPage() {
         title="Our Work"
         titleHighlight="Gallery"
         description="See the transformations we've achieved for our customers"
-        backgroundImage="/images/2020/04/6.jpg"
+        backgroundImage="/images/gallery/gallery-1.jpg"
       />
 
-      <Gallery />
+      <FullGallery />
     </>
   );
 }

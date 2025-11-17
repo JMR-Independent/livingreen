@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
 
 const galleryImages = [
-  { src: '/images/2020/04/7.jpg', title: 'Upholstery Cleaning', category: 'upholstery' },
-  { src: '/images/2020/04/5.jpg', title: 'Carpet Cleaning', category: 'carpet' },
-  { src: '/images/2020/04/2.jpg', title: 'Area Rug Cleaning', category: 'carpet' },
-  { src: '/images/2020/04/3.jpg', title: 'Professional Cleaning', category: 'carpet' },
-  { src: '/images/2020/04/1.jpg', title: 'Deep Cleaning', category: 'carpet' },
-  { src: '/images/2020/04/6.jpg', title: 'Furniture Cleaning', category: 'upholstery' },
+  { src: '/images/gallery/gallery-1.jpg', title: 'Professional Cleaning', category: 'cleaning' },
+  { src: '/images/gallery/gallery-6.jpg', title: 'Deep Cleaning', category: 'cleaning' },
+  { src: '/images/gallery/gallery-11.jpg', title: 'Upholstery Cleaning', category: 'upholstery' },
+  { src: '/images/gallery/gallery-16.jpg', title: 'Carpet Cleaning', category: 'carpet' },
+  { src: '/images/gallery/gallery-21.jpg', title: 'Area Cleaning', category: 'cleaning' },
+  { src: '/images/gallery/gallery-26.jpg', title: 'Furniture Cleaning', category: 'upholstery' },
 ];
 
 export default function Gallery() {
