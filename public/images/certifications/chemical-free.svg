@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="95" fill="#2196F3" stroke="#1565C0" stroke-width="3"/>
+
+  <!-- No chemicals circle with slash -->
+  <circle cx="100" cy="95" r="40" fill="none" stroke="white" stroke-width="5"/>
+  <line x1="75" y1="70" x2="125" y2="120" stroke="white" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Beaker/flask -->
+  <g transform="translate(85, 70)" opacity="0.8">
+    <path d="M8 5 L8 20 L6 30 L24 30 L22 20 L22 5 Z" fill="white"/>
+    <rect x="6" y="2" width="18" height="3" fill="white"/>
+  </g>
+
+  <!-- Leaf icon (natural alternative) -->
+  <g transform="translate(130, 60)">
+    <path d="M0 15 Q10 0 20 15 Q10 10 0 15 Z" fill="#81C784"/>
+    <line x1="10" y1="5" x2="10" y2="15" stroke="#66BB6A" stroke-width="1.5"/>
+  </g>
+
+  <!-- Text -->
+  <text x="100" y="158" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">CHEMICAL FREE</text>
+  <text x="100" y="177" fill="white" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">No Harsh Chemicals</text>
+</svg>

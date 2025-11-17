@@ -1,0 +1,29 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="95" fill="#FF9800" stroke="#E65100" stroke-width="3"/>
+
+  <!-- Trophy -->
+  <g transform="translate(70, 50)">
+    <!-- Cup -->
+    <path d="M10 10 L10 30 Q10 40 20 45 L40 45 Q50 40 50 30 L50 10 Z" fill="white" stroke="#E65100" stroke-width="2"/>
+
+    <!-- Handles -->
+    <path d="M10 15 Q0 15 0 25 Q0 30 5 30" fill="none" stroke="white" stroke-width="2.5"/>
+    <path d="M50 15 Q60 15 60 25 Q60 30 55 30" fill="none" stroke="white" stroke-width="2.5"/>
+
+    <!-- Base -->
+    <rect x="20" y="45" width="20" height="4" fill="white"/>
+    <rect x="15" y="49" width="30" height="6" fill="white" stroke="#E65100" stroke-width="1.5"/>
+
+    <!-- Star on trophy -->
+    <path d="M30 20 L32 26 L38 26 L33 30 L35 36 L30 32 L25 36 L27 30 L22 26 L28 26 Z" fill="#FFD54F"/>
+  </g>
+
+  <!-- Stars around -->
+  <path d="M145 60 L147 65 L152 65 L148 68 L150 73 L145 70 L140 73 L142 68 L138 65 L143 65 Z" fill="white"/>
+  <path d="M145 130 L147 135 L152 135 L148 138 L150 143 L145 140 L140 143 L142 138 L138 135 L143 135 Z" fill="white"/>
+
+  <!-- Text -->
+  <text x="100" y="155" fill="white" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">PROFESSIONAL</text>
+  <text x="100" y="172" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">GRADE</text>
+  <text x="100" y="187" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">Premium Quality</text>
+</svg>
