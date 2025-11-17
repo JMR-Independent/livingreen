@@ -10,22 +10,22 @@ import ScrollAnimation from './ScrollAnimation';
 
 const certifications = [
   {
-    logo: '/images/certifications/epa-safer-choice.png',
+    logo: '/images/certifications/epa-safer-choice.svg',
     name: 'EPA Safer Choice',
     description: 'Environmentally Safe Products'
   },
   {
-    logo: '/images/certifications/green-seal-official.png',
+    logo: '/images/certifications/green-seal.svg',
     name: 'Green Seal',
     description: 'Certified Green Products'
   },
   {
-    logo: '/images/certifications/ecologo.png',
+    logo: '/images/certifications/ecologo.svg',
     name: 'ECOLOGO',
     description: 'UL Certified Eco-Friendly'
   },
   {
-    logo: '/images/certifications/bpi-compostable.png',
+    logo: '/images/certifications/bpi-compostable.svg',
     name: 'Biodegradable',
     description: 'BPI Certified Compostable'
   },

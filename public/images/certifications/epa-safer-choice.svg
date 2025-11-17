@@ -1,0 +1,14 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Based on EPA Safer Choice logo design -->
+  <circle cx="100" cy="100" r="95" fill="#0071BC" stroke="#004B87" stroke-width="3"/>
+
+  <!-- Checkmark in shield -->
+  <path d="M100 30 L140 45 L140 95 Q140 120 100 145 Q60 120 60 95 L60 45 Z" fill="white" stroke="#0071BC" stroke-width="2"/>
+
+  <!-- Large checkmark -->
+  <path d="M75 90 L90 105 L125 65" stroke="#0071BC" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- EPA text -->
+  <text x="100" y="165" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">EPA</text>
+  <text x="100" y="183" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle">SAFER CHOICE</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Green Seal inspired design -->
+  <circle cx="100" cy="100" r="95" fill="#008751" stroke="#005A34" stroke-width="3"/>
+
+  <!-- Outer circle with text path -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="white" stroke-width="4"/>
+
+  <!-- Checkmark inside circle -->
+  <path d="M70 100 L88 118 L130 70" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Green Seal text -->
+  <text x="100" y="165" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">GREEN SEAL</text>
+  <text x="100" y="183" fill="white" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">Certified</text>
+</svg>

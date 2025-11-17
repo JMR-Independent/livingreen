@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BPI Compostable inspired design -->
+  <circle cx="100" cy="100" r="95" fill="#7CB342" stroke="#558B2F" stroke-width="3"/>
+
+  <!-- Seedling/sprout symbol -->
+  <g transform="translate(100, 85)">
+    <!-- Stem -->
+    <path d="M0 30 Q-5 10 -10 -10" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+    <!-- Left leaf -->
+    <path d="M-10 -10 Q-25 -15 -30 -5 Q-25 5 -10 -10 Z" fill="white"/>
+
+    <!-- Right leaf -->
+    <path d="M-10 -10 Q5 -20 15 -15 Q10 -5 -10 -10 Z" fill="white"/>
+
+    <!-- Soil/ground -->
+    <ellipse cx="0" cy="35" rx="35" ry="8" fill="white" opacity="0.7"/>
+  </g>
+
+  <!-- Text -->
+  <text x="100" y="160" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">BPI CERTIFIED</text>
+  <text x="100" y="178" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle">COMPOSTABLE</text>
+</svg>
