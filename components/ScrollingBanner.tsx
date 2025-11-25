@@ -15,6 +15,14 @@ const banner1Words = [
 ];
 
 const banner2Words = [
+  'PLANT-BASED',
+  'ALLERGEN-FREE',
+  'NATURAL',
+  'RENEWABLE',
+  'SAFE & EFFECTIVE',
+];
+
+const banner3Words = [
   'CHEMICAL-FREE',
   'SAFE FOR PETS',
   'CERTIFIED',
@@ -25,32 +33,45 @@ const banner2Words = [
 export default function ScrollingBanner() {
   const banner1Ref = useRef<HTMLDivElement>(null);
   const banner2Ref = useRef<HTMLDivElement>(null);
+  const banner3Ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!banner1Ref.current || !banner2Ref.current || !containerRef.current) return;
+    if (!banner1Ref.current || !banner2Ref.current || !banner3Ref.current || !containerRef.current) return;
 
-    // First banner - scroll left
+    // First banner - scroll left (faster)
     gsap.to(banner1Ref.current, {
-      x: '-70%',
+      x: '-100%',
       ease: 'none',
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 0.5,
+        scrub: 0.3,
       },
     });
 
-    // Second banner - scroll right (reverse)
+    // Second banner - scroll right (reverse, faster)
     gsap.to(banner2Ref.current, {
-      x: '50%',
+      x: '80%',
       ease: 'none',
       scrollTrigger: {
         trigger: banner2Ref.current,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 0.5,
+        scrub: 0.3,
+      },
+    });
+
+    // Third banner - scroll left (faster)
+    gsap.to(banner3Ref.current, {
+      x: '-100%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: banner3Ref.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.3,
       },
     });
 
@@ -69,23 +90,22 @@ export default function ScrollingBanner() {
       </div>
 
       {/* First Scrolling Banner */}
-      <div className="relative py-8 overflow-hidden">
+      <div className="relative py-6 overflow-hidden">
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none" />
 
         <div
           ref={banner1Ref}
-          className="flex gap-12 whitespace-nowrap"
+          className="flex gap-8 whitespace-nowrap"
         >
-          {/* Duplicate words for infinite scroll effect */}
           {[...banner1Words, ...banner1Words].map((word, index) => (
             <span
               key={index}
-              className="inline-block text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 bg-clip-text text-transparent"
+              className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 bg-clip-text text-transparent"
             >
               {word}
               {index < banner1Words.length * 2 - 1 && (
-                <span className="mx-8 text-primary/30">•</span>
+                <span className="mx-6 text-primary/30">•</span>
               )}
             </span>
           ))}
@@ -93,23 +113,45 @@ export default function ScrollingBanner() {
       </div>
 
       {/* Second Scrolling Banner (Reverse Direction) */}
-      <div className="relative py-8 overflow-hidden mt-4">
+      <div className="relative py-6 overflow-hidden mt-2">
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none" />
 
         <div
           ref={banner2Ref}
-          className="flex gap-12 whitespace-nowrap"
+          className="flex gap-8 whitespace-nowrap"
         >
-          {/* Duplicate words for infinite scroll effect */}
           {[...banner2Words, ...banner2Words].map((word, index) => (
             <span
               key={index}
-              className="inline-block text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-accent/15 via-primary/20 to-accent/15 bg-clip-text text-transparent"
+              className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-accent/15 via-primary/20 to-accent/15 bg-clip-text text-transparent"
             >
               {word}
               {index < banner2Words.length * 2 - 1 && (
-                <span className="mx-8 text-accent/30">•</span>
+                <span className="mx-6 text-accent/30">•</span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Third Scrolling Banner */}
+      <div className="relative py-6 overflow-hidden mt-2">
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none" />
+
+        <div
+          ref={banner3Ref}
+          className="flex gap-8 whitespace-nowrap"
+        >
+          {[...banner3Words, ...banner3Words].map((word, index) => (
+            <span
+              key={index}
+              className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 bg-clip-text text-transparent"
+            >
+              {word}
+              {index < banner3Words.length * 2 - 1 && (
+                <span className="mx-6 text-primary/30">•</span>
               )}
             </span>
           ))}
