@@ -56,16 +56,21 @@ export default function ScrollingBanner() {
     });
 
     // Second banner - scroll right (reverse, faster)
-    gsap.to(banner2Ref.current, {
-      x: '80%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: banner2Ref.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.3,
+    gsap.fromTo(banner2Ref.current,
+      {
+        x: '-50%'
       },
-    });
+      {
+        x: '80%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: banner2Ref.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.3,
+        },
+      }
+    );
 
     // Third banner - scroll left (faster)
     gsap.to(banner3Ref.current, {
