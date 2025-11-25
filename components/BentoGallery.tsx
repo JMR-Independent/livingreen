@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
@@ -83,6 +83,16 @@ const slides: Slide[] = [
         src: '/images/gallery/gallery-21.jpg',
         size: 'small',
       },
+      {
+        type: 'image',
+        src: '/images/gallery/gallery-22.jpg',
+        size: 'small',
+      },
+      {
+        type: 'image',
+        src: '/images/gallery/gallery-23.jpg',
+        size: 'small',
+      },
     ],
   },
   {
@@ -136,6 +146,16 @@ const slides: Slide[] = [
         size: 'small',
         color: 'green',
       },
+      {
+        type: 'image',
+        src: '/images/gallery/gallery-18.jpg',
+        size: 'small',
+      },
+      {
+        type: 'image',
+        src: '/images/gallery/gallery-19.jpg',
+        size: 'small',
+      },
     ],
   },
 ];
@@ -143,19 +163,41 @@ const slides: Slide[] = [
 export default function BentoGallery() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-advance slides
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      if (!isAnimating) {
+        setIsAnimating(true);
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+        setTimeout(() => setIsAnimating(false), 500);
+      }
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isPaused, isAnimating]);
 
   const nextSlide = () => {
     if (isAnimating) return;
+    setIsPaused(true); // Pause auto-advance when user interacts
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
     setTimeout(() => setIsAnimating(false), 500);
+    // Resume auto-advance after 10 seconds
+    setTimeout(() => setIsPaused(false), 10000);
   };
 
   const prevSlide = () => {
     if (isAnimating) return;
+    setIsPaused(true); // Pause auto-advance when user interacts
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setTimeout(() => setIsAnimating(false), 500);
+    // Resume auto-advance after 10 seconds
+    setTimeout(() => setIsPaused(false), 10000);
   };
 
   const getGridClass = (size: BentoItemSize): string => {
@@ -215,25 +257,46 @@ export default function BentoGallery() {
                   >
                     {item.type === 'image' ? (
                       <>
-                        <Image
-                          src={item.src}
-                          alt={item.title || 'Gallery image'}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
+                        <motion.div
+                          className="absolute inset-0"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.7 }}
+                        >
+                          <Image
+                            src={item.src}
+                            alt={item.title || 'Gallery image'}
+                            fill
+                            className="object-cover"
+                          />
+                        </motion.div>
                         {item.overlay && item.title && (
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6 md:p-8">
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6 md:p-8"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                          >
                             <div>
-                              <h3 className="text-white text-3xl md:text-5xl font-bold mb-2">
+                              <motion.h3
+                                className="text-white text-3xl md:text-5xl font-bold mb-2"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4, duration: 0.5 }}
+                              >
                                 {item.title}
-                              </h3>
+                              </motion.h3>
                               {item.subtitle && (
-                                <p className="text-white/80 text-sm md:text-base">
+                                <motion.p
+                                  className="text-white/80 text-sm md:text-base"
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.5, duration: 0.5 }}
+                                >
                                   {item.subtitle}
-                                </p>
+                                </motion.p>
                               )}
                             </div>
-                          </div>
+                          </motion.div>
                         )}
                       </>
                     ) : (
