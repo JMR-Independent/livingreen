@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero';
 import ServicesSection from '@/components/ServicesSection';
-import ClientCarousel from '@/components/ClientCarousel';
+import ScrollingBanner from '@/components/ScrollingBanner';
 import Gallery from '@/components/Gallery';
 import ReviewsSection from '@/components/ReviewsSection';
 import FAQSection from '@/components/FAQSection';
@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Hero />
       <ServicesSection />
-      <ClientCarousel />
+      <ScrollingBanner />
       <Gallery />
       <ReviewsSection />
       <FAQSection />
