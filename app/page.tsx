@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero';
 import ServicesSection from '@/components/ServicesSection';
 import ScrollingBanner from '@/components/ScrollingBanner';
-import Gallery from '@/components/Gallery';
+import BentoGallery from '@/components/BentoGallery';
 import ReviewsSection from '@/components/ReviewsSection';
 import FAQSection from '@/components/FAQSection';
 
@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <ServicesSection />
       <ScrollingBanner />
-      <Gallery />
+      <BentoGallery />
       <ReviewsSection />
       <FAQSection />
     </>
