@@ -32,34 +32,34 @@ export const SERVICES = [
     title: 'Carpet Cleaning',
     slug: 'carpet-cleaning',
     shortDescription: 'Professional cleaning for all types of carpets',
-    description: 'Deep cleaning that restores your carpets to their original beauty. Safe for all materials including wool, silk, and synthetic fibers.',
+    description: 'Deep cleaning for rooms, hallways, stairs, and living areas. Minimum order $90. Serving from Santaquin to Salt Lake City.',
     image: '/images/services/carpet-cleaning.jpg',
     features: [
-      'Deep extraction cleaning',
-      'Stain removal treatment',
-      'Deodorization',
-      '99.9% allergen elimination',
-      'Fast drying (5 hours)',
-      'Eco-friendly products'
+      'Rooms: $30 each',
+      'Hallways: $10 to $30',
+      'Living rooms: $30 to $60',
+      'Stairs: $45 to $55',
+      'Odor removal: $20 per area',
+      'Minimum order: $90'
     ],
-    price: 'Starting at $89',
+    price: 'Starting at $30/room',
   },
   {
     id: 'upholstery-cleaning',
     title: 'Upholstery Cleaning',
     slug: 'upholstery-cleaning',
     shortDescription: 'Expert cleaning for sofas, chairs, and furniture',
-    description: 'Restore the beauty and freshness of your upholstered furniture with our professional cleaning service.',
+    description: 'Professional upholstery cleaning with vacuum, stain removal, deep extraction, and steam cleaning. Fast drying with fans included.',
     image: '/images/services/upholstery-cleaning.jpg',
     features: [
-      'Safe for all fabric types',
-      'Stain and odor removal',
-      'Quick dry technology',
-      'Pet-friendly solutions',
-      'Fabric protection available',
-      'Color restoration'
+      '1-seat sofa: $35',
+      '2-seat loveseat: $65',
+      '3-seat sofa: $85',
+      'Sectionals: from $100',
+      'Deep stain & odor removal',
+      'Steam cleaning & fast drying'
     ],
-    price: 'Starting at $119',
+    price: 'Starting at $35',
   },
   {
     id: 'chair-cleaning',
@@ -83,34 +83,34 @@ export const SERVICES = [
     title: 'Mattress Cleaning',
     slug: 'mattress-cleaning',
     shortDescription: 'Deep sanitization for healthier sleep',
-    description: 'Eliminate dust mites, allergens, and bacteria from your mattress for a cleaner, healthier sleep environment.',
+    description: 'Professional vacuum, steam disinfection, and stain removal per side. Minimum $90 per visit. Can combine with other services.',
     image: '/images/services/mattress-cleaning.jpg',
     features: [
-      'Dust mite elimination',
-      'Deep sanitization',
-      'Allergen removal',
-      'Odor neutralization',
-      'Stain treatment',
-      'Dry in 4-6 hours'
+      'Twin (per side): $40',
+      'Full/Queen (per side): $50',
+      'King (per side): $60',
+      'Deep vacuum & steam disinfection',
+      'Stain, odor & mite removal',
+      'Fast drying guaranteed'
     ],
-    price: 'Starting at $99',
+    price: 'Starting at $40/side',
   },
   {
     id: 'car-interior',
     title: 'Car Interior Detailing',
     slug: 'car-interior',
     shortDescription: 'Complete interior cleaning and detailing',
-    description: 'Professional cleaning for your vehicle interior including seats, carpets, and all surfaces.',
+    description: 'At-home service taking 1-4 hours. We bring all equipment, just need electrical connection. Basic or complete cleaning available.',
     image: '/images/services/car-interior.jpg',
     features: [
-      'Seat and carpet cleaning',
-      'Dashboard and console detailing',
-      'Door panel cleaning',
-      'Odor elimination',
-      'Pet hair removal',
-      'Leather conditioning'
+      'Basic cleaning: $100',
+      'Complete cleaning: $160',
+      'Odor removal: +$35',
+      'Engine wash: +$60',
+      'At-home service (1-4 hours)',
+      'All equipment provided'
     ],
-    price: 'Starting at $149',
+    price: 'Starting at $100',
   },
   {
     id: 'protection',
@@ -134,7 +134,7 @@ export const SERVICES = [
 export const FAQS = [
   {
     question: 'How is the cleaning service priced?',
-    answer: 'For area rugs, we price by size categories (Small, Medium, Large, XL). For upholstery, we price by piece. For mattresses, we have standard pricing based on size (Twin, Full, Queen, King). We provide free estimates for all services.'
+    answer: 'Carpets: $30 per room, $10-30 hallways, $30-60 living rooms, $45-55 stairs. Upholstery: $35-100 depending on size. Mattresses: $40-60 per side. Cars: $100 basic, $160 complete. Minimum order: $90. We provide free estimates for all services.'
   },
   {
     question: 'What should I do before you arrive?',
