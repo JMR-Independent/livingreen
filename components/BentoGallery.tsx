@@ -203,12 +203,12 @@ export default function BentoGallery() {
   };
 
   return (
-    <section className="section-padding bg-neutral-900">
+    <section className="section-padding bg-white">
       <div className="container-custom">
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-display-md mb-4 text-white">Our Work</h2>
-            <p className="text-neutral-300 text-lg max-w-2xl mx-auto">
+            <h2 className="text-display-md mb-4 text-neutral-900">Our Work</h2>
+            <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
               See the difference our professional green cleaning services make
             </p>
           </div>
