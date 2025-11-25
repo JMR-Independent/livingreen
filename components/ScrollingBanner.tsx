@@ -55,13 +55,13 @@ export default function ScrollingBanner() {
       },
     });
 
-    // Second banner - scroll right (reverse, faster)
+    // Second banner - scroll right (reverse, slower)
     gsap.fromTo(banner2Ref.current,
       {
         x: '-400%'
       },
       {
-        x: '0%',
+        x: '-100%',
         ease: 'none',
         scrollTrigger: {
           trigger: banner2Ref.current,
