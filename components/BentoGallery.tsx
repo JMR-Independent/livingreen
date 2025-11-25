@@ -5,14 +5,40 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
 
-const slides = [
+type BentoItemSize = 'large' | 'medium' | 'small';
+type BentoItemColor = 'green' | 'dark';
+
+interface BentoImageItem {
+  type: 'image';
+  src: string;
+  title?: string;
+  subtitle?: string;
+  size: BentoItemSize;
+  overlay?: boolean;
+}
+
+interface BentoTextItem {
+  type: 'text';
+  title: string;
+  description: string;
+  size: BentoItemSize;
+  color: BentoItemColor;
+}
+
+type BentoItem = BentoImageItem | BentoTextItem;
+
+interface Slide {
+  items: BentoItem[];
+}
+
+const slides: Slide[] = [
   {
     items: [
       {
         type: 'image',
         src: '/images/gallery/gallery-1.jpg',
         title: 'LivinGreen',
-        subtitle: 'Utah's Green Cleaning Experts',
+        subtitle: 'Utah\'s Green Cleaning Experts',
         size: 'large',
         overlay: true,
       },
@@ -132,7 +158,7 @@ export default function BentoGallery() {
     setTimeout(() => setIsAnimating(false), 500);
   };
 
-  const getGridClass = (size: string) => {
+  const getGridClass = (size: BentoItemSize): string => {
     switch (size) {
       case 'large':
         return 'col-span-2 row-span-2';
@@ -145,7 +171,7 @@ export default function BentoGallery() {
     }
   };
 
-  const getColorClass = (color?: string) => {
+  const getColorClass = (color: BentoItemColor): string => {
     switch (color) {
       case 'green':
         return 'bg-gradient-to-br from-primary/90 to-primary/70';
@@ -190,20 +216,22 @@ export default function BentoGallery() {
                     {item.type === 'image' ? (
                       <>
                         <Image
-                          src={item.src!}
+                          src={item.src}
                           alt={item.title || 'Gallery image'}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                        {item.overlay && (
+                        {item.overlay && item.title && (
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6 md:p-8">
                             <div>
                               <h3 className="text-white text-3xl md:text-5xl font-bold mb-2">
                                 {item.title}
                               </h3>
-                              <p className="text-white/80 text-sm md:text-base">
-                                {item.subtitle}
-                              </p>
+                              {item.subtitle && (
+                                <p className="text-white/80 text-sm md:text-base">
+                                  {item.subtitle}
+                                </p>
+                              )}
                             </div>
                           </div>
                         )}
