@@ -58,7 +58,7 @@ export default function ScrollingBanner() {
     // Second banner - scroll right (reverse, faster)
     gsap.fromTo(banner2Ref.current,
       {
-        x: '-100%'
+        x: '-200%'
       },
       {
         x: '100%',
@@ -128,7 +128,7 @@ export default function ScrollingBanner() {
           ref={banner2Ref}
           className="flex gap-8 whitespace-nowrap"
         >
-          {[...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words].map((word, index) => (
+          {[...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words].map((word, index) => (
             <span
               key={index}
               className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-accent/15 via-primary/20 to-accent/15 bg-clip-text text-transparent"
