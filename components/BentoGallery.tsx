@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
@@ -163,41 +163,19 @@ const slides: Slide[] = [
 export default function BentoGallery() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Auto-advance slides
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      if (!isAnimating) {
-        setIsAnimating(true);
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-        setTimeout(() => setIsAnimating(false), 500);
-      }
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [isPaused, isAnimating]);
 
   const nextSlide = () => {
     if (isAnimating) return;
-    setIsPaused(true); // Pause auto-advance when user interacts
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
     setTimeout(() => setIsAnimating(false), 500);
-    // Resume auto-advance after 10 seconds
-    setTimeout(() => setIsPaused(false), 10000);
   };
 
   const prevSlide = () => {
     if (isAnimating) return;
-    setIsPaused(true); // Pause auto-advance when user interacts
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setTimeout(() => setIsAnimating(false), 500);
-    // Resume auto-advance after 10 seconds
-    setTimeout(() => setIsPaused(false), 10000);
   };
 
   const getGridClass = (size: BentoItemSize): string => {
