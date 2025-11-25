@@ -58,10 +58,10 @@ export default function ScrollingBanner() {
     // Second banner - scroll right (reverse, faster)
     gsap.fromTo(banner2Ref.current,
       {
-        x: '-200%'
+        x: '100%'
       },
       {
-        x: '100%',
+        x: '-200%',
         ease: 'none',
         scrollTrigger: {
           trigger: banner2Ref.current,
