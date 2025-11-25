@@ -7,27 +7,31 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const banner1Words = [
-  'ECO-FRIENDLY',
-  'NON-TOXIC',
-  'BIODEGRADABLE',
-  'SUSTAINABLE',
-  'GREEN CLEANING',
+  'CARPETS',
+  'SOFAS',
+  'MATTRESSES',
+  'RUGS',
+  'UPHOLSTERY',
+  'CARS',
 ];
 
 const banner2Words = [
-  'PLANT-BASED',
-  'ALLERGEN-FREE',
-  'NATURAL',
-  'RENEWABLE',
-  'SAFE & EFFECTIVE',
+  'STAINS',
+  'WINE',
+  'COFFEE',
+  'GREASE',
+  'MUD',
+  'URINE',
+  'ODORS',
+  'DIRT',
 ];
 
 const banner3Words = [
-  'CHEMICAL-FREE',
   'SAFE FOR PETS',
-  'CERTIFIED',
-  'ORGANIC',
-  'EARTH-FRIENDLY',
+  'NON TOXIC',
+  'NATURAL',
+  'EFFECTIVE',
+  'ECO FRIENDLY',
 ];
 
 export default function ScrollingBanner() {
@@ -98,15 +102,13 @@ export default function ScrollingBanner() {
           ref={banner1Ref}
           className="flex gap-8 whitespace-nowrap"
         >
-          {[...banner1Words, ...banner1Words].map((word, index) => (
+          {[...banner1Words, ...banner1Words, ...banner1Words, ...banner1Words, ...banner1Words, ...banner1Words].map((word, index) => (
             <span
               key={index}
               className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 bg-clip-text text-transparent"
             >
               {word}
-              {index < banner1Words.length * 2 - 1 && (
-                <span className="mx-6 text-primary/30">•</span>
-              )}
+              <span className="mx-6 text-primary/30">•</span>
             </span>
           ))}
         </div>
@@ -121,15 +123,13 @@ export default function ScrollingBanner() {
           ref={banner2Ref}
           className="flex gap-8 whitespace-nowrap"
         >
-          {[...banner2Words, ...banner2Words].map((word, index) => (
+          {[...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words, ...banner2Words].map((word, index) => (
             <span
               key={index}
               className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-accent/15 via-primary/20 to-accent/15 bg-clip-text text-transparent"
             >
               {word}
-              {index < banner2Words.length * 2 - 1 && (
-                <span className="mx-6 text-accent/30">•</span>
-              )}
+              <span className="mx-6 text-accent/30">•</span>
             </span>
           ))}
         </div>
@@ -144,15 +144,13 @@ export default function ScrollingBanner() {
           ref={banner3Ref}
           className="flex gap-8 whitespace-nowrap"
         >
-          {[...banner3Words, ...banner3Words].map((word, index) => (
+          {[...banner3Words, ...banner3Words, ...banner3Words, ...banner3Words, ...banner3Words, ...banner3Words].map((word, index) => (
             <span
               key={index}
               className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 bg-clip-text text-transparent"
             >
               {word}
-              {index < banner3Words.length * 2 - 1 && (
-                <span className="mx-6 text-primary/30">•</span>
-              )}
+              <span className="mx-6 text-primary/30">•</span>
             </span>
           ))}
         </div>
