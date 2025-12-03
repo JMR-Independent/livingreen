@@ -24,8 +24,26 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Wait a moment for better UX
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Create WhatsApp message with form data
+    const whatsappMessage = `
+*New Quote Request from Website*
+
+*Name:* ${formData.name}
+*Phone:* ${formData.phone}
+*Email:* ${formData.email}
+*City:* ${formData.city}
+*Service:* ${formData.service}
+
+*Message:*
+${formData.message}
+    `.trim();
+
+    // Open WhatsApp with the message
+    const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
 
     setIsSubmitting(false);
     setSubmitted(true);
@@ -102,20 +120,6 @@ export default function ContactPage() {
                     <a href={`mailto:${COMPANY_INFO.email}`} className="text-neutral-700 hover:text-primary transition-colors font-medium">
                       {COMPANY_INFO.email}
                     </a>
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-md">
-                    <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1 text-neutral-900">Address</h3>
-                    <p className="text-neutral-700 font-medium">{COMPANY_INFO.address.full}</p>
                   </div>
                 </div>
 
