@@ -94,7 +94,7 @@ export default function ScrollingBanner() {
       <div className="text-center mb-12">
         <h2 className="text-display-md mb-4">Eco-Friendly Excellence</h2>
         <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
-          Over 15 years delivering premium green cleaning solutions with exceptional quality and care for Utah families
+          Over 7 years delivering premium green cleaning solutions with exceptional quality and care for Utah families
         </p>
       </div>
 

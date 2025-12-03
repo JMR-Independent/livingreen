@@ -1,9 +1,9 @@
 export const COMPANY_INFO = {
   name: 'LivinGreen',
   tagline: 'Professional Cleaning Services',
-  phone: '+1 (801) 555-0100',
-  phoneDisplay: '(801) 555-0100',
-  whatsapp: '+18015550100',
+  phone: '+1 (385) 482-5694',
+  phoneDisplay: '(385) 482-5694',
+  whatsapp: '+13854825694',
   email: 'info@livingreen.com',
   address: {
     street: '123 Main Street',
@@ -170,7 +170,7 @@ export const FAQS = [
   },
   {
     question: 'What makes LivinGreen different?',
-    answer: 'We use professional-grade Swiss and German equipment, eco-friendly certified products, and our technicians have 15+ years of experience. We use 80% less water than traditional methods, offer same-day service, provide satisfaction guarantee, and have served thousands of satisfied customers in Utah.'
+    answer: 'We use professional-grade Swiss and German equipment, eco-friendly certified products, and our technicians have 7+ years of experience. We use 80% less water than traditional methods, offer same-day service, provide satisfaction guarantee, and have served thousands of satisfied customers in Utah.'
   },
 ];
 

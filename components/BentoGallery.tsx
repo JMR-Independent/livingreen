@@ -223,7 +223,7 @@ export default function BentoGallery() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px]"
+                className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]"
               >
                 {slides[currentSlide].items.map((item, index) => (
                   <motion.div
@@ -231,14 +231,14 @@ export default function BentoGallery() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className={`${getGridClass(item.size)} rounded-2xl overflow-hidden group relative`}
+                    className={`${getGridClass(item.size)} rounded-3xl overflow-hidden group relative shadow-[0_1px_3px_-1px_rgba(0,0,0,0.4)] hover:shadow-[0_10px_35px_-4px_rgba(0,0,0,0.25)] transition-all duration-300`}
                   >
                     {item.type === 'image' ? (
                       <>
                         <motion.div
                           className="absolute inset-0"
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.7 }}
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
                         >
                           <Image
                             src={item.src}
@@ -247,6 +247,8 @@ export default function BentoGallery() {
                             className="object-cover"
                           />
                         </motion.div>
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 ease-out pointer-events-none" />
                         {item.overlay && item.title && (
                           <motion.div
                             className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6 md:p-8"
@@ -279,14 +281,18 @@ export default function BentoGallery() {
                       </>
                     ) : (
                       <div
-                        className={`${getColorClass(item.color)} h-full flex flex-col justify-center items-start p-6 md:p-8 group-hover:scale-[1.02] transition-transform duration-300`}
+                        className={`${getColorClass(item.color)} h-full flex flex-col justify-center items-start p-6 md:p-8 relative overflow-hidden`}
                       >
-                        <h3 className="text-white text-xl md:text-2xl font-bold mb-3">
-                          {item.title}
-                        </h3>
-                        <p className="text-white/90 text-sm md:text-base leading-relaxed">
-                          {item.description}
-                        </p>
+                        {/* Subtle gradient overlay on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/0 group-hover:from-white/5 group-hover:to-white/0 transition-all duration-300" />
+                        <div className="relative z-10">
+                          <h3 className="text-white text-xl md:text-2xl font-bold mb-3 group-hover:translate-x-1 transition-transform duration-300">
+                            {item.title}
+                          </h3>
+                          <p className="text-white/90 text-sm md:text-base leading-relaxed group-hover:text-white transition-colors duration-300">
+                            {item.description}
+                          </p>
+                        </div>
                       </div>
                     )}
                   </motion.div>

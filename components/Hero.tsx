@@ -32,7 +32,7 @@ const heroSlides = [
     title: 'Certified',
     titleHighlight: 'Cleaning',
     subtitle: 'Experts',
-    description: 'Over 15 years serving Utah families and businesses',
+    description: 'Over 7 years serving Utah families and businesses',
   },
 ];
 

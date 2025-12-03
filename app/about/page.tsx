@@ -5,7 +5,7 @@ import PageHero from '@/components/PageHero';
 
 export const metadata = {
   title: 'About Us',
-  description: 'Learn about LivinGreen - your trusted professional cleaning service with 15+ years of experience.',
+  description: 'Learn about LivinGreen - your trusted professional cleaning service with 7+ years of experience.',
 };
 
 export default function AboutPage() {
