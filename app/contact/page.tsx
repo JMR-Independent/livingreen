@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import PageHero from '@/components/PageHero';
 import { COMPANY_INFO } from '@/lib/constants';
@@ -26,46 +25,52 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS (only needs to be done once)
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
-
-      // Prepare template parameters
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+      // Prepare form data for Web3Forms
+      const formDataToSend = {
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+        name: formData.name,
+        email: formData.email,
         phone: formData.phone,
         city: formData.city,
         service: formData.service,
         message: formData.message,
-        to_email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || '',
+        subject: `New Quote Request from ${formData.name}`,
       };
 
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-        templateParams
-      );
+      // Send to Web3Forms API
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formDataToSend),
+      });
 
-      console.log('Email sent successfully:', response);
+      const result = await response.json();
 
-      setIsSubmitting(false);
-      setSubmitted(true);
+      if (result.success) {
+        console.log('Form submitted successfully:', result);
+        setIsSubmitting(false);
+        setSubmitted(true);
 
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          city: '',
-          service: '',
-          message: '',
-        });
-      }, 3000);
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            city: '',
+            service: '',
+            message: '',
+          });
+        }, 3000);
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending message:', error);
       setIsSubmitting(false);
       alert('There was an error sending your message. Please try again or contact us directly via WhatsApp.');
     }
