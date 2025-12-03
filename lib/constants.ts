@@ -1,9 +1,9 @@
 export const COMPANY_INFO = {
   name: 'LivinGreen',
   tagline: 'Professional Cleaning Services',
-  phone: '+1 (385) 482-5694',
-  phoneDisplay: '(385) 482-5694',
-  whatsapp: '+13854825694',
+  phone: '+385 4825694',
+  phoneDisplay: '+385 4825694',
+  whatsapp: '+3854825694',
   email: 'info@livingreen.com',
   address: {
     street: '123 Main Street',
