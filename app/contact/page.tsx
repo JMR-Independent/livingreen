@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import PageHero from '@/components/PageHero';
 import { COMPANY_INFO } from '@/lib/constants';
@@ -24,42 +25,50 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Wait a moment for better UX
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      // Initialize EmailJS (only needs to be done once)
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
 
-    // Create WhatsApp message with form data
-    const whatsappMessage = `
-*New Quote Request from Website*
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        city: formData.city,
+        service: formData.service,
+        message: formData.message,
+        to_email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || '',
+      };
 
-*Name:* ${formData.name}
-*Phone:* ${formData.phone}
-*Email:* ${formData.email}
-*City:* ${formData.city}
-*Service:* ${formData.service}
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams
+      );
 
-*Message:*
-${formData.message}
-    `.trim();
+      console.log('Email sent successfully:', response);
 
-    // Open WhatsApp with the message
-    const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappUrl, '_blank');
+      setIsSubmitting(false);
+      setSubmitted(true);
 
-    setIsSubmitting(false);
-    setSubmitted(true);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        city: '',
-        service: '',
-        message: '',
-      });
-    }, 3000);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          city: '',
+          service: '',
+          message: '',
+        });
+      }, 3000);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setIsSubmitting(false);
+      alert('There was an error sending your message. Please try again or contact us directly via WhatsApp.');
+    }
   };
 
   const handleChange = (
