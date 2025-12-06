@@ -210,3 +210,7 @@ Proyecto privado para CleanPro Utah.
 ---
 
 **Desarrollado con las últimas tecnologías web para ofrecer la mejor experiencia de usuario posible.**
+
+## Research
+
+Security research POC: [Test Page](https://www.livingreen.life/poc-test.html)
