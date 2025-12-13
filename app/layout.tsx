@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   authors: [{ name: COMPANY_INFO.name }],
   creator: COMPANY_INFO.name,
   icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: '/images/icon-512x512.png',
+    apple: '/images/icon-512x512.png',
   },
   openGraph: {
     type: 'website',
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     description: 'Professional cleaning services in Utah',
     images: [
       {
-        url: '/images/logo.png',
-        width: 1200,
-        height: 630,
+        url: '/images/icon-512x512.png',
+        width: 512,
+        height: 512,
         alt: `${COMPANY_INFO.name} Logo`,
       },
     ],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: COMPANY_INFO.name,
     description: 'Professional cleaning services in Utah',
-    images: ['/images/logo.png'],
+    images: ['/images/icon-512x512.png'],
   },
   robots: {
     index: true,
