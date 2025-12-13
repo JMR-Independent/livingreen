@@ -16,7 +16,7 @@ export default function AboutPage() {
         title="About"
         titleHighlight="LivinGreen"
         description="Professional cleaning services you can trust"
-        backgroundImage="/images/gallery/gallery-10.jpg"
+        backgroundImage="/images/gallery/gallery-11.jpg"
       />
 
       {/* Our Story */}
