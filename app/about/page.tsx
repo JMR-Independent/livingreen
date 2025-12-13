@@ -16,7 +16,7 @@ export default function AboutPage() {
         title="About"
         titleHighlight="LivinGreen"
         description="Professional cleaning services you can trust"
-        backgroundImage="/images/2020/04/Servicio-Alfombras-OK.jpg"
+        backgroundImage="/images/gallery/gallery-10.jpg"
       />
 
       {/* Our Story */}
@@ -28,13 +28,13 @@ export default function AboutPage() {
                 <h2 className="text-display-md mb-6">Our Story</h2>
                 <div className="space-y-4 text-neutral-700 leading-relaxed">
                   <p>
-                    Since 2010, LivinGreen has been providing exceptional cleaning services to homes and businesses throughout Utah. What started as a small family operation has grown into one of the most trusted cleaning companies in the state.
+                    LivinGreen is a family business that began its journey in Chile in 2018. For five years, we built our reputation there, learning the craft and serving our community with dedication and care. In 2023, our family made the move to Utah, bringing with us the same commitment to excellence and personal service that defined our work from the beginning.
                   </p>
                   <p>
-                    Our commitment to excellence, eco-friendly practices, and customer satisfaction has earned us the loyalty of over 5,000 satisfied customers. We take pride in using state-of-the-art Swiss and German equipment, combined with EPA-certified cleaning products that are safe for your family, pets, and the environment.
+                    We may not use large industrial machines, but we've mastered the art of professional cleaning with portable equipment that delivers outstanding results. Our approach is personal, efficient, and effective – qualities that hundreds of satisfied customers across Utah can attest to.
                   </p>
                   <p>
-                    Every member of our team is extensively trained and dedicated to delivering results that exceed your expectations. We don't just clean – we restore, protect, and maintain your valuable furnishings and surfaces.
+                    Our commitment to eco-friendly practices and customer satisfaction drives everything we do. We use EPA-certified cleaning products that are safe for your family, pets, and the environment. Every job receives our full attention and expertise, because for us, this isn't just business – it's a family tradition of quality service.
                   </p>
                 </div>
               </div>
@@ -43,7 +43,7 @@ export default function AboutPage() {
             <ScrollAnimation delay={0.2}>
               <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/2020/04/1.jpg"
+                  src="/images/gallery/gallery-15.jpg"
                   alt="Our Team"
                   fill
                   className="object-cover"

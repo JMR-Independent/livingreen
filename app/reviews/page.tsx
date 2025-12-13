@@ -14,7 +14,7 @@ export default function ReviewsPage() {
         title="Customer"
         titleHighlight="Reviews"
         description="Hear from our 5,000+ satisfied customers across Utah"
-        backgroundImage="/images/2020/04/1.jpg"
+        backgroundImage="/images/gallery/gallery-20.jpg"
       />
 
       <ReviewsSection />
