@@ -15,17 +15,30 @@ export const metadata: Metadata = {
   keywords: ['carpet cleaning', 'upholstery cleaning', 'mattress cleaning', 'car interior cleaning', 'Utah', 'Santaquin', 'Salt Lake City', 'Provo', 'Orem', 'LivinGreen'],
   authors: [{ name: COMPANY_INFO.name }],
   creator: COMPANY_INFO.name,
+  icons: {
+    icon: '/images/logo.png',
+    apple: '/images/logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: COMPANY_INFO.name,
     title: `${COMPANY_INFO.name} | ${COMPANY_INFO.tagline}`,
     description: 'Professional cleaning services in Utah',
+    images: [
+      {
+        url: '/images/logo.png',
+        width: 1200,
+        height: 630,
+        alt: `${COMPANY_INFO.name} Logo`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: COMPANY_INFO.name,
     description: 'Professional cleaning services in Utah',
+    images: ['/images/logo.png'],
   },
   robots: {
     index: true,
