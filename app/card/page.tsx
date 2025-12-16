@@ -33,63 +33,48 @@ export default function DigitalCard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-      {/* Header with Logo */}
-      <header className="bg-primary text-white py-8 px-4 text-center sticky top-0 z-50 shadow-lg">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-4 mb-3">
-            <Image
-              src="/images/icon-512x512.png"
-              alt="LivinGreen Logo"
-              width={60}
-              height={60}
-              className="rounded-full bg-white p-2"
-            />
-            <h1 className="text-3xl font-bold">{COMPANY_INFO.name}</h1>
-          </div>
-          <p className="text-lg opacity-90">{COMPANY_INFO.tagline}</p>
-          <p className="text-sm opacity-80 mt-2">{COMPANY_INFO.serviceArea}</p>
-        </div>
-      </header>
-
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+      <div className="max-w-2xl mx-auto">
 
         {/* Hero Image */}
-        <div className="rounded-3xl overflow-hidden shadow-2xl">
+        <div className="w-full">
           <Image
             src="/images/gallery/gallery-5.jpg"
-            alt="Our Professional Work"
+            alt="LivinGreen Professional Cleaning"
             width={800}
-            height={500}
+            height={600}
             className="w-full h-auto object-cover"
+            priority
           />
         </div>
 
-        {/* Services Section */}
+        <div className="px-4 py-6 space-y-6">
+
+        {/* Services Section - Bento Grid */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-neutral-800 text-center mb-6 flex items-center justify-center gap-2">
             <span className="text-3xl">✨</span>
             Our Services
           </h2>
 
-          <div className="grid grid-cols-1 gap-4">
-            {SERVICES.map((service) => (
-              <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="flex gap-4 p-4">
-                  {/* Service Image */}
-                  <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-
-                  {/* Service Info */}
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg text-neutral-800 mb-1">{service.title}</h3>
-                    <p className="text-sm text-neutral-600 mb-2 line-clamp-2">{service.shortDescription}</p>
-                    <p className="text-primary font-bold text-sm">{service.price}</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {SERVICES.map((service, index) => (
+              <div
+                key={service.id}
+                className={`bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:scale-105 ${
+                  index === 0 ? 'col-span-2 md:col-span-1' : ''
+                }`}
+              >
+                <div className="relative w-full aspect-square">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h3 className="font-bold text-base mb-1">{service.title}</h3>
+                    <p className="text-primary text-sm font-bold">{service.price}</p>
                   </div>
                 </div>
               </div>
