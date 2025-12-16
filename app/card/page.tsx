@@ -149,6 +149,7 @@ export default function DigitalCard() {
           <p className="text-xs">Professional Cleaning Services • Utah</p>
         </footer>
 
+        </div>
       </div>
     </div>
   );
