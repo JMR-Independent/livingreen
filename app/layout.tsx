@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import WhatsAppButton from '@/components/WhatsAppButton';
+import ConditionalLayout from '@/components/ConditionalLayout';
 import PageTransition from '@/components/PageTransition';
 import { COMPANY_INFO } from '@/lib/constants';
 
@@ -60,12 +58,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif' }}>
         <PageTransition />
-        <Header />
-        <main className="min-h-screen">
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
+        </ConditionalLayout>
       </body>
     </html>
   );
