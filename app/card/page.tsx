@@ -49,32 +49,32 @@ export default function DigitalCard() {
 
         <div className="px-4 py-6 space-y-6">
 
-        {/* Services Section - Bento Grid */}
+        {/* Services Section */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-neutral-800 text-center mb-6 flex items-center justify-center gap-2">
             <span className="text-3xl">✨</span>
             Our Services
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {SERVICES.map((service, index) => (
-              <div
-                key={service.id}
-                className={`bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:scale-105 ${
-                  index === 0 ? 'col-span-2 md:col-span-1' : ''
-                }`}
-              >
-                <div className="relative w-full aspect-square">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                    <h3 className="font-bold text-base mb-1">{service.title}</h3>
-                    <p className="text-primary text-sm font-bold">{service.price}</p>
+          <div className="grid grid-cols-1 gap-4">
+            {SERVICES.map((service) => (
+              <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="flex gap-4 p-4">
+                  {/* Service Image */}
+                  <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Service Info */}
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg text-neutral-800 mb-1">{service.title}</h3>
+                    <p className="text-sm text-neutral-600 mb-2 line-clamp-2">{service.shortDescription}</p>
+                    <p className="text-primary font-bold text-sm">{service.price}</p>
                   </div>
                 </div>
               </div>
