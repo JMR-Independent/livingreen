@@ -54,14 +54,14 @@ export default function DigitalCard() {
       </div>
 
       {/* Circular Logo - centered and overlapping */}
-      <div className="relative -mt-32 mb-12 flex justify-center z-10">
-        <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full bg-white shadow-2xl p-8 flex items-center justify-center ring-8 ring-white">
+      <div className="relative -mt-24 mb-8 flex justify-center z-10">
+        <div className="relative w-44 h-44 md:w-48 md:h-48 rounded-full bg-white shadow-2xl p-6 flex items-center justify-center ring-8 ring-white">
           <Image
             src="/images/logo.png"
             alt="LivinGreen Logo"
-            width={220}
-            height={220}
-            className="object-contain"
+            width={280}
+            height={280}
+            className="object-contain scale-125"
             priority
           />
         </div>
