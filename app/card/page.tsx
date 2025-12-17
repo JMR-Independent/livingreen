@@ -10,7 +10,7 @@ export const metadata = {
     description: '✨ Expert Cleaning • 💼 Family Business • 📍 Serving Utah • 📞 +1 385 482-5694',
     images: [
       {
-        url: 'https://livingreen.life/images/gallery/gallery-5.jpg',
+        url: 'https://livingreen.life/images/gallery/gallery-21.jpg',
         width: 1200,
         height: 800,
         alt: 'LivinGreen Professional Cleaning Services',
@@ -24,7 +24,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'LivinGreen - Professional Cleaning Services',
     description: '✨ Expert Cleaning • 💼 Family Business • 📍 Serving Utah',
-    images: ['https://livingreen.life/images/gallery/gallery-5.jpg'],
+    images: ['https://livingreen.life/images/gallery/gallery-21.jpg'],
   },
 };
 
