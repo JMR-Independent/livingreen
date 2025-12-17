@@ -36,36 +36,38 @@ export default function DigitalCard() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Hero Image */}
-      <div className="relative w-full h-[50vh] md:h-[60vh]">
+      {/* Hero Image with gradient fade */}
+      <div className="relative w-full h-[65vh] md:h-[70vh]">
         <Image
-          src="/images/gallery/gallery-5.jpg"
+          src="/images/gallery/gallery-21.jpg"
           alt="LivinGreen Professional Cleaning"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-white" />
+        {/* Gradient fade effect - from transparent to white */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"
+             style={{
+               background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(255,255,255,0.8) 75%, rgba(255,255,255,1) 100%)'
+             }}
+        />
+      </div>
 
-        {/* Logo overlay on image */}
-        <div className="absolute bottom-8 left-0 right-0 text-center">
-          <div className="inline-flex items-center gap-3 bg-white/95 backdrop-blur-sm px-8 py-4 rounded-full shadow-lg">
-            <Image
-              src="/images/icon-512x512.png"
-              alt="LivinGreen"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-            <div className="text-left">
-              <h1 className="text-2xl font-bold text-neutral-900">{COMPANY_INFO.name}</h1>
-              <p className="text-xs text-neutral-600">{COMPANY_INFO.serviceArea}</p>
-            </div>
-          </div>
+      {/* Circular Logo - centered and overlapping */}
+      <div className="relative -mt-32 mb-12 flex justify-center z-10">
+        <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full bg-white shadow-2xl p-8 flex items-center justify-center ring-8 ring-white">
+          <Image
+            src="/images/logo.png"
+            alt="LivinGreen Logo"
+            width={220}
+            height={220}
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 py-12 space-y-12">
+      <div className="max-w-2xl mx-auto px-6 pb-12 space-y-12">
 
         {/* Services Grid - Modern Minimal */}
         <section>
