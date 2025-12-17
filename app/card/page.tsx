@@ -69,44 +69,44 @@ export default function DigitalCard() {
 
       <div className="max-w-2xl mx-auto px-6 pb-12 space-y-12">
 
-        {/* Services Grid - Modern Minimal */}
+        {/* Services Grid - 2x2 Professional */}
         <section>
           <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-8 text-center">
             Services
           </h2>
 
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-4">
             {SERVICES.map((service) => (
               <div
                 key={service.id}
-                className="group relative overflow-hidden rounded-2xl border border-neutral-100 bg-white hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+                className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex items-center gap-5 p-5">
-                  {/* Service Image - Minimal */}
-                  <div className="relative w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-neutral-100">
+                <div className="flex flex-col items-center text-center p-6">
+                  {/* Service Image - Large */}
+                  <div className="relative w-20 h-20 mb-4 rounded-2xl overflow-hidden bg-neutral-50 ring-4 ring-neutral-100 group-hover:ring-primary/20 transition-all">
                     <Image
                       src={service.image}
                       alt={service.title}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
 
                   {/* Service Info */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-neutral-900 mb-1 text-base">
+                  <div className="flex-1 w-full">
+                    <h3 className="font-bold text-neutral-900 mb-2 text-lg">
                       {service.title}
                     </h3>
-                    <p className="text-sm text-neutral-500 line-clamp-1">
+                    <p className="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
                       {service.shortDescription}
                     </p>
                   </div>
 
                   {/* Price */}
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-sm font-bold text-primary whitespace-nowrap">
+                  <div className="mt-auto w-full">
+                    <div className="bg-primary/10 text-primary font-bold text-base py-2 px-4 rounded-xl">
                       {service.price}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
