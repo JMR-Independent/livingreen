@@ -59,9 +59,9 @@ export default function DigitalCard() {
           <Image
             src="/images/logo.png"
             alt="LivinGreen Logo"
-            width={280}
-            height={280}
-            className="object-contain scale-125"
+            width={320}
+            height={320}
+            className="object-contain scale-150"
             priority
           />
         </div>
