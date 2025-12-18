@@ -49,7 +49,7 @@ export default function DigitalCard() {
             alt="LivinGreen Logo"
             width={320}
             height={320}
-            className="object-contain scale-[1.63] md:scale-[1.95]"
+            className="object-contain scale-150 md:scale-[1.8]"
             priority
           />
         </div>
