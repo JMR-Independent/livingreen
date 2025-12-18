@@ -42,14 +42,14 @@ export default function DigitalCard() {
       </div>
 
       {/* Circular Logo - compact on mobile, large on desktop */}
-      <div className="relative -mt-14 md:-mt-24 mb-6 md:mb-8 flex justify-center z-10">
-        <div className="relative w-28 h-28 md:w-48 md:h-48 rounded-full bg-white shadow-2xl p-3 md:p-6 flex items-center justify-center ring-4 md:ring-8 ring-white">
+      <div className="relative -mt-20 md:-mt-32 mb-6 md:mb-8 flex justify-center z-10">
+        <div className="relative w-36 h-36 md:w-60 md:h-60 rounded-full bg-white shadow-2xl p-3 md:p-6 flex items-center justify-center ring-4 md:ring-8 ring-white">
           <Image
             src="/images/logo.png"
             alt="LivinGreen Logo"
             width={320}
             height={320}
-            className="object-contain scale-125 md:scale-150"
+            className="object-contain scale-[1.63] md:scale-[1.95]"
             priority
           />
         </div>
