@@ -21,7 +21,7 @@ export default function DigitalCard() {
           src="/images/gallery/gallery-7.jpg"
           alt="LivinGreen Professional Cleaning"
           fill
-          className="object-cover object-[75%_65%] md:object-center"
+          className="object-cover hero-image-mobile"
           priority
         />
         {/* Gradient fade effect - from transparent to white */}
