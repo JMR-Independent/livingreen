@@ -16,13 +16,13 @@ export default function DigitalCard() {
     <div className="min-h-screen bg-white">
 
       {/* Hero Image with gradient fade - Compact on mobile (max 1/4 screen) */}
-      <div className="relative w-full h-[38vh] md:h-[70vh]">
+      <div className="relative w-full h-[38vh] md:h-[70vh] overflow-hidden">
         <Image
           src="/images/gallery/gallery-7.jpg"
           alt="LivinGreen Professional Cleaning"
           fill
           className="object-cover"
-          style={{ objectPosition: '10% 60%' }}
+          style={{ objectPosition: '0% 75%', transform: 'scale(0.71)' }}
           priority
         />
         {/* Gradient fade effect - from transparent to white */}
