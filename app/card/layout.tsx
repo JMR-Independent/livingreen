@@ -12,7 +12,7 @@ export const metadata: Metadata = {
       {
         url: 'https://www.livingreen.life/images/card-og-preview.jpg',
         width: 1200,
-        height: 630,
+        height: 800,
         alt: 'LivinGreen Digital Business Card',
       },
     ],
