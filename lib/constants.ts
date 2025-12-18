@@ -117,17 +117,17 @@ export const SERVICES = [
     title: 'Protection & Waterproofing',
     slug: 'protection',
     shortDescription: 'Shield your carpets and upholstery',
-    description: 'Professional fabric protection treatment to repel stains, spills, and dirt, extending the life of your furnishings.',
+    description: 'Professional fabric protection treatment to repel stains, spills, and dirt, extending the life of your carpets and upholstery.',
     image: '/images/services/protection.webp',
     features: [
+      'Carpets: Starting at $20',
+      'Upholstery/Sofas: Starting at $30',
       'Scotchgard protection',
       'Water and stain repellent',
       'UV protection',
-      'Extends fabric life',
-      'Easy maintenance',
-      '1-year protection guarantee'
+      'Extends fabric life'
     ],
-    price: 'Starting at $69',
+    price: 'Starting at $20',
   },
 ];
 
