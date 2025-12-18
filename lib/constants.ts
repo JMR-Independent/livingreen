@@ -69,14 +69,14 @@ export const SERVICES = [
     description: 'Specialized cleaning service for all types of chairs, from dining room sets to office furniture, restoring comfort and appearance.',
     image: '/images/services/chair-cleaning.jpg',
     features: [
+      'Chairs: $10 to $20 (depending on size)',
       'All chair types welcome',
       'Fabric and leather cleaning',
       'Stain removal',
       'Odor elimination',
-      'Quick drying process',
-      'Safe for all materials'
+      'Quick drying process'
     ],
-    price: 'Starting at $79',
+    price: '$10-$20/chair',
   },
   {
     id: 'mattress-cleaning',
