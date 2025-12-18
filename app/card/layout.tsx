@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'LivinGreen',
     description: 'Professional Cleaning Services',
+    url: 'https://www.livingreen.life/card',
     images: [
       {
         url: 'https://livingreen.life/images/card-og.jpg',
