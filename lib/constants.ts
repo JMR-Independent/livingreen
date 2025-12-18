@@ -21,7 +21,7 @@ export const COMPANY_INFO = {
   },
   social: {
     facebook: 'https://facebook.com/livingreenutah',
-    instagram: 'https://instagram.com/livingreenutah',
+    instagram: 'https://www.instagram.com/livingreen_life/',
     linkedin: 'https://linkedin.com/company/livingreenutah',
   }
 };
