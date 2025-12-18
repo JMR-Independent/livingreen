@@ -72,10 +72,6 @@ export default function DigitalCard() {
 
         {/* Services Grid - 2x2 Professional */}
         <section>
-          <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-8 text-center">
-            Services
-          </h2>
-
           <div className="grid grid-cols-2 gap-4">
             {SERVICES.map((service) => (
               <div
