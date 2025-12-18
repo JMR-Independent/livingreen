@@ -65,6 +65,7 @@ export default function DigitalCard() {
                     alt={service.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    style={{ objectPosition: 'center top' }}
                   />
                 </div>
 
