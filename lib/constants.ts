@@ -63,7 +63,7 @@ export const SERVICES = [
   },
   {
     id: 'chair-cleaning',
-    title: 'Chair Cleaning',
+    title: 'Chairs Cleaning',
     slug: 'chair-cleaning',
     shortDescription: 'Professional cleaning for dining and office chairs',
     description: 'Specialized cleaning service for all types of chairs, from dining room sets to office furniture, restoring comfort and appearance.',
@@ -100,11 +100,11 @@ export const SERVICES = [
     title: 'Car Interior Detailing',
     slug: 'car-interior',
     shortDescription: 'Complete interior cleaning and detailing',
-    description: 'At-home service taking 1-4 hours. We bring all equipment, just need electrical connection. Basic or complete cleaning available.',
+    description: 'At-home service taking 1-4 hours. We bring all equipment, just need electrical connection. Basic ($100-$130) or complete ($160-$200) cleaning available.',
     image: '/images/services/car-interior.jpg',
     features: [
-      'Basic cleaning: $100',
-      'Complete cleaning: $160',
+      'Basic cleaning: $100-$130',
+      'Complete cleaning: $160-$200',
       'Odor removal: +$35',
       'Engine wash: +$60',
       'At-home service (1-4 hours)',
