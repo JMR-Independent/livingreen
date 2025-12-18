@@ -22,7 +22,7 @@ export default function DigitalCard() {
           className="absolute inset-0 bg-cover md:hidden"
           style={{
             backgroundImage: 'url(/images/gallery/gallery-7.jpg)',
-            backgroundPosition: '45% 60%',
+            backgroundPosition: '35% 50%',
           }}
         />
         {/* Desktop: centered background */}
