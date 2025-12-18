@@ -19,10 +19,10 @@ export default function DigitalCard() {
       <div className="relative w-full h-[38vh] md:h-[70vh]">
         {/* Background image approach for better positioning control */}
         <div
-          className="absolute inset-0 bg-cover"
+          className="absolute inset-0 bg-cover md:hidden"
           style={{
             backgroundImage: 'url(/images/gallery/gallery-7.jpg)',
-            backgroundPosition: '75% 65%',
+            backgroundPosition: '0% 0%',
           }}
         />
         {/* Desktop: centered background */}
@@ -39,6 +39,11 @@ export default function DigitalCard() {
                background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(255,255,255,0.8) 75%, rgba(255,255,255,1) 100%)'
              }}
         />
+      </div>
+
+      {/* TEST - Delete this */}
+      <div className="bg-red-500 text-white p-4 text-center md:hidden">
+        PRUEBA - Si ves esto, el deploy funciona - Imagen en 0% 0%
       </div>
 
       {/* Circular Logo - compact on mobile, large on desktop */}
