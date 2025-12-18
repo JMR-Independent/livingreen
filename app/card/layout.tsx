@@ -5,14 +5,14 @@ export const metadata: Metadata = {
   title: 'LivinGreen - Digital Business Card',
   description: '🧹 Professional Cleaning Services in Utah | Carpet • Upholstery • Mattress | Family Business | Get a Free Quote!',
   openGraph: {
-    title: 'LivinGreen - Professional Cleaning Services',
-    description: '✨ Expert Cleaning • 💼 Family Business • 📍 Serving Utah • 📞 +1 385 482-5694',
+    title: 'LivinGreen',
+    description: 'Professional Cleaning Services',
     images: [
       {
-        url: 'https://livingreen.life/images/gallery/gallery-7.jpg',
-        width: 1200,
-        height: 800,
-        alt: 'LivinGreen Professional Cleaning Services',
+        url: 'https://livingreen.life/images/card-og.jpg',
+        width: 1320,
+        height: 2868,
+        alt: 'LivinGreen Digital Business Card',
       },
     ],
     type: 'website',
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LivinGreen - Professional Cleaning Services',
-    description: '✨ Expert Cleaning • 💼 Family Business • 📍 Serving Utah',
-    images: ['https://livingreen.life/images/gallery/gallery-7.jpg'],
+    title: 'LivinGreen',
+    description: 'Professional Cleaning Services',
+    images: ['https://livingreen.life/images/card-og.jpg'],
   },
 };
 
