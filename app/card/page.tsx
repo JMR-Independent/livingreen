@@ -37,7 +37,7 @@ export default function DigitalCard() {
     <div className="min-h-screen bg-white">
 
       {/* Hero Image with gradient fade - Compact on mobile (max 1/4 screen) */}
-      <div className="relative w-full h-[18vh] md:h-[70vh]">
+      <div className="relative w-full h-[22vh] md:h-[70vh]">
         <Image
           src="/images/gallery/gallery-21.jpg"
           alt="LivinGreen Professional Cleaning"
@@ -55,8 +55,8 @@ export default function DigitalCard() {
       </div>
 
       {/* Circular Logo - compact on mobile, large on desktop */}
-      <div className="relative -mt-12 md:-mt-24 mb-6 md:mb-8 flex justify-center z-10">
-        <div className="relative w-24 h-24 md:w-48 md:h-48 rounded-full bg-white shadow-2xl p-3 md:p-6 flex items-center justify-center ring-4 md:ring-8 ring-white">
+      <div className="relative -mt-14 md:-mt-24 mb-6 md:mb-8 flex justify-center z-10">
+        <div className="relative w-28 h-28 md:w-48 md:h-48 rounded-full bg-white shadow-2xl p-3 md:p-6 flex items-center justify-center ring-4 md:ring-8 ring-white">
           <Image
             src="/images/logo.png"
             alt="LivinGreen Logo"
