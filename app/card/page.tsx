@@ -37,7 +37,7 @@ export default function DigitalCard() {
     <div className="min-h-screen bg-white">
 
       {/* Hero Image with gradient fade - Compact on mobile (max 1/4 screen) */}
-      <div className="relative w-full h-[26vh] md:h-[70vh]">
+      <div className="relative w-full h-[32vh] md:h-[70vh]">
         <Image
           src="/images/gallery/gallery-21.jpg"
           alt="LivinGreen Professional Cleaning"
