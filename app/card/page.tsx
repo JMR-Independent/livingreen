@@ -56,10 +56,10 @@ export default function DigitalCard() {
               <button
                 key={service.id}
                 onClick={() => setSelectedService(service)}
-                className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300 text-left w-full p-0"
+                className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300 text-left w-full"
               >
-                {/* Service Image - Full Width Banner - Positioned at very top */}
-                <div className="relative w-full h-[130px] overflow-hidden rounded-t-3xl -mt-0.5">
+                {/* Service Image - Full Width Banner - Flush with top */}
+                <div className="relative w-full h-[130px] overflow-hidden rounded-t-[22px]">
                   <Image
                     src={service.image}
                     alt={service.title}
@@ -69,7 +69,7 @@ export default function DigitalCard() {
                 </div>
 
                 {/* Service Info */}
-                <div className="flex flex-col items-center text-center p-4 pt-3">
+                <div className="flex flex-col items-center text-center p-4">
                   <h3 className="font-bold text-neutral-900 mb-2 text-base">
                     {service.title}
                   </h3>
