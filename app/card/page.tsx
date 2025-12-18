@@ -37,7 +37,7 @@ export default function DigitalCard() {
     <div className="min-h-screen bg-white">
 
       {/* Hero Image with gradient fade - Compact on mobile (max 1/4 screen) */}
-      <div className="relative w-full h-[22vh] md:h-[70vh]">
+      <div className="relative w-full h-[26vh] md:h-[70vh]">
         <Image
           src="/images/gallery/gallery-21.jpg"
           alt="LivinGreen Professional Cleaning"
@@ -82,30 +82,28 @@ export default function DigitalCard() {
                 key={service.id}
                 className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex flex-col items-center text-center p-6">
-                  {/* Service Image - Large */}
-                  <div className="relative w-20 h-20 mb-4 rounded-2xl overflow-hidden bg-neutral-50 ring-4 ring-neutral-100 group-hover:ring-primary/20 transition-all">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
+                {/* Service Image - Full Width Banner */}
+                <div className="relative w-full h-26 overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
 
-                  {/* Service Info */}
-                  <div className="flex-1 w-full">
-                    <h3 className="font-bold text-neutral-900 mb-2 text-lg">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
-                      {service.shortDescription}
-                    </p>
-                  </div>
+                {/* Service Info */}
+                <div className="flex flex-col items-center text-center p-4">
+                  <h3 className="font-bold text-neutral-900 mb-2 text-base">
+                    {service.title}
+                  </h3>
+                  <p className="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
+                    {service.shortDescription}
+                  </p>
 
                   {/* Price */}
                   <div className="mt-auto w-full">
-                    <div className="bg-primary/10 text-primary font-bold text-base py-2 px-4 rounded-xl">
+                    <div className="bg-primary/10 text-primary font-bold text-sm py-2 px-4 rounded-xl">
                       {service.price}
                     </div>
                   </div>
