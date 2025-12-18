@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     url: 'https://www.livingreen.life/card',
     images: [
       {
-        url: 'https://www.livingreen.life/images/logo.png',
-        width: 512,
-        height: 512,
-        alt: 'LivinGreen',
+        url: 'https://www.livingreen.life/images/card-og-final.jpg',
+        width: 1200,
+        height: 800,
+        alt: 'LivinGreen Digital Business Card',
       },
     ],
     type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'LivinGreen',
     description: 'Professional Cleaning Services',
-    images: ['https://www.livingreen.life/images/logo.png'],
+    images: ['https://www.livingreen.life/images/card-og-final.jpg'],
   },
 };
 
