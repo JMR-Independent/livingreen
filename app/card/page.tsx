@@ -22,7 +22,7 @@ export default function DigitalCard() {
           alt="LivinGreen Professional Cleaning"
           fill
           className="object-cover"
-          style={{ objectPosition: '20% 65%' }}
+          style={{ objectPosition: '35% 65%' }}
           priority
         />
         {/* Gradient fade effect - from transparent to white */}
