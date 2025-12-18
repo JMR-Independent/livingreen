@@ -59,13 +59,12 @@ export default function DigitalCard() {
                 className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300 text-left w-full"
               >
                 {/* Service Image - Full Width Banner */}
-                <div className="relative w-full h-[104px] overflow-hidden">
+                <div className="relative w-full h-[130px] overflow-hidden rounded-t-3xl">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    style={{ objectPosition: 'center top' }}
                   />
                 </div>
 
