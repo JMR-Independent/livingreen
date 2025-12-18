@@ -83,7 +83,7 @@ export default function DigitalCard() {
                 className="group relative overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300"
               >
                 {/* Service Image - Full Width Banner */}
-                <div className="relative w-full h-26 overflow-hidden">
+                <div className="relative w-full h-[104px] overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
