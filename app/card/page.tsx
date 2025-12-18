@@ -17,12 +17,21 @@ export default function DigitalCard() {
 
       {/* Hero Image with gradient fade - Compact on mobile (max 1/4 screen) */}
       <div className="relative w-full h-[38vh] md:h-[70vh]">
-        <Image
-          src="/images/gallery/gallery-7.jpg"
-          alt="LivinGreen Professional Cleaning"
-          fill
-          className="object-cover hero-image-mobile"
-          priority
+        {/* Background image approach for better positioning control */}
+        <div
+          className="absolute inset-0 bg-cover"
+          style={{
+            backgroundImage: 'url(/images/gallery/gallery-7.jpg)',
+            backgroundPosition: '75% 65%',
+          }}
+        />
+        {/* Desktop: centered background */}
+        <div
+          className="hidden md:block absolute inset-0 bg-cover"
+          style={{
+            backgroundImage: 'url(/images/gallery/gallery-7.jpg)',
+            backgroundPosition: 'center',
+          }}
         />
         {/* Gradient fade effect - from transparent to white */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"
