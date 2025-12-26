@@ -164,13 +164,24 @@ export default function DigitalCard() {
           {/* Website Button - Full Width */}
           <Link
             href="/"
-            className="mt-4 w-full flex items-center justify-center gap-3 p-5 rounded-2xl border-2 border-neutral-900 bg-neutral-900 text-white hover:bg-white hover:text-neutral-900 transition-all duration-300 font-medium"
+            className="mt-4 w-full flex items-center justify-center gap-3 p-5 rounded-2xl border-2 border-blue-600 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition-all duration-300 font-medium"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
             </svg>
             Visit Full Website
           </Link>
+
+          {/* SMS/Text Button - Full Width */}
+          <a
+            href={`sms:${COMPANY_INFO.phone}`}
+            className="mt-4 w-full flex items-center justify-center gap-3 p-5 rounded-2xl border-2 border-neutral-900 bg-neutral-900 text-white hover:bg-white hover:text-neutral-900 transition-all duration-300 font-medium"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            Send Text Message
+          </a>
         </section>
 
         {/* Footer - Minimal */}
