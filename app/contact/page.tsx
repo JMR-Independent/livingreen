@@ -92,7 +92,7 @@ export default function ContactPage() {
         title="Get In"
         titleHighlight="Touch"
         description="Ready for professional cleaning? Contact us today for a free quote"
-        backgroundImage="/images/2020/03/seccion-contacto-landing-alfombras.jpg"
+        backgroundImage="/images/gallery/gallery-5.jpg"
       />
 
       {/* Contact Section */}
