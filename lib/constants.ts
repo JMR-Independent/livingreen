@@ -20,7 +20,7 @@ export const COMPANY_INFO = {
     sunday: 'Sun: Closed'
   },
   social: {
-    facebook: 'https://facebook.com/livingreenutah',
+    facebook: 'https://www.facebook.com/Livingreen?locale=es_LA',
     instagram: 'https://www.instagram.com/livingreen_life/',
     linkedin: 'https://linkedin.com/company/livingreenutah',
   }
