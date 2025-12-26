@@ -16,7 +16,7 @@ export const COMPANY_INFO = {
   cities: ['Santaquin', 'Spanish Fork', 'Provo', 'Orem', 'Salt Lake City'],
   hours: {
     weekdays: 'Mon - Fri: 9:00 AM - 6:00 PM',
-    saturday: 'Sat: 9:00 AM - 2:00 PM',
+    saturday: 'Sat: 9:00 AM - 6:00 PM',
     sunday: 'Sun: Closed'
   },
   social: {

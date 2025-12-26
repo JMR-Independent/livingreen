@@ -135,21 +135,6 @@ export default function ContactPage() {
                   </a>
                 </div>
 
-                {/* Hours */}
-                <div className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-md">
-                    <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-neutral-900">Business Hours</h3>
-                    <p className="text-neutral-700 text-sm mb-1 font-medium">{COMPANY_INFO.hours.weekdays}</p>
-                    <p className="text-neutral-700 text-sm mb-1 font-medium">{COMPANY_INFO.hours.saturday}</p>
-                    <p className="text-neutral-700 text-sm font-medium">{COMPANY_INFO.hours.sunday}</p>
-                  </div>
-                </div>
-
                 {/* WhatsApp */}
                 <div className="bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
                   <h3 className="font-semibold text-lg mb-3 text-neutral-900">Quick Response via WhatsApp</h3>
@@ -178,6 +163,21 @@ export default function ContactPage() {
                     </svg>
                     Send Text Message
                   </a>
+                </div>
+
+                {/* Hours */}
+                <div className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-md">
+                    <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2 text-neutral-900">Business Hours</h3>
+                    <p className="text-neutral-700 text-sm mb-1 font-medium">{COMPANY_INFO.hours.weekdays}</p>
+                    <p className="text-neutral-700 text-sm mb-1 font-medium">{COMPANY_INFO.hours.saturday}</p>
+                    <p className="text-neutral-700 text-sm font-medium">{COMPANY_INFO.hours.sunday}</p>
+                  </div>
                 </div>
               </ScrollAnimation>
             </div>
