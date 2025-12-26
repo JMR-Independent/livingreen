@@ -18,7 +18,7 @@ export default function ServicesPage() {
         title="Our"
         titleHighlight="Services"
         description="Professional cleaning solutions tailored to your needs"
-        backgroundImage="/images/2020/04/Servicio-Alfombras-OK.jpg"
+        backgroundImage="/images/gallery/gallery-10.jpg"
       />
 
       {/* Services Grid */}

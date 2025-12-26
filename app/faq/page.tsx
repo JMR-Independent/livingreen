@@ -14,7 +14,7 @@ export default function FAQPage() {
         title="Frequently Asked"
         titleHighlight="Questions"
         description="Everything you need to know about our cleaning services"
-        backgroundImage="/images/2020/04/Header5-2.jpg"
+        backgroundImage="/images/gallery/gallery-3.jpg"
       />
 
       <FAQSection />
