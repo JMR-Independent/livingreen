@@ -108,40 +108,32 @@ export default function ContactPage() {
                 <h2 className="text-display-sm mb-8 text-neutral-900">Contact Information</h2>
 
                 {/* Phone */}
-                <a
-                  href={`tel:${COMPANY_INFO.phone}`}
-                  className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300 cursor-pointer group"
-                >
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-md group-hover:from-primary/30 group-hover:to-primary/20 transition-all">
-                    <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <h3 className="font-semibold text-lg mb-3 text-neutral-900">Call Us Directly</h3>
+                  <a
+                    href={`tel:${COMPANY_INFO.phone}`}
+                    className="btn-primary w-full justify-center flex items-center gap-2 shadow-md hover:shadow-lg bg-blue-600 hover:bg-blue-700"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1 text-neutral-900 group-hover:text-primary transition-colors">Phone</h3>
-                    <p className="text-neutral-700 group-hover:text-primary transition-colors font-medium">
-                      {COMPANY_INFO.phoneDisplay}
-                    </p>
-                  </div>
-                </a>
+                    {COMPANY_INFO.phoneDisplay}
+                  </a>
+                </div>
 
                 {/* Email */}
-                <a
-                  href={`mailto:${COMPANY_INFO.email}`}
-                  className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300 cursor-pointer group"
-                >
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-md group-hover:from-primary/30 group-hover:to-primary/20 transition-all">
-                    <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-gradient-to-br from-red-50 to-red-100/50 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <h3 className="font-semibold text-lg mb-3 text-neutral-900">Send Us an Email</h3>
+                  <a
+                    href={`mailto:${COMPANY_INFO.email}`}
+                    className="btn-primary w-full justify-center flex items-center gap-2 shadow-md hover:shadow-lg bg-red-600 hover:bg-red-700"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1 text-neutral-900 group-hover:text-primary transition-colors">Email</h3>
-                    <p className="text-neutral-700 group-hover:text-primary transition-colors font-medium break-all">
-                      {COMPANY_INFO.email}
-                    </p>
-                  </div>
-                </a>
+                    Email Us
+                  </a>
+                </div>
 
                 {/* Hours */}
                 <div className="flex items-start gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/40 shadow-lg hover:shadow-xl hover:bg-white/70 transition-all duration-300">
