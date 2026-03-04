@@ -5,6 +5,38 @@ import Link from 'next/link';
 import { COMPANY_INFO, SERVICES } from '@/lib/constants';
 import { useState } from 'react';
 
+async function saveContact() {
+  // Fetch logo and encode as base64 for vCard PHOTO field
+  const res = await fetch('/images/logo.png');
+  const blob = await res.blob();
+  const base64 = await new Promise<string>((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+    reader.readAsDataURL(blob);
+  });
+
+  const vcf = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:LivinGreen',
+    'ORG:LivinGreen',
+    'TEL;TYPE=CELL:+13854825694',
+    'TEL;TYPE=WORK:+13854825694',
+    'EMAIL:info@livingreen.com',
+    'URL:https://www.livingreen.life/',
+    'X-SOCIALPROFILE;type=instagram:https://www.instagram.com/livingreen_life/',
+    `PHOTO;ENCODING=b;TYPE=PNG:${base64}`,
+    'END:VCARD',
+  ].join('\r\n');
+
+  const url = URL.createObjectURL(new Blob([vcf], { type: 'text/vcard' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'LivinGreen.vcf';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
 export default function DigitalCard() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
 
@@ -99,9 +131,20 @@ export default function DigitalCard() {
 
         {/* Contact Buttons - Minimal Design */}
         <section>
-          <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-8 text-center">
+          <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-4 text-center">
             Get in Touch
           </h2>
+
+          {/* Save Contact button - primary CTA */}
+          <button
+            onClick={saveContact}
+            className="w-full mb-6 flex items-center justify-center gap-3 p-5 rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] active:scale-95 text-white font-semibold text-base transition-all duration-200 shadow-lg shadow-[#10a37f]/30"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            Save Contact
+          </button>
 
           <div className="grid grid-cols-2 gap-3">
             {/* WhatsApp */}
