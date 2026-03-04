@@ -6,16 +6,8 @@ export const metadata: Metadata = {
   description: '🧹 Professional Cleaning Services in Utah | Carpet • Upholstery • Mattress | Family Business | Get a Free Quote!',
   openGraph: {
     title: 'LivinGreen',
-    description: 'Professional Cleaning Services',
+    description: 'Professional Cleaning Services in Utah',
     url: 'https://www.livingreen.life/card',
-    images: [
-      {
-        url: 'https://www.livingreen.life/images/card-og-final.jpg',
-        width: 1200,
-        height: 800,
-        alt: 'LivinGreen Digital Business Card',
-      },
-    ],
     type: 'website',
     siteName: 'LivinGreen',
     locale: 'en_US',
@@ -23,8 +15,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'LivinGreen',
-    description: 'Professional Cleaning Services',
-    images: ['https://www.livingreen.life/images/card-og-final.jpg'],
+    description: 'Professional Cleaning Services in Utah',
   },
 };
 
