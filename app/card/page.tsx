@@ -6,14 +6,36 @@ import { COMPANY_INFO, SERVICES } from '@/lib/constants';
 import { useState } from 'react';
 
 async function saveContact() {
-  // Fetch logo and encode as base64 for vCard PHOTO field
+  // Load logo and convert to JPEG 300x300 via canvas
+  // (PNG transparency breaks contact photo on iOS/Android; JPEG + white bg works universally)
   const res = await fetch('/images/logo.png');
   const blob = await res.blob();
+  const objectUrl = URL.createObjectURL(blob);
+
   const base64 = await new Promise<string>((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
-    reader.readAsDataURL(blob);
+    const img = new window.Image();
+    img.onload = () => {
+      const size = 300;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+      // Center logo with padding
+      const scale = Math.min(size / img.width, size / img.height) * 0.85;
+      const w = img.width * scale;
+      const h = img.height * scale;
+      ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+      URL.revokeObjectURL(objectUrl);
+      resolve(canvas.toDataURL('image/jpeg', 0.88).split(',')[1]);
+    };
+    img.src = objectUrl;
   });
+
+  // vCard 3.0 requires line folding at 75 chars (CRLF + space continuation)
+  const photoField = `PHOTO;ENCODING=b;TYPE=JPEG:${base64}`;
+  const foldedPhoto = photoField.match(/.{1,75}/g)!.join('\r\n ');
 
   const vcf = [
     'BEGIN:VCARD',
@@ -25,7 +47,7 @@ async function saveContact() {
     'EMAIL:info@livingreen.com',
     'URL:https://www.livingreen.life/',
     'X-SOCIALPROFILE;type=instagram:https://www.instagram.com/livingreen_life/',
-    `PHOTO;ENCODING=b;TYPE=PNG:${base64}`,
+    foldedPhoto,
     'END:VCARD',
   ].join('\r\n');
 
