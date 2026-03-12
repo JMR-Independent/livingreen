@@ -59,6 +59,8 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   const date = params.date || '';
   const time = params.time || '';
   const name = params.name || '';
+  const location = params.location || '';
+  const duration = params.duration || '120';
 
   let displayDate = date;
   if (date) {
@@ -71,6 +73,12 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     ? `${name}, your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`
     : `Your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`;
 
+  // Build OG image URL with appointment params
+  const ogParams = new URLSearchParams({ service, date, time, duration });
+  if (name) ogParams.set('name', name);
+  if (location) ogParams.set('location', location);
+  const ogImageUrl = `https://www.livingreen.life/api/og/calendar?${ogParams.toString()}`;
+
   return {
     title,
     description,
@@ -79,11 +87,13 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
       title: `✅ Appointment Confirmed — LivinGreen`,
       description,
       siteName: 'LivinGreen Cleaning',
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${service} appointment confirmed` }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `✅ Appointment Confirmed — LivinGreen`,
       description,
+      images: [ogImageUrl],
     },
   };
 }
