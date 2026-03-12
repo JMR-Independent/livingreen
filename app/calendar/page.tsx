@@ -79,13 +79,11 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
       title: `✅ Appointment Confirmed — LivinGreen`,
       description,
       siteName: 'LivinGreen Cleaning',
-      images: [{ url: '/images/icon-512x512.png', width: 512, height: 512, alt: 'LivinGreen' }],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: `✅ Appointment Confirmed — LivinGreen`,
       description,
-      images: ['/images/icon-512x512.png'],
     },
   };
 }
