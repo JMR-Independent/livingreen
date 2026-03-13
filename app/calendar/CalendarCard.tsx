@@ -144,50 +144,25 @@ export default function CalendarCard({ clientName, service, date, time, location
           {/* Organizer */}
           <Row icon={<IconPeople />} text="LivinGreen Cleaning  (organizer)" sub />
 
-          {/* Contact */}
-          <Row icon={<IconLines />} text="+1 (385) 482-5694 · livingreen.life" />
-
         </div>
 
-        {/* Buttons — pill style like Google Calendar email */}
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button
-            onClick={addToCalendar}
-            style={{
-              flex: 1,
-              background: '#4285f4',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '100px',
-              padding: '10px 16px',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            {calLabel}
-          </button>
-          <a
-            href={`tel:+13854825694`}
-            style={{
-              flex: 1,
-              background: '#3c4043',
-              color: '#e8eaed',
-              border: 'none',
-              borderRadius: '100px',
-              padding: '10px 16px',
-              fontSize: '14px',
-              fontWeight: 600,
-              textDecoration: 'none',
-              textAlign: 'center',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            Call us
-          </a>
-        </div>
+        {/* Button — pill style like Google Calendar email */}
+        <button
+          onClick={addToCalendar}
+          style={{
+            width: '100%',
+            background: '#4285f4',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '100px',
+            padding: '12px 16px',
+            fontSize: '14px',
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          {calLabel}
+        </button>
       </div>
     </div>
   );
