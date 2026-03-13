@@ -111,17 +111,30 @@ export default function CalendarCard({ clientName, service, date, time, location
     a.href = url; a.download = 'livingreen-appointment.ics'; a.click();
     URL.revokeObjectURL(url);
   }
-  // Safari on iOS intercepts .ics natively; Chrome/Firefox on iOS do not
+
+  // Safari on iOS intercepts .ics natively
   function openIcs() { window.location.href = icsUrl; }
+
+  // iOS Chrome: Web Share API shows the system share sheet → user picks Calendar
+  // Falls back to Google Calendar if Share API unavailable
+  async function shareIcs() {
+    const file = new File([icsContent], 'livingreen-appointment.ics', { type: 'text/calendar' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file] }); return; } catch { /* cancelled */ return; }
+    }
+    window.open(googleUrl, '_blank');
+  }
 
   const addToCalendar =
     platform === 'ios-safari' ? openIcs
-    : platform === 'desktop'  ? downloadIcs
-    : () => window.open(googleUrl, '_blank'); // android + ios-other → Google Calendar
+    : platform === 'ios-other' ? shareIcs
+    : platform === 'desktop'   ? downloadIcs
+    : () => window.open(googleUrl, '_blank'); // android → Google Calendar
 
   const calLabel =
     platform === 'ios-safari' ? 'Add to Apple Calendar'
-    : (platform === 'android' || platform === 'ios-other') ? 'Add to Google Calendar'
+    : platform === 'ios-other' ? 'Add to Apple Calendar'
+    : platform === 'android'   ? 'Add to Google Calendar'
     : 'Add to Calendar';
 
   return (

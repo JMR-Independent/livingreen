@@ -92,15 +92,46 @@ export default function AppointmentSection() {
   if (location) icsParams.set('location', location);
   const icsUrl = `https://www.livingreen.life/api/ics/calendar?${icsParams.toString()}`;
 
-  function addToCalendar() {
-    if (platform === 'ios-safari') window.location.href = icsUrl;
-    else if (platform === 'desktop') window.location.href = icsUrl;
-    else window.open(googleUrl, '_blank'); // android + ios-other → Google Calendar
+  // Build ICS content inline for Web Share API (needs the file object, not a URL)
+  function buildIcsContent() {
+    function toGDate(dt: string, t: string) {
+      const [gy,gm,gd] = dt.split('-'); const [gh,gmn] = t.split(':');
+      return `${gy}${gm}${gd}T${gh}${gmn}00`;
+    }
+    function addMins(gDate: string, mins: number) {
+      const dt2 = new Date(parseInt(gDate.slice(0,4)),parseInt(gDate.slice(4,6))-1,parseInt(gDate.slice(6,8)),parseInt(gDate.slice(9,11)),parseInt(gDate.slice(11,13))+mins);
+      const p=(n:number)=>String(n).padStart(2,'0');
+      return `${dt2.getFullYear()}${p(dt2.getMonth()+1)}${p(dt2.getDate())}T${p(dt2.getHours())}${p(dt2.getMinutes())}00`;
+    }
+    const s = toGDate(date, time); const e = addMins(s, duration);
+    const now = new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)+'Z';
+    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//LivinGreen//Appointment//EN','METHOD:PUBLISH',
+      'BEGIN:VEVENT',`UID:${now}@livingreen.life`,`DTSTAMP:${now}`,`DTSTART:${s}`,`DTEND:${e}`,
+      `SUMMARY:LivinGreen - ${displayService}`,`DESCRIPTION:Professional cleaning by LivinGreen\\nService: ${displayService}${name?'\\nClient: '+name:''}`,
+      `LOCATION:${location}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  }
+
+  async function addToCalendar() {
+    if (platform === 'ios-safari') {
+      window.location.href = icsUrl;
+    } else if (platform === 'ios-other') {
+      // Web Share API → iOS system share sheet → user picks Calendar
+      const file = new File([buildIcsContent()], 'livingreen-appointment.ics', { type: 'text/calendar' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file] }); return; } catch { return; }
+      }
+      window.open(googleUrl, '_blank');
+    } else if (platform === 'android') {
+      window.open(googleUrl, '_blank');
+    } else {
+      window.location.href = icsUrl;
+    }
   }
 
   const calLabel =
     platform === 'ios-safari' ? 'Add to Apple Calendar'
-    : (platform === 'android' || platform === 'ios-other') ? 'Add to Google Calendar'
+    : platform === 'ios-other' ? 'Add to Apple Calendar'
+    : platform === 'android'   ? 'Add to Google Calendar'
     : 'Add to Calendar';
 
   return (
