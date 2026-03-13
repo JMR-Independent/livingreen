@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { COMPANY_INFO, SERVICES } from '@/lib/constants';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import AppointmentSection from './AppointmentSection';
 
 async function saveContact() {
   // Load logo and convert to JPEG 300x300 via canvas
@@ -110,6 +111,11 @@ export default function DigitalCard() {
       </div>
 
       <div className="max-w-2xl mx-auto px-6 pb-12 space-y-12">
+
+        {/* Appointment card — only shown when URL has ?date=... params */}
+        <Suspense>
+          <AppointmentSection />
+        </Suspense>
 
         {/* Services Grid - 2x2 Professional */}
         <section>
