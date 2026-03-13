@@ -115,26 +115,14 @@ export default function CalendarCard({ clientName, service, date, time, location
   // Safari on iOS intercepts .ics natively
   function openIcs() { window.location.href = icsUrl; }
 
-  // iOS Chrome: Web Share API shows the system share sheet → user picks Calendar
-  // Falls back to Google Calendar if Share API unavailable
-  async function shareIcs() {
-    const file = new File([icsContent], 'livingreen-appointment.ics', { type: 'text/calendar' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file] }); return; } catch { /* cancelled */ return; }
-    }
-    window.open(googleUrl, '_blank');
-  }
-
   const addToCalendar =
     platform === 'ios-safari' ? openIcs
-    : platform === 'ios-other' ? shareIcs
-    : platform === 'desktop'   ? downloadIcs
-    : () => window.open(googleUrl, '_blank'); // android → Google Calendar
+    : platform === 'desktop'  ? downloadIcs
+    : () => window.open(googleUrl, '_blank'); // android + ios-other → Google Calendar
 
   const calLabel =
     platform === 'ios-safari' ? 'Add to Apple Calendar'
-    : platform === 'ios-other' ? 'Add to Apple Calendar'
-    : platform === 'android'   ? 'Add to Google Calendar'
+    : (platform === 'android' || platform === 'ios-other') ? 'Add to Google Calendar'
     : 'Add to Calendar';
 
   return (
@@ -217,6 +205,18 @@ export default function CalendarCard({ clientName, service, date, time, location
         >
           {calLabel}
         </button>
+
+        {/* iOS Chrome hint */}
+        {platform === 'ios-other' && (
+          <div style={{ marginTop: '10px', textAlign: 'center' }}>
+            <a
+              href={icsUrl}
+              style={{ fontSize: '12px', color: t.subtext, textDecoration: 'underline' }}
+            >
+              Prefer Apple Calendar? Open this page in Safari
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
