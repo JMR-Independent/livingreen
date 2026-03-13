@@ -14,14 +14,15 @@ interface Props {
   icsUrl: string;
 }
 
-type Platform = 'ios' | 'ios-chrome' | 'android' | 'desktop';
+type Platform = 'ios-safari' | 'ios-other' | 'android' | 'desktop';
 
 function detectPlatform(): Platform {
   const ua = navigator.userAgent;
   if (/iPhone|iPad|iPod/.test(ua)) {
-    // CriOS = Chrome on iOS; FxiOS = Firefox on iOS — neither supports .ics natively
-    if (/CriOS|FxiOS/.test(ua)) return 'ios-chrome';
-    return 'ios';
+    // Only Safari on iOS handles .ics natively — detect it positively.
+    // Chrome (CriOS), Firefox (FxiOS), Edge (EdgiOS), Opera (OPiOS), Google App (GSA) do NOT.
+    const isSafari = !/CriOS|FxiOS|EdgiOS|OPiOS|GSA/.test(ua);
+    return isSafari ? 'ios-safari' : 'ios-other';
   }
   if (/Android/.test(ua)) return 'android';
   return 'desktop';
@@ -114,14 +115,14 @@ export default function CalendarCard({ clientName, service, date, time, location
   function openIcs() { window.location.href = icsUrl; }
 
   const addToCalendar =
-    (platform === 'android' || platform === 'ios-chrome')
-      ? () => window.open(googleUrl, '_blank')
-      : platform === 'ios' ? openIcs : downloadIcs;
+    platform === 'ios-safari' ? openIcs
+    : platform === 'desktop'  ? downloadIcs
+    : () => window.open(googleUrl, '_blank'); // android + ios-other → Google Calendar
 
   const calLabel =
-    (platform === 'android' || platform === 'ios-chrome')
-      ? 'Add to Google Calendar'
-      : platform === 'ios' ? 'Add to Apple Calendar' : 'Add to Calendar';
+    platform === 'ios-safari' ? 'Add to Apple Calendar'
+    : (platform === 'android' || platform === 'ios-other') ? 'Add to Google Calendar'
+    : 'Add to Calendar';
 
   return (
     <div style={{
