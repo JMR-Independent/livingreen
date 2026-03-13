@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -39,10 +38,49 @@ function normalizeService(raw: string): string {
   return raw.trim().replace(/\b\w/g, c => c.toUpperCase());
 }
 
+// Theme tokens
+const dark = {
+  pageBg:    '#111111',
+  cardBg:    '#2a2a2a',
+  calIconBg: '#1e1e1e',
+  calBorder: '#3c3c3c',
+  title:     '#e8eaed',
+  text:      '#e8eaed',
+  subtext:   '#9aa0a6',
+  icon:      '#9aa0a6',
+  divider:   '#3c3c3c',
+  btnSecBg:  '#3c4043',
+  btnSecText:'#e8eaed',
+};
+
+const light = {
+  pageBg:    '#ffffff',
+  cardBg:    '#c9c2ba',       // warm light gray
+  calIconBg: '#b8b0a8',
+  calBorder: 'rgba(255,255,255,0.25)',
+  title:     '#ffffff',
+  text:      '#ffffff',
+  subtext:   'rgba(255,255,255,0.72)',
+  icon:      'rgba(255,255,255,0.72)',
+  divider:   'rgba(255,255,255,0.2)',
+  btnSecBg:  'rgba(255,255,255,0.2)',
+  btnSecText:'#ffffff',
+};
+
 export default function CalendarCard({ clientName, service, date, time, location, duration, googleUrl, icsContent, icsUrl }: Props) {
   const [platform, setPlatform] = useState<Platform>('desktop');
+  const [isDark, setIsDark] = useState(true);
 
-  useEffect(() => { setPlatform(detectPlatform()); }, []);
+  useEffect(() => {
+    setPlatform(detectPlatform());
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDark(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const t = isDark ? dark : light;
 
   const displayService = normalizeService(service);
 
@@ -50,6 +88,7 @@ export default function CalendarCard({ clientName, service, date, time, location
   const dateObj = new Date(y, m - 1, d);
   const displayDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   const shortDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const monthAbbr = dateObj.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
 
   const [h, min] = time.split(':').map(Number);
   const endH = Math.floor((h * 60 + min + duration) / 60);
@@ -67,7 +106,6 @@ export default function CalendarCard({ clientName, service, date, time, location
     a.href = url; a.download = 'livingreen-appointment.ics'; a.click();
     URL.revokeObjectURL(url);
   }
-
   function openIcs() { window.location.href = icsUrl; }
 
   const addToCalendar = platform === 'android'
@@ -80,32 +118,35 @@ export default function CalendarCard({ clientName, service, date, time, location
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#111',
+      background: t.pageBg,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '24px 16px',
       fontFamily: '"Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      transition: 'background 0.3s',
     }}>
       <div style={{
-        background: '#2a2a2a',
+        background: t.cardBg,
         borderRadius: '16px',
         maxWidth: '400px',
         width: '100%',
         overflow: 'hidden',
         padding: '20px',
+        transition: 'background 0.3s',
       }}>
 
-        {/* Top: date·time + LivinGreen icon */}
+        {/* Top: date·time + calendar icon */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-          <div style={{ fontSize: '13px', color: '#9aa0a6' }}>
+          <div style={{ fontSize: '13px', color: t.subtext }}>
             {shortDate} · {timeRange}
           </div>
-          {/* LivinGreen calendar-style icon */}
+
+          {/* Calendar icon */}
           <div style={{
             width: 52, height: 52, borderRadius: '12px',
-            background: '#1e1e1e', border: '1px solid #3c3c3c',
+            background: t.calIconBg, border: `1px solid ${t.calBorder}`,
             display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0,
           }}>
             <div style={{
@@ -113,12 +154,10 @@ export default function CalendarCard({ clientName, service, date, time, location
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <span style={{ fontSize: '7.5px', color: '#fff', fontWeight: 700, letterSpacing: '0.5px' }}>
-                {dateObj.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
+                {monthAbbr}
               </span>
             </div>
-            <div style={{
-              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ fontSize: '20px', fontWeight: 700, color: '#fff', lineHeight: 1 }}>
                 {d}
               </span>
@@ -127,28 +166,19 @@ export default function CalendarCard({ clientName, service, date, time, location
         </div>
 
         {/* Event title */}
-        <div style={{ fontSize: '28px', fontWeight: 600, color: '#e8eaed', lineHeight: 1.2, marginBottom: '20px' }}>
+        <div style={{ fontSize: '28px', fontWeight: 600, color: t.title, lineHeight: 1.2, marginBottom: '20px' }}>
           {displayService}
         </div>
 
-        {/* Detail rows — Google Calendar style with Material icons */}
+        {/* Detail rows */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
-
-          {/* Date & time */}
-          <Row icon={<IconClock />} text={`${displayDate} · ${timeRange}`} />
-
-          {/* Location */}
-          {location && <Row icon={<IconPin />} text={location} />}
-
-          {/* Client */}
-          {clientName && <Row icon={<IconPerson />} text={clientName} />}
-
-          {/* Organizer */}
-          <Row icon={<IconPeople />} text="LivinGreen" sub />
-
+          <Row icon={<IconClock color={t.icon} />} text={`${displayDate} · ${timeRange}`} color={t.text} />
+          {location && <Row icon={<IconPin color={t.icon} />} text={location} color={t.text} />}
+          {clientName && <Row icon={<IconPerson color={t.icon} />} text={clientName} color={t.text} />}
+          <Row icon={<IconPeople color={t.icon} />} text="LivinGreen" color={t.subtext} />
         </div>
 
-        {/* Button — pill style like Google Calendar email */}
+        {/* Button */}
         <button
           onClick={addToCalendar}
           style={{
@@ -170,64 +200,42 @@ export default function CalendarCard({ clientName, service, date, time, location
   );
 }
 
-function Row({ icon, text, sub }: { icon: React.ReactNode; text: string; sub?: boolean }) {
+function Row({ icon, text, color }: { icon: React.ReactNode; text: string; color: string }) {
   return (
     <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-      <div style={{ marginTop: '1px', flexShrink: 0, opacity: sub ? 0.5 : 0.75 }}>
-        {icon}
-      </div>
-      <div style={{ fontSize: '14px', color: sub ? '#9aa0a6' : '#e8eaed', lineHeight: 1.5 }}>
-        {text}
-      </div>
+      <div style={{ marginTop: '1px', flexShrink: 0 }}>{icon}</div>
+      <div style={{ fontSize: '14px', color, lineHeight: 1.5 }}>{text}</div>
     </div>
   );
 }
 
-// Material Design outline icons — same style as Google Calendar
-function IconClock() {
+function IconClock({ color }: { color: string }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="1.8">
-      <circle cx="12" cy="12" r="9" />
-      <polyline points="12 7 12 12 15.5 15.5" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8">
+      <circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15.5 15.5" />
     </svg>
   );
 }
-
-function IconPin() {
+function IconPin({ color }: { color: string }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="1.8">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
       <circle cx="12" cy="9" r="2.5" />
     </svg>
   );
 }
-
-function IconPerson() {
+function IconPerson({ color }: { color: string }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="1.8">
-      <circle cx="12" cy="8" r="3.5" />
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8">
+      <circle cx="12" cy="8" r="3.5" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
     </svg>
   );
 }
-
-function IconPeople() {
+function IconPeople({ color }: { color: string }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="1.8">
-      <circle cx="9" cy="8" r="3" />
-      <path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6" />
-      <path d="M16 6c1.7 0 3 1.3 3 3s-1.3 3-3 3" />
-      <path d="M22 20c0-3-2-5.3-4.5-6" />
-    </svg>
-  );
-}
-
-function IconLines() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="1.8">
-      <line x1="4" y1="7" x2="20" y2="7" />
-      <line x1="4" y1="12" x2="20" y2="12" />
-      <line x1="4" y1="17" x2="14" y2="17" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8">
+      <circle cx="9" cy="8" r="3" /><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6" />
+      <path d="M16 6c1.7 0 3 1.3 3 3s-1.3 3-3 3" /><path d="M22 20c0-3-2-5.3-4.5-6" />
     </svg>
   );
 }
