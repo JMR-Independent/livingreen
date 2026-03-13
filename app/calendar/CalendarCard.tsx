@@ -19,10 +19,10 @@ type Platform = 'ios-safari' | 'ios-other' | 'android' | 'desktop';
 function detectPlatform(): Platform {
   const ua = navigator.userAgent;
   if (/iPhone|iPad|iPod/.test(ua)) {
-    // Only Safari on iOS handles .ics natively — detect it positively.
-    // Chrome (CriOS), Firefox (FxiOS), Edge (EdgiOS), Opera (OPiOS), Google App (GSA) do NOT.
-    const isSafari = !/CriOS|FxiOS|EdgiOS|OPiOS|GSA/.test(ua);
-    return isSafari ? 'ios-safari' : 'ios-other';
+    // Chrome (CriOS), Firefox (FxiOS), Edge (EdgiOS), Opera (OPiOS), Google App (GSA) → no .ics support
+    // Facebook/Instagram/Messenger in-app browser (FBAN/FBIOS/FBAV) → WebKit-based, handles .ics like Safari
+    const isNonSafariBrowser = /CriOS|FxiOS|EdgiOS|OPiOS|GSA/.test(ua);
+    return isNonSafariBrowser ? 'ios-other' : 'ios-safari';
   }
   if (/Android/.test(ua)) return 'android';
   return 'desktop';
