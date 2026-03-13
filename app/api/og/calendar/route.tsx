@@ -83,23 +83,13 @@ export async function GET(request: NextRequest) {
     (
       <div style={{
         display: 'flex',
+        flexDirection: 'column',
         width: '1200px',
         height: '630px',
-        background: '#f0f4f8',
-        alignItems: 'center',
-        justifyContent: 'center',
+        background: cardBg,
+        padding: '56px 72px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
       }}>
-        {/* Card */}
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          background: cardBg,
-          borderRadius: '24px',
-          padding: '48px 56px',
-          width: '900px',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.10)',
-        }}>
 
           {/* Top row: short date·time + calendar icon */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
@@ -202,7 +192,6 @@ export async function GET(request: NextRequest) {
               Add to Calendar
             </span>
           </div>
-        </div>
       </div>
     ),
     { width: 1200, height: 630 }

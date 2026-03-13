@@ -31,7 +31,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     ? `${name}, your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`
     : `Your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`;
 
-  const ogParams = new URLSearchParams({ service, date, time, duration });
+  const ogParams = new URLSearchParams({ service, date, time, duration, v: '2' });
   if (name)     ogParams.set('name', name);
   if (location) ogParams.set('location', location);
   const ogImageUrl = `https://www.livingreen.life/api/og/calendar?${ogParams.toString()}`;
