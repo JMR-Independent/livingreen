@@ -36,9 +36,9 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   if (location) ogParams.set('location', location);
   const ogImageUrl = `https://www.livingreen.life/api/og/calendar?${ogParams.toString()}`;
 
-  // Canonical page URL — must include all query params so Facebook caches
-  // each appointment separately instead of reusing the base-URL cache.
-  const pageParams = new URLSearchParams({ service, date, time, duration });
+  // Canonical page URL — must include all query params (including v) so Facebook
+  // caches each appointment separately and picks up new image versions.
+  const pageParams = new URLSearchParams({ service, date, time, duration, v: '2' });
   if (name)     pageParams.set('name', name);
   if (location) pageParams.set('location', location);
   const canonicalUrl = `https://www.livingreen.life/calendar?${pageParams.toString()}`;
