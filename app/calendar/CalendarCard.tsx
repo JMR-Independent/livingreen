@@ -54,17 +54,17 @@ const dark = {
 };
 
 const light = {
-  pageBg:    '#ffffff',
-  cardBg:    '#c9c2ba',       // warm light gray
-  calIconBg: '#b8b0a8',
-  calBorder: 'rgba(255,255,255,0.25)',
-  title:     '#ffffff',
-  text:      '#ffffff',
-  subtext:   'rgba(255,255,255,0.72)',
-  icon:      'rgba(255,255,255,0.72)',
-  divider:   'rgba(255,255,255,0.2)',
-  btnSecBg:  'rgba(255,255,255,0.2)',
-  btnSecText:'#ffffff',
+  pageBg:    '#f5f5f5',
+  cardBg:    '#eaf0f8',       // Google Calendar blue-gray
+  calIconBg: '#dce6f0',
+  calBorder: 'rgba(0,0,0,0.08)',
+  title:     '#1f1f1f',
+  text:      '#1f1f1f',
+  subtext:   '#5f6368',
+  icon:      '#5f6368',
+  divider:   'rgba(0,0,0,0.1)',
+  btnSecBg:  'rgba(0,0,0,0.07)',
+  btnSecText:'#1f1f1f',
 };
 
 export default function CalendarCard({ clientName, service, date, time, location, duration, googleUrl, icsContent, icsUrl }: Props) {
@@ -158,7 +158,7 @@ export default function CalendarCard({ clientName, service, date, time, location
               </span>
             </div>
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '20px', fontWeight: 700, color: '#fff', lineHeight: 1 }}>
+              <span style={{ fontSize: '20px', fontWeight: 700, color: isDark ? '#fff' : '#1f1f1f', lineHeight: 1 }}>
                 {d}
               </span>
             </div>
