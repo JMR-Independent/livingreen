@@ -109,10 +109,12 @@ export default function CalendarCard({ clientName, service, date, time, location
             display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0,
           }}>
             <div style={{
-              background: '#16a34a', height: 16,
+              background: '#16a34a', height: 18,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <span style={{ fontSize: '8px', color: '#fff', fontWeight: 700, letterSpacing: '0.3px' }}>LIVINGREEN</span>
+              <span style={{ fontSize: '7.5px', color: '#fff', fontWeight: 700, letterSpacing: '0.5px' }}>
+                {dateObj.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
+              </span>
             </div>
             <div style={{
               flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
