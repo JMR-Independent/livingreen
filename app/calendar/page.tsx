@@ -36,11 +36,19 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   if (location) ogParams.set('location', location);
   const ogImageUrl = `https://www.livingreen.life/api/og/calendar?${ogParams.toString()}`;
 
+  // Canonical page URL — must include all query params so Facebook caches
+  // each appointment separately instead of reusing the base-URL cache.
+  const pageParams = new URLSearchParams({ service, date, time, duration });
+  if (name)     pageParams.set('name', name);
+  if (location) pageParams.set('location', location);
+  const canonicalUrl = `https://www.livingreen.life/calendar?${pageParams.toString()}`;
+
   return {
     title,
     description,
     openGraph: {
       type: 'website',
+      url: canonicalUrl,
       title: `✅ Appointment Confirmed — LivinGreen`,
       description,
       siteName: 'LivinGreen Cleaning',
