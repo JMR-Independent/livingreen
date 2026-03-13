@@ -27,9 +27,6 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   }
 
   const title = `${service} — ${displayDate} ${time}`;
-  const description = name
-    ? `${name}, your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`
-    : `Your LivinGreen appointment is confirmed for ${displayDate} at ${time}. Tap to add it to your calendar.`;
 
   const ogParams = new URLSearchParams({ service, date, time, duration, v: '2' });
   if (name)     ogParams.set('name', name);
@@ -45,19 +42,16 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 
   return {
     title,
-    description,
     openGraph: {
       type: 'website',
       url: canonicalUrl,
       title: `✅ Appointment Confirmed — LivinGreen`,
-      description,
       siteName: 'LivinGreen Cleaning',
       images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${service} appointment confirmed` }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `✅ Appointment Confirmed — LivinGreen`,
-      description,
       images: [ogImageUrl],
     },
   };
