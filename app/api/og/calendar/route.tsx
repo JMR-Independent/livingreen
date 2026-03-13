@@ -11,6 +11,24 @@ function formatDate(date: string): string {
   });
 }
 
+function formatShortDate(date: string): string {
+  if (!date) return '';
+  const [y, m, d] = date.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function getMonthAbbr(date: string): string {
+  if (!date) return '';
+  const [y, m, d] = date.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+}
+
+function getDay(date: string): number {
+  if (!date) return 1;
+  const [, , d] = date.split('-').map(Number);
+  return d;
+}
+
 function formatTimeRange(time: string, duration: number): string {
   if (!time) return '';
   const [h, min] = time.split(':').map(Number);
@@ -22,123 +40,168 @@ function formatTimeRange(time: string, duration: number): string {
   return `${fmt(h, min)} – ${fmt(Math.floor(endTotal / 60), endTotal % 60)}`;
 }
 
+function normalizeService(raw: string): string {
+  const s = raw.trim().toLowerCase();
+  if (/alfombra|carpet/.test(s)) return 'Carpet Cleaning';
+  if (/sill[oó]n|sillones|sof[aá]|couch/.test(s)) return 'Couch Cleaning';
+  if (/deep|profunda/.test(s)) return 'Deep Cleaning';
+  if (/move.?(in|out)|mudanza/.test(s)) return 'Move-in / Move-out Cleaning';
+  if (/window|ventana/.test(s)) return 'Window Cleaning';
+  if (/office|oficina/.test(s)) return 'Office Cleaning';
+  if (/post.?construct|obra/.test(s)) return 'Post-Construction Cleaning';
+  if (/apartment|apartamento|depa/.test(s)) return 'Apartment Cleaning';
+  if (/house|casa|hogar/.test(s)) return 'House Cleaning';
+  if (/commercial|comercial/.test(s)) return 'Commercial Cleaning';
+  return raw.trim().replace(/\b\w/g, c => c.toUpperCase());
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  const service = searchParams.get('service') || 'Cleaning Service';
-  const date = searchParams.get('date') || '';
-  const time = searchParams.get('time') || '09:00';
+  const service  = normalizeService(searchParams.get('service') || 'Cleaning Service');
+  const date     = searchParams.get('date') || '';
+  const time     = searchParams.get('time') || '09:00';
   const location = searchParams.get('location') || '';
-  const name = searchParams.get('name') || '';
+  const name     = searchParams.get('name') || '';
   const duration = parseInt(searchParams.get('duration') || '120');
 
   const displayDate = formatDate(date);
-  const timeRange = formatTimeRange(time, duration);
+  const shortDate   = formatShortDate(date);
+  const monthAbbr   = getMonthAbbr(date);
+  const dayNum      = getDay(date);
+  const timeRange   = formatTimeRange(time, duration);
 
-  const logoUrl = 'https://www.livingreen.life/images/icon-512x512.png';
+  // Card colors — matches AppointmentSection light theme
+  const cardBg   = '#eaf0f8';
+  const iconBg   = '#dce6f0';
+  const textMain = '#1f1f1f';
+  const textSub  = '#5f6368';
+  const green    = '#16a34a';
+  const blue     = '#4285f4';
 
   return new ImageResponse(
     (
-      <div
-        style={{
+      <div style={{
+        display: 'flex',
+        width: '1200px',
+        height: '630px',
+        background: '#f0f4f8',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      }}>
+        {/* Card */}
+        <div style={{
           display: 'flex',
-          width: '1200px',
-          height: '630px',
-          background: '#ffffff',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-          position: 'relative',
-        }}
-      >
-        {/* Left green sidebar — Google Calendar color strip */}
-        <div style={{ display: 'flex', width: 16, background: '#16a34a', flexShrink: 0 }} />
+          flexDirection: 'column',
+          background: cardBg,
+          borderRadius: '24px',
+          padding: '48px 56px',
+          width: '900px',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.10)',
+        }}>
 
-        {/* Main content */}
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '0 64px' }}>
-
-          {/* Header */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: 48,
-            paddingBottom: 32,
-            borderBottom: '1px solid #e8eaed',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logoUrl} width={48} height={48} style={{ borderRadius: 12 }} alt="" />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 20, fontWeight: 600, color: '#3c4043' }}>LivinGreen Cleaning</div>
-                <div style={{ fontSize: 15, color: '#80868b' }}>livingreen.life</div>
-              </div>
+          {/* Top row: short date·time + calendar icon */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+            <div style={{ fontSize: '26px', color: textSub, display: 'flex' }}>
+              {shortDate} · {timeRange}
             </div>
 
-            {/* Confirmed badge */}
+            {/* Calendar icon */}
             <div style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              background: '#e6f4ea', borderRadius: 100, padding: '10px 22px',
+              display: 'flex', flexDirection: 'column',
+              width: '80px', height: '80px',
+              borderRadius: '16px',
+              background: iconBg,
+              border: '1px solid rgba(0,0,0,0.08)',
+              overflow: 'hidden',
+              flexShrink: 0,
             }}>
               <div style={{
-                display: 'flex', width: 22, height: 22, borderRadius: '50%',
-                background: '#16a34a', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', fontSize: 14, fontWeight: 700,
-              }}>✓</div>
-              <div style={{ fontSize: 18, fontWeight: 600, color: '#137333' }}>Appointment confirmed</div>
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: green, height: '28px',
+              }}>
+                <span style={{ fontSize: '11px', color: '#fff', fontWeight: 700, letterSpacing: '0.5px' }}>
+                  {monthAbbr}
+                </span>
+              </div>
+              <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '32px', fontWeight: 700, color: textMain, lineHeight: 1 }}>
+                  {dayNum}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Event title */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 28, paddingTop: 40, paddingBottom: 32 }}>
-            <div style={{
-              display: 'flex', width: 20, height: 20, borderRadius: '50%',
-              background: '#16a34a', marginTop: 10, flexShrink: 0,
-            }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div style={{ fontSize: 48, fontWeight: 400, color: '#202124', lineHeight: 1.15 }}>{service}</div>
-              {name && <div style={{ fontSize: 22, color: '#5f6368' }}>{name}</div>}
-            </div>
+          {/* Service title */}
+          <div style={{ fontSize: '64px', fontWeight: 700, color: textMain, lineHeight: 1.1, marginBottom: '36px', display: 'flex' }}>
+            {service}
           </div>
 
           {/* Detail rows */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {displayDate && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-                <div style={{
-                  display: 'flex', width: 44, height: 44, background: '#f1f3f4',
-                  borderRadius: 8, alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
-                }}>📅</div>
-                <div style={{ fontSize: 28, color: '#3c4043' }}>{displayDate}</div>
-              </div>
-            )}
-            {timeRange && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-                <div style={{
-                  display: 'flex', width: 44, height: 44, background: '#f1f3f4',
-                  borderRadius: 8, alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
-                }}>🕐</div>
-                <div style={{ fontSize: 28, color: '#3c4043' }}>{timeRange}</div>
-              </div>
-            )}
-            {location && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-                <div style={{
-                  display: 'flex', width: 44, height: 44, background: '#f1f3f4',
-                  borderRadius: 8, alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
-                }}>📍</div>
-                <div style={{ fontSize: 28, color: '#3c4043' }}>{location}</div>
-              </div>
-            )}
-          </div>
-        </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
 
-        {/* Bottom CTA */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 16, right: 0, height: 60,
-          background: '#f8fdf9', borderTop: '1px solid #e8eaed',
-          display: 'flex', alignItems: 'center', paddingLeft: 64, gap: 10,
-        }}>
-          <div style={{ fontSize: 18, color: '#16a34a', fontWeight: 600 }}>Tap to add to your calendar</div>
-          <div style={{ fontSize: 18, color: '#16a34a' }}>→</div>
+            {/* Date & time */}
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', width: '32px', height: '32px', marginRight: '20px', flexShrink: 0 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={textSub} strokeWidth="1.8">
+                  <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/>
+                </svg>
+              </div>
+              <div style={{ fontSize: '26px', color: textMain, display: 'flex' }}>
+                {displayDate} · {timeRange}
+              </div>
+            </div>
+
+            {/* Location */}
+            {location && (
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', width: '32px', height: '32px', marginRight: '20px', flexShrink: 0 }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={textSub} strokeWidth="1.8">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                </div>
+                <div style={{ fontSize: '26px', color: textMain, display: 'flex' }}>{location}</div>
+              </div>
+            )}
+
+            {/* Client */}
+            {name && (
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', width: '32px', height: '32px', marginRight: '20px', flexShrink: 0 }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={textSub} strokeWidth="1.8">
+                    <circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                  </svg>
+                </div>
+                <div style={{ fontSize: '26px', color: textMain, display: 'flex' }}>{name}</div>
+              </div>
+            )}
+
+            {/* Organizer */}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', width: '32px', height: '32px', marginRight: '20px', flexShrink: 0 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={textSub} strokeWidth="1.8">
+                  <circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+                  <path d="M16 6c1.7 0 3 1.3 3 3s-1.3 3-3 3"/><path d="M22 20c0-3-2-5.3-4.5-6"/>
+                </svg>
+              </div>
+              <div style={{ fontSize: '26px', color: textSub, display: 'flex' }}>LivinGreen</div>
+            </div>
+          </div>
+
+          {/* Button */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            marginTop: '36px',
+            background: blue,
+            borderRadius: '100px',
+            padding: '18px 32px',
+          }}>
+            <span style={{ fontSize: '26px', fontWeight: 700, color: '#fff', display: 'flex' }}>
+              Add to Calendar
+            </span>
+          </div>
         </div>
       </div>
     ),
