@@ -106,7 +106,8 @@ export default function CalendarCard({ clientName, service, date, time, location
     a.href = url; a.download = 'livingreen-appointment.ics'; a.click();
     URL.revokeObjectURL(url);
   }
-  function openIcs() { window.location.href = icsUrl; }
+  // webcal:// triggers Apple Calendar directly on iOS regardless of browser (Safari or Chrome)
+  function openIcs() { window.location.href = icsUrl.replace(/^https?:\/\//, 'webcal://'); }
 
   const addToCalendar = platform === 'android'
     ? () => window.open(googleUrl, '_blank')

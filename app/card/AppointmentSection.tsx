@@ -91,7 +91,8 @@ export default function AppointmentSection() {
 
   function addToCalendar() {
     if (platform === 'android') window.open(googleUrl, '_blank');
-    else window.location.href = icsUrl;
+    // webcal:// triggers Apple Calendar directly on iOS regardless of browser (Safari or Chrome)
+    else window.location.href = icsUrl.replace(/^https?:\/\//, 'webcal://');
   }
 
   const calLabel = platform === 'android' ? 'Add to Google Calendar'
