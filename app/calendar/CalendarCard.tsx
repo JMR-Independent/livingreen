@@ -142,7 +142,7 @@ export default function CalendarCard({ clientName, service, date, time, location
           {clientName && <Row icon={<IconPerson />} text={clientName} />}
 
           {/* Organizer */}
-          <Row icon={<IconPeople />} text="LivinGreen Cleaning  (organizer)" sub />
+          <Row icon={<IconPeople />} text="LivinGreen" sub />
 
         </div>
 
