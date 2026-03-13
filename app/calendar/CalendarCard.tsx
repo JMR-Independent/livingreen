@@ -14,11 +14,15 @@ interface Props {
   icsUrl: string;
 }
 
-type Platform = 'ios' | 'android' | 'desktop';
+type Platform = 'ios' | 'ios-chrome' | 'android' | 'desktop';
 
 function detectPlatform(): Platform {
   const ua = navigator.userAgent;
-  if (/iPhone|iPad|iPod/.test(ua)) return 'ios';
+  if (/iPhone|iPad|iPod/.test(ua)) {
+    // CriOS = Chrome on iOS; FxiOS = Firefox on iOS — neither supports .ics natively
+    if (/CriOS|FxiOS/.test(ua)) return 'ios-chrome';
+    return 'ios';
+  }
   if (/Android/.test(ua)) return 'android';
   return 'desktop';
 }
@@ -106,15 +110,18 @@ export default function CalendarCard({ clientName, service, date, time, location
     a.href = url; a.download = 'livingreen-appointment.ics'; a.click();
     URL.revokeObjectURL(url);
   }
-  // webcal:// triggers Apple Calendar directly on iOS regardless of browser (Safari or Chrome)
-  function openIcs() { window.location.href = icsUrl.replace(/^https?:\/\//, 'webcal://'); }
+  // Safari on iOS intercepts .ics natively; Chrome/Firefox on iOS do not
+  function openIcs() { window.location.href = icsUrl; }
 
-  const addToCalendar = platform === 'android'
-    ? () => window.open(googleUrl, '_blank')
-    : platform === 'ios' ? openIcs : downloadIcs;
+  const addToCalendar =
+    (platform === 'android' || platform === 'ios-chrome')
+      ? () => window.open(googleUrl, '_blank')
+      : platform === 'ios' ? openIcs : downloadIcs;
 
-  const calLabel = platform === 'android' ? 'Add to Google Calendar'
-    : platform === 'ios' ? 'Add to Apple Calendar' : 'Add to Calendar';
+  const calLabel =
+    (platform === 'android' || platform === 'ios-chrome')
+      ? 'Add to Google Calendar'
+      : platform === 'ios' ? 'Add to Apple Calendar' : 'Add to Calendar';
 
   return (
     <div style={{

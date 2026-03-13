@@ -18,11 +18,14 @@ function normalizeService(raw: string): string {
   return raw.trim().replace(/\b\w/g, c => c.toUpperCase());
 }
 
-type Platform = 'ios' | 'android' | 'desktop';
+type Platform = 'ios' | 'ios-chrome' | 'android' | 'desktop';
 
 function detectPlatform(): Platform {
   const ua = navigator.userAgent;
-  if (/iPhone|iPad|iPod/.test(ua)) return 'ios';
+  if (/iPhone|iPad|iPod/.test(ua)) {
+    if (/CriOS|FxiOS/.test(ua)) return 'ios-chrome';
+    return 'ios';
+  }
   if (/Android/.test(ua)) return 'android';
   return 'desktop';
 }
@@ -90,13 +93,15 @@ export default function AppointmentSection() {
   const icsUrl = `https://www.livingreen.life/api/ics/calendar?${icsParams.toString()}`;
 
   function addToCalendar() {
-    if (platform === 'android') window.open(googleUrl, '_blank');
-    // webcal:// triggers Apple Calendar directly on iOS regardless of browser (Safari or Chrome)
-    else window.location.href = icsUrl.replace(/^https?:\/\//, 'webcal://');
+    if (platform === 'android' || platform === 'ios-chrome') window.open(googleUrl, '_blank');
+    else if (platform === 'ios') window.location.href = icsUrl;
+    else window.location.href = icsUrl;
   }
 
-  const calLabel = platform === 'android' ? 'Add to Google Calendar'
-    : platform === 'ios' ? 'Add to Apple Calendar' : 'Add to Calendar';
+  const calLabel =
+    (platform === 'android' || platform === 'ios-chrome')
+      ? 'Add to Google Calendar'
+      : platform === 'ios' ? 'Add to Apple Calendar' : 'Add to Calendar';
 
   return (
     <section style={{ marginBottom: '32px' }}>
