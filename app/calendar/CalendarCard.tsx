@@ -12,6 +12,7 @@ interface Props {
   duration: number;
   googleUrl: string;
   icsContent: string;
+  icsUrl: string;
 }
 
 type Platform = 'ios' | 'android' | 'desktop';
@@ -23,7 +24,7 @@ function detectPlatform(): Platform {
   return 'desktop';
 }
 
-export default function CalendarCard({ clientName, service, date, time, location, duration, googleUrl, icsContent }: Props) {
+export default function CalendarCard({ clientName, service, date, time, location, duration, googleUrl, icsContent, icsUrl }: Props) {
   const [platform, setPlatform] = useState<Platform>('desktop');
   const [showOther, setShowOther] = useState(false);
 
@@ -45,6 +46,7 @@ export default function CalendarCard({ clientName, service, date, time, location
   const timeDisplay = `${fmt(h, min)} – ${fmt(endH, endMin)}`;
 
   function downloadIcs() {
+    // Fallback for desktop: blob download
     const blob = new Blob([icsContent], { type: 'text/calendar' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -54,14 +56,9 @@ export default function CalendarCard({ clientName, service, date, time, location
     URL.revokeObjectURL(url);
   }
 
-  // Primary action based on detected platform
-  function handlePrimary() {
-    if (platform === 'android') {
-      window.open(googleUrl, '_blank');
-    } else {
-      // iOS and desktop: .ics works natively on iOS, and on desktop opens in default calendar
-      downloadIcs();
-    }
+  // iOS requires a real server URL (not a blob) to trigger Calendar app
+  function openIcs() {
+    window.location.href = icsUrl;
   }
 
   const primaryLabel = platform === 'android'
@@ -140,7 +137,7 @@ export default function CalendarCard({ clientName, service, date, time, location
         <div style={{ padding: '20px 24px 28px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
 
           {/* Primary — auto-detected */}
-          <button onClick={handlePrimary} style={{
+          <button onClick={platform === 'android' ? () => window.open(googleUrl, '_blank') : platform === 'ios' ? openIcs : downloadIcs} style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -197,7 +194,7 @@ export default function CalendarCard({ clientName, service, date, time, location
               </a>
 
               {/* Apple / iCal (secondary) */}
-              <button onClick={downloadIcs} style={{
+              <button onClick={platform === 'ios' ? openIcs : downloadIcs} style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

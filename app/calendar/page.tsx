@@ -134,6 +134,12 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
   const googleUrl = `https://calendar.google.com/calendar/render?${googleParams.toString()}`;
   const icsContent = buildIcsContent(params);
 
+  // API route que sirve el .ics con Content-Type correcto (necesario en iOS para abrir Calendar)
+  const icsApiParams = new URLSearchParams({ service, date, time, duration: String(duration) });
+  if (clientName) icsApiParams.set('name', clientName);
+  if (location) icsApiParams.set('location', location);
+  const icsUrl = `https://www.livingreen.life/api/ics/calendar?${icsApiParams.toString()}`;
+
   return (
     <CalendarCard
       clientName={clientName}
@@ -144,6 +150,7 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
       duration={duration}
       googleUrl={googleUrl}
       icsContent={icsContent}
+      icsUrl={icsUrl}
     />
   );
 }
