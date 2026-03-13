@@ -42,11 +42,11 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 
   return {
     title,
+    description: '',
     openGraph: {
       type: 'website',
       url: canonicalUrl,
       title: `✅ Appointment Confirmed — LivinGreen`,
-      siteName: 'LivinGreen Cleaning',
       images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${service} appointment confirmed` }],
     },
     twitter: {
