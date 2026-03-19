@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      display: flex;
+      overflow: hidden;
+    }
+    .left {
+      flex: 1;
+      background: linear-gradient(135deg, #2a9d8f 0%, #264653 100%);
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+    }
+    .logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: bold;
+      color: #2a9d8f;
+    }
+    .company-name {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .tagline {
+      font-size: 22px;
+      opacity: 0.95;
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+    .contact-info {
+      font-size: 20px;
+      line-height: 2;
+    }
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .right {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .services-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #264653;
+      margin-bottom: 30px;
+    }
+    .service {
+      padding: 18px 0;
+      border-bottom: 2px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .service:last-child { border-bottom: none; }
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      background: #2a9d8f;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .service-text {
+      flex: 1;
+    }
+    .service-name {
+      font-size: 22px;
+      font-weight: 600;
+      color: #264653;
+      margin-bottom: 4px;
+    }
+    .service-desc {
+      font-size: 16px;
+      color: #6c757d;
+    }
+    .cta {
+      margin-top: 40px;
+      padding: 20px 30px;
+      background: #2a9d8f;
+      color: white;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="left">
+      <div class="logo">🧹</div>
+      <div class="company-name">LivinGreen</div>
+      <div class="tagline">Professional Cleaning Services</div>
+      <div class="contact-info">
+        <div>📞 +1 385 482-5694</div>
+        <div>📧 info@livingreen.life</div>
+        <div>📍 Utah, USA</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="services-title">Our Services</div>
+      <div class="service">
+        <div class="service-icon">🛋️</div>
+        <div class="service-text">
+          <div class="service-name">Carpet Cleaning</div>
+          <div class="service-desc">Professional deep cleaning</div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🪑</div>
+        <div class="service-text">
+          <div class="service-name">Upholstery</div>
+          <div class="service-desc">Furniture restoration</div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🛏️</div>
+        <div class="service-text">
+          <div class="service-name">Mattress Cleaning</div>
+          <div class="service-desc">99.9% allergen removal</div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🚗</div>
+        <div class="service-text">
+          <div class="service-name">Car Interior</div>
+          <div class="service-desc">Complete auto detailing</div>
+        </div>
+      </div>
+      <div class="cta">Get a Free Quote Today!</div>
+    </div>
+  </div>
+</body>
+</html>
