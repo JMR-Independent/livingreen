@@ -117,27 +117,71 @@ function BeforeAfterSlider({ before, after }: { before: string; after: string })
 }
 
 // ── Price Calculator ─────────────────────────────────────────────
+const SELECT_CLS = "text-sm border border-neutral-200 rounded-xl px-2 py-1.5 bg-white text-neutral-800 outline-none focus:border-[#10a37f] max-w-[160px]";
+
+function Counter({ value, onChange, max = 10 }: { value: number; onChange: (n: number) => void; max?: number }) {
+  return (
+    <div className="flex items-center gap-3">
+      <button onClick={() => onChange(Math.max(0, value - 1))} className="w-8 h-8 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center font-bold text-neutral-700 transition-colors">−</button>
+      <span className="w-6 text-center font-bold text-neutral-900">{value}</span>
+      <button onClick={() => onChange(Math.min(max, value + 1))} className="w-8 h-8 rounded-full bg-[#10a37f] hover:bg-[#0d8f6e] flex items-center justify-center font-bold text-white transition-colors">+</button>
+    </div>
+  );
+}
+
+function Row({ label, sub, children }: { label: string; sub: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <div className="min-w-0">
+        <p className="text-sm font-semibold text-neutral-800">{label}</p>
+        <p className="text-xs text-neutral-400">{sub}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function PriceCalculator() {
   const [rooms, setRooms] = useState(0);
+  const [stairs, setStairs] = useState('none');
+  const [hallway, setHallway] = useState('none');
+  const [livingRoom, setLivingRoom] = useState('none');
   const [sofa, setSofa] = useState('none');
-  const [mattresses, setMattresses] = useState(0);
   const [chairs, setChairs] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [mattresses, setMattresses] = useState(0);
 
-  useEffect(() => {
-    let t = rooms * 30;
-    if (sofa === '1') t += 35;
-    else if (sofa === '2') t += 65;
-    else if (sofa === '3') t += 85;
-    else if (sofa === 'sectional') t += 110;
-    t += mattresses * 45;
-    t += chairs * 15;
-    setTotal(t > 0 && t < 90 ? 90 : t);
-  }, [rooms, sofa, mattresses, chairs]);
+  const sofaPrice: Record<string, number> = { none: 0, '1': 35, '2': 65, '3': 85, 'sect-s': 110, 'sect-m': 140, 'sect-l': 170 };
+  const stairsPrice: Record<string, number> = { none: 0, '45': 45, '55': 55 };
+  const hallwayPrice: Record<string, number> = { none: 0, '10': 10, '15': 15, '20': 20, '25': 25 };
+  const livingRoomPrice: Record<string, number> = { none: 0, '30': 30, '40': 40, '50': 50, '60': 60 };
 
-  const whatsappQuote = encodeURIComponent(
-    `Hi! I'd like a quote for:\n- Carpet rooms: ${rooms}\n- Sofa: ${sofa === 'none' ? 'none' : sofa + ' seat'}\n- Mattresses: ${mattresses}\n- Chairs: ${chairs}\nEstimated total: $${total}`
-  );
+  const subtotal =
+    rooms * 30 +
+    stairsPrice[stairs] +
+    hallwayPrice[hallway] +
+    livingRoomPrice[livingRoom] +
+    sofaPrice[sofa] +
+    chairs * 15 +
+    mattresses * 45;
+
+  const total = subtotal > 0 && subtotal < 90 ? 90 : subtotal;
+  const minApplies = subtotal > 0 && subtotal < 90;
+
+  // Only include selected items in WhatsApp message
+  const lines: string[] = ['Hi! I\'d like a quote for:'];
+  if (rooms > 0) lines.push(`• Carpet rooms: ${rooms} × $30 = $${rooms * 30}`);
+  if (stairs !== 'none') lines.push(`• Stairs: $${stairsPrice[stairs]}`);
+  if (hallway !== 'none') lines.push(`• Hallway: $${hallwayPrice[hallway]}`);
+  if (livingRoom !== 'none') lines.push(`• Living room: $${livingRoomPrice[livingRoom]}`);
+  if (sofa !== 'none') {
+    const label = sofa === '1' ? '1-seat sofa' : sofa === '2' ? '2-seat loveseat' : sofa === '3' ? '3-seat sofa' : sofa === 'sect-s' ? 'Small sectional' : sofa === 'sect-m' ? 'Medium sectional' : 'Large sectional';
+    lines.push(`• ${label}: $${sofaPrice[sofa]}`);
+  }
+  if (chairs > 0) lines.push(`• Chairs: ${chairs} × $15 = $${chairs * 15}`);
+  if (mattresses > 0) lines.push(`• Mattresses: ${mattresses} × $45 = $${mattresses * 45}`);
+  if (minApplies) lines.push(`(Minimum order $90 applies)`);
+  lines.push(`\nEstimated total: $${total}`);
+  const whatsappQuote = encodeURIComponent(lines.join('\n'));
 
   return (
     <div className="bg-neutral-50 rounded-3xl p-6 border border-neutral-100">
@@ -147,94 +191,75 @@ function PriceCalculator() {
       </div>
 
       <div className="space-y-4">
-        {/* Carpet rooms */}
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-neutral-800">Carpet Rooms</p>
-            <p className="text-xs text-neutral-400">$30/room</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setRooms(Math.max(0, rooms - 1))}
-              className="w-8 h-8 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center font-bold text-neutral-700 transition-colors"
-            >−</button>
-            <span className="w-6 text-center font-bold text-neutral-900">{rooms}</span>
-            <button
-              onClick={() => setRooms(Math.min(10, rooms + 1))}
-              className="w-8 h-8 rounded-full bg-[#10a37f] hover:bg-[#0d8f6e] flex items-center justify-center font-bold text-white transition-colors"
-            >+</button>
-          </div>
-        </div>
+        {/* ── CARPETS ── */}
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">Carpets</p>
 
-        {/* Sofa */}
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-neutral-800">Sofa / Upholstery</p>
-            <p className="text-xs text-neutral-400">from $35</p>
-          </div>
-          <select
-            value={sofa}
-            onChange={(e) => setSofa(e.target.value)}
-            className="text-sm border border-neutral-200 rounded-xl px-3 py-1.5 bg-white text-neutral-800 outline-none focus:border-[#10a37f]"
-          >
+        <Row label="Rooms" sub="$30/room">
+          <Counter value={rooms} onChange={setRooms} />
+        </Row>
+
+        <Row label="Stairs" sub="$45–$55">
+          <select value={stairs} onChange={(e) => setStairs(e.target.value)} className={SELECT_CLS}>
+            <option value="none">None</option>
+            <option value="45">Small — $45</option>
+            <option value="55">Large — $55</option>
+          </select>
+        </Row>
+
+        <Row label="Hallway" sub="$10–$25">
+          <select value={hallway} onChange={(e) => setHallway(e.target.value)} className={SELECT_CLS}>
+            <option value="none">None</option>
+            <option value="10">Small — $10</option>
+            <option value="15">Medium — $15</option>
+            <option value="20">Large — $20</option>
+            <option value="25">Extra large — $25</option>
+          </select>
+        </Row>
+
+        <Row label="Living Room" sub="$30–$60">
+          <select value={livingRoom} onChange={(e) => setLivingRoom(e.target.value)} className={SELECT_CLS}>
+            <option value="none">None</option>
+            <option value="30">Small — $30</option>
+            <option value="40">Medium — $40</option>
+            <option value="50">Large — $50</option>
+            <option value="60">Extra large — $60</option>
+          </select>
+        </Row>
+
+        {/* ── UPHOLSTERY ── */}
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">Upholstery</p>
+
+        <Row label="Sofa" sub="from $35">
+          <select value={sofa} onChange={(e) => setSofa(e.target.value)} className={SELECT_CLS}>
             <option value="none">None</option>
             <option value="1">1-seat — $35</option>
             <option value="2">2-seat — $65</option>
             <option value="3">3-seat — $85</option>
-            <option value="sectional">Sectional — $110</option>
+            <option value="sect-s">Sectional S — $110</option>
+            <option value="sect-m">Sectional M — $140</option>
+            <option value="sect-l">Sectional L — $170</option>
           </select>
-        </div>
+        </Row>
 
-        {/* Mattresses */}
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-neutral-800">Mattresses</p>
-            <p className="text-xs text-neutral-400">avg $45/side</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setMattresses(Math.max(0, mattresses - 1))}
-              className="w-8 h-8 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center font-bold text-neutral-700 transition-colors"
-            >−</button>
-            <span className="w-6 text-center font-bold text-neutral-900">{mattresses}</span>
-            <button
-              onClick={() => setMattresses(Math.min(5, mattresses + 1))}
-              className="w-8 h-8 rounded-full bg-[#10a37f] hover:bg-[#0d8f6e] flex items-center justify-center font-bold text-white transition-colors"
-            >+</button>
-          </div>
-        </div>
+        {/* ── CHAIRS & MATTRESSES ── */}
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">Chairs & Mattresses</p>
 
-        {/* Chairs */}
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-neutral-800">Chairs</p>
-            <p className="text-xs text-neutral-400">$10–$20/chair</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setChairs(Math.max(0, chairs - 1))}
-              className="w-8 h-8 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center font-bold text-neutral-700 transition-colors"
-            >−</button>
-            <span className="w-6 text-center font-bold text-neutral-900">{chairs}</span>
-            <button
-              onClick={() => setChairs(Math.min(12, chairs + 1))}
-              className="w-8 h-8 rounded-full bg-[#10a37f] hover:bg-[#0d8f6e] flex items-center justify-center font-bold text-white transition-colors"
-            >+</button>
-          </div>
-        </div>
+        <Row label="Chairs" sub="avg $15/chair">
+          <Counter value={chairs} onChange={setChairs} max={12} />
+        </Row>
+
+        <Row label="Mattresses" sub="avg $45/side">
+          <Counter value={mattresses} onChange={setMattresses} max={5} />
+        </Row>
       </div>
 
       {/* Total */}
       <div className="mt-5 pt-4 border-t border-neutral-200 flex items-center justify-between">
         <div>
           <p className="text-xs text-neutral-400">Estimated Total</p>
-          {total > 0 && total === 90 && (rooms + mattresses + chairs > 0 || sofa !== 'none') && (
-            <p className="text-[10px] text-neutral-400">Minimum order applies</p>
-          )}
+          {minApplies && <p className="text-[10px] text-neutral-400">Minimum order applies</p>}
         </div>
-        <p className="text-3xl font-black text-[#10a37f]">
-          {total === 0 ? '$0' : `$${total}`}
-        </p>
+        <p className="text-3xl font-black text-[#10a37f]">{total === 0 ? '$0' : `$${total}`}</p>
       </div>
 
       {total > 0 && (
@@ -254,15 +279,16 @@ function PriceCalculator() {
   );
 }
 
-// ── Reviews ──────────────────────────────────────────────────────
-const REVIEWS = [
-  { name: 'Maria G.', text: 'Amazing! My carpets look brand new. Very professional and on time.', stars: 5, when: '1 week ago' },
-  { name: 'Rosa M.', text: 'Excelente servicio, muy puntuales y el resultado fue increíble. 100% recomendado.', stars: 5, when: '2 weeks ago' },
-  { name: 'John T.', text: 'Best carpet cleaning in Utah. Fair price, great results. Will call again!', stars: 5, when: '3 weeks ago' },
-  { name: 'Laura P.', text: 'They cleaned our sofa and it looks perfect. Fast drying, no smell. Loved it!', stars: 5, when: '1 month ago' },
-];
+// ── Reviews Carousel ─────────────────────────────────────────────
+import { REVIEWS as SITE_REVIEWS } from '@/lib/constants';
 
 function Reviews() {
+  const [idx, setIdx] = useState(0);
+  const r = SITE_REVIEWS[idx];
+
+  const prev = () => setIdx((i) => (i - 1 + SITE_REVIEWS.length) % SITE_REVIEWS.length);
+  const next = () => setIdx((i) => (i + 1) % SITE_REVIEWS.length);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -273,28 +299,52 @@ function Reviews() {
           <span className="text-xs text-neutral-400">(500+)</span>
         </div>
       </div>
-      <div className="space-y-3">
-        {REVIEWS.map((r, i) => (
-          <div key={i} className="bg-neutral-50 rounded-2xl p-4 border border-neutral-100">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#10a37f]/15 flex items-center justify-center text-sm font-bold text-[#10a37f]">
-                  {r.name[0]}
-                </div>
-                <span className="text-sm font-semibold text-neutral-800">{r.name}</span>
-              </div>
-              <span className="text-[11px] text-neutral-400">{r.when}</span>
+
+      <div className="bg-neutral-50 rounded-2xl p-5 border border-neutral-100">
+        {/* Stars */}
+        <div className="flex gap-0.5 mb-3">
+          {Array(r.rating).fill(0).map((_, j) => (
+            <svg key={j} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          ))}
+        </div>
+
+        {/* Text */}
+        <p className="text-sm text-neutral-700 leading-relaxed mb-4">&ldquo;{r.text}&rdquo;</p>
+
+        {/* Author + nav */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-full bg-[#10a37f]/15 flex items-center justify-center text-sm font-bold text-[#10a37f]">
+              {r.name[0]}
             </div>
-            <div className="flex gap-0.5 mb-2">
-              {Array(r.stars).fill(0).map((_, j) => (
-                <svg key={j} className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
+            <div>
+              <p className="text-sm font-semibold text-neutral-800">{r.name}</p>
+              <p className="text-xs text-neutral-400">{r.location}</p>
             </div>
-            <p className="text-sm text-neutral-600 leading-relaxed">{r.text}</p>
           </div>
-        ))}
+          <div className="flex items-center gap-2">
+            <button onClick={prev} className="w-8 h-8 rounded-full bg-white border border-neutral-200 flex items-center justify-center hover:bg-neutral-100 transition-colors">
+              <svg className="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <span className="text-xs text-neutral-400">{idx + 1}/{SITE_REVIEWS.length}</span>
+            <button onClick={next} className="w-8 h-8 rounded-full bg-white border border-neutral-200 flex items-center justify-center hover:bg-neutral-100 transition-colors">
+              <svg className="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-1.5 mt-4">
+          {SITE_REVIEWS.map((_, i) => (
+            <button key={i} onClick={() => setIdx(i)} className={`w-1.5 h-1.5 rounded-full transition-colors ${i === idx ? 'bg-[#10a37f]' : 'bg-neutral-300'}`} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -383,16 +433,10 @@ export default function CardContent() {
             <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-4 text-center">
               Before & After
             </h2>
-            <div className="space-y-4">
-              <BeforeAfterSlider
+            <BeforeAfterSlider
                 before="/images/before-after/before-1.jpg"
                 after="/images/before-after/after-1.jpg"
               />
-              <BeforeAfterSlider
-                before="/images/before-after/before-2.jpg"
-                after="/images/before-after/after-2.jpg"
-              />
-            </div>
             <p className="text-center text-xs text-neutral-400 mt-3">← Drag to compare →</p>
           </section>
 
