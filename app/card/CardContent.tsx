@@ -428,18 +428,6 @@ export default function CardContent() {
             <AppointmentSection />
           </Suspense>
 
-          {/* Before / After */}
-          <section className="anim-s1">
-            <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-4 text-center">
-              Before & After
-            </h2>
-            <BeforeAfterSlider
-                before="/images/before-after/before-1.jpg"
-                after="/images/before-after/after-1.jpg"
-              />
-            <p className="text-center text-xs text-neutral-400 mt-3">← Drag to compare →</p>
-          </section>
-
           {/* Services Grid */}
           <section className="anim-s2">
             <div className="grid grid-cols-2 gap-4">
@@ -478,13 +466,25 @@ export default function CardContent() {
             <PriceCalculator />
           </section>
 
-          {/* Reviews */}
+          {/* Before / After */}
           <section className="anim-s4">
+            <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-4 text-center">
+              Before & After
+            </h2>
+            <BeforeAfterSlider
+              before="/images/before-after/before-1.jpg"
+              after="/images/before-after/after-1.jpg"
+            />
+            <p className="text-center text-xs text-neutral-400 mt-3">← Drag to compare →</p>
+          </section>
+
+          {/* Reviews */}
+          <section className="anim-s5">
             <Reviews />
           </section>
 
           {/* Contact */}
-          <section className="anim-s5">
+          <section className="anim-s6">
             <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-4 text-center">
               Get in Touch
             </h2>
