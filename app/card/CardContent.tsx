@@ -141,7 +141,51 @@ function Row({ label, sub, children }: { label: string; sub: string; children: R
   );
 }
 
+const T = {
+  en: {
+    title: 'Price Calculator',
+    carpets: 'Carpets', upholstery: 'Upholstery', chairsMatt: 'Chairs & Mattresses',
+    rooms: 'Rooms', stairs: 'Stairs', hallway: 'Hallway', livingRoom: 'Living Room',
+    sofa: 'Sofa', chairs: 'Chairs', mattresses: 'Mattresses',
+    none: 'None', small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Extra large',
+    estimated: 'Estimated Total', minOrder: 'Minimum order applies',
+    reset: 'Reset', send: 'Send Quote via WhatsApp',
+    msgIntro: "Hi! I'd like a quote for:",
+    msgRooms: (n: number) => `• Carpet rooms: ${n} × $30 = $${n * 30}`,
+    msgStairs: (p: number) => `• Stairs: $${p}`,
+    msgHallway: (p: number) => `• Hallway: $${p}`,
+    msgLiving: (p: number) => `• Living room: $${p}`,
+    msgSofa: (l: string, p: number) => `• ${l}: $${p}`,
+    msgChairs: (n: number) => `• Chairs: ${n} × $15 = $${n * 15}`,
+    msgMatt: (n: number) => `• Mattresses: ${n} × $45 = $${n * 45}`,
+    msgMin: '(Minimum order $90 applies)',
+    msgTotal: (t: number) => `\nEstimated total: $${t}`,
+    sofa1: '1-seat', sofa2: '2-seat', sofa3: '3-seat', sectS: 'Sectional S', sectM: 'Sectional M', sectL: 'Sectional L',
+  },
+  es: {
+    title: 'Calculadora de Precios',
+    carpets: 'Alfombras', upholstery: 'Tapicería', chairsMatt: 'Sillas y Colchones',
+    rooms: 'Cuartos', stairs: 'Escaleras', hallway: 'Pasillo', livingRoom: 'Sala',
+    sofa: 'Sofá', chairs: 'Sillas', mattresses: 'Colchones',
+    none: 'Ninguno', small: 'Pequeño', medium: 'Mediano', large: 'Grande', xlarge: 'Extra grande',
+    estimated: 'Total Estimado', minOrder: 'Aplica orden mínima',
+    reset: 'Reiniciar', send: 'Enviar Cotización por WhatsApp',
+    msgIntro: '¡Hola! Me gustaría una cotización para:',
+    msgRooms: (n: number) => `• Cuartos de alfombra: ${n} × $30 = $${n * 30}`,
+    msgStairs: (p: number) => `• Escaleras: $${p}`,
+    msgHallway: (p: number) => `• Pasillo: $${p}`,
+    msgLiving: (p: number) => `• Sala: $${p}`,
+    msgSofa: (l: string, p: number) => `• ${l}: $${p}`,
+    msgChairs: (n: number) => `• Sillas: ${n} × $15 = $${n * 15}`,
+    msgMatt: (n: number) => `• Colchones: ${n} × $45 = $${n * 45}`,
+    msgMin: '(Aplica orden mínima de $90)',
+    msgTotal: (t: number) => `\nTotal estimado: $${t}`,
+    sofa1: '1 puesto', sofa2: '2 puestos', sofa3: '3 puestos', sectS: 'Seccional S', sectM: 'Seccional M', sectL: 'Seccional L',
+  },
+};
+
 function PriceCalculator() {
+  const [lang, setLang] = useState<'en' | 'es'>('en');
   const [rooms, setRooms] = useState(0);
   const [stairs, setStairs] = useState('none');
   const [hallway, setHallway] = useState('none');
@@ -150,105 +194,103 @@ function PriceCalculator() {
   const [chairs, setChairs] = useState(0);
   const [mattresses, setMattresses] = useState(0);
 
+  const t = T[lang];
+
   const sofaPrice: Record<string, number> = { none: 0, '1': 35, '2': 65, '3': 85, 'sect-s': 110, 'sect-m': 140, 'sect-l': 170 };
   const stairsPrice: Record<string, number> = { none: 0, '45': 45, '55': 55 };
   const hallwayPrice: Record<string, number> = { none: 0, '10': 10, '15': 15, '20': 20, '25': 25 };
   const livingRoomPrice: Record<string, number> = { none: 0, '30': 30, '40': 40, '50': 50, '60': 60 };
 
-  const subtotal =
-    rooms * 30 +
-    stairsPrice[stairs] +
-    hallwayPrice[hallway] +
-    livingRoomPrice[livingRoom] +
-    sofaPrice[sofa] +
-    chairs * 15 +
-    mattresses * 45;
-
+  const subtotal = rooms * 30 + stairsPrice[stairs] + hallwayPrice[hallway] + livingRoomPrice[livingRoom] + sofaPrice[sofa] + chairs * 15 + mattresses * 45;
   const total = subtotal > 0 && subtotal < 90 ? 90 : subtotal;
   const minApplies = subtotal > 0 && subtotal < 90;
 
-  // Only include selected items in WhatsApp message
-  const lines: string[] = ['Hi! I\'d like a quote for:'];
-  if (rooms > 0) lines.push(`• Carpet rooms: ${rooms} × $30 = $${rooms * 30}`);
-  if (stairs !== 'none') lines.push(`• Stairs: $${stairsPrice[stairs]}`);
-  if (hallway !== 'none') lines.push(`• Hallway: $${hallwayPrice[hallway]}`);
-  if (livingRoom !== 'none') lines.push(`• Living room: $${livingRoomPrice[livingRoom]}`);
-  if (sofa !== 'none') {
-    const label = sofa === '1' ? '1-seat sofa' : sofa === '2' ? '2-seat loveseat' : sofa === '3' ? '3-seat sofa' : sofa === 'sect-s' ? 'Small sectional' : sofa === 'sect-m' ? 'Medium sectional' : 'Large sectional';
-    lines.push(`• ${label}: $${sofaPrice[sofa]}`);
-  }
-  if (chairs > 0) lines.push(`• Chairs: ${chairs} × $15 = $${chairs * 15}`);
-  if (mattresses > 0) lines.push(`• Mattresses: ${mattresses} × $45 = $${mattresses * 45}`);
-  if (minApplies) lines.push(`(Minimum order $90 applies)`);
-  lines.push(`\nEstimated total: $${total}`);
+  const reset = () => { setRooms(0); setStairs('none'); setHallway('none'); setLivingRoom('none'); setSofa('none'); setChairs(0); setMattresses(0); };
+
+  const sofaLabel: Record<string, string> = { '1': t.sofa1, '2': t.sofa2, '3': t.sofa3, 'sect-s': t.sectS, 'sect-m': t.sectM, 'sect-l': t.sectL };
+  const lines: string[] = [t.msgIntro];
+  if (rooms > 0) lines.push(t.msgRooms(rooms));
+  if (stairs !== 'none') lines.push(t.msgStairs(stairsPrice[stairs]));
+  if (hallway !== 'none') lines.push(t.msgHallway(hallwayPrice[hallway]));
+  if (livingRoom !== 'none') lines.push(t.msgLiving(livingRoomPrice[livingRoom]));
+  if (sofa !== 'none') lines.push(t.msgSofa(sofaLabel[sofa], sofaPrice[sofa]));
+  if (chairs > 0) lines.push(t.msgChairs(chairs));
+  if (mattresses > 0) lines.push(t.msgMatt(mattresses));
+  if (minApplies) lines.push(t.msgMin);
+  lines.push(t.msgTotal(total));
   const whatsappQuote = encodeURIComponent(lines.join('\n'));
 
   return (
     <div className="bg-neutral-50 rounded-3xl p-6 border border-neutral-100">
-      <div className="flex items-center gap-2 mb-5">
-        <span className="text-2xl">🧮</span>
-        <h2 className="text-lg font-bold text-neutral-900">Price Calculator</h2>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">🧮</span>
+          <h2 className="text-lg font-bold text-neutral-900">{t.title}</h2>
+        </div>
+        {/* Language switch */}
+        <button
+          onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
+          className="flex items-center gap-1 bg-white border border-neutral-200 rounded-full px-3 py-1.5 text-xs font-bold text-neutral-700 hover:border-[#10a37f] hover:text-[#10a37f] transition-colors"
+        >
+          <span className={lang === 'en' ? 'text-[#10a37f]' : 'text-neutral-400'}>EN</span>
+          <span className="text-neutral-300">|</span>
+          <span className={lang === 'es' ? 'text-[#10a37f]' : 'text-neutral-400'}>ES</span>
+        </button>
       </div>
 
       <div className="space-y-4">
         {/* ── CARPETS ── */}
-        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">Carpets</p>
-
-        <Row label="Rooms" sub="$30/room">
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">{t.carpets}</p>
+        <Row label={t.rooms} sub="$30/room">
           <Counter value={rooms} onChange={setRooms} />
         </Row>
-
-        <Row label="Stairs" sub="$45–$55">
+        <Row label={t.stairs} sub="$45–$55">
           <select value={stairs} onChange={(e) => setStairs(e.target.value)} className={SELECT_CLS}>
-            <option value="none">None</option>
-            <option value="45">Small — $45</option>
-            <option value="55">Large — $55</option>
+            <option value="none">{t.none}</option>
+            <option value="45">{t.small} — $45</option>
+            <option value="55">{t.large} — $55</option>
           </select>
         </Row>
-
-        <Row label="Hallway" sub="$10–$25">
+        <Row label={t.hallway} sub="$10–$25">
           <select value={hallway} onChange={(e) => setHallway(e.target.value)} className={SELECT_CLS}>
-            <option value="none">None</option>
-            <option value="10">Small — $10</option>
-            <option value="15">Medium — $15</option>
-            <option value="20">Large — $20</option>
-            <option value="25">Extra large — $25</option>
+            <option value="none">{t.none}</option>
+            <option value="10">{t.small} — $10</option>
+            <option value="15">{t.medium} — $15</option>
+            <option value="20">{t.large} — $20</option>
+            <option value="25">{t.xlarge} — $25</option>
           </select>
         </Row>
-
-        <Row label="Living Room" sub="$30–$60">
+        <Row label={t.livingRoom} sub="$30–$60">
           <select value={livingRoom} onChange={(e) => setLivingRoom(e.target.value)} className={SELECT_CLS}>
-            <option value="none">None</option>
-            <option value="30">Small — $30</option>
-            <option value="40">Medium — $40</option>
-            <option value="50">Large — $50</option>
-            <option value="60">Extra large — $60</option>
+            <option value="none">{t.none}</option>
+            <option value="30">{t.small} — $30</option>
+            <option value="40">{t.medium} — $40</option>
+            <option value="50">{t.large} — $50</option>
+            <option value="60">{t.xlarge} — $60</option>
           </select>
         </Row>
 
         {/* ── UPHOLSTERY ── */}
-        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">Upholstery</p>
-
-        <Row label="Sofa" sub="from $35">
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">{t.upholstery}</p>
+        <Row label={t.sofa} sub="from $35">
           <select value={sofa} onChange={(e) => setSofa(e.target.value)} className={SELECT_CLS}>
-            <option value="none">None</option>
-            <option value="1">1-seat — $35</option>
-            <option value="2">2-seat — $65</option>
-            <option value="3">3-seat — $85</option>
-            <option value="sect-s">Sectional S — $110</option>
-            <option value="sect-m">Sectional M — $140</option>
-            <option value="sect-l">Sectional L — $170</option>
+            <option value="none">{t.none}</option>
+            <option value="1">{t.sofa1} — $35</option>
+            <option value="2">{t.sofa2} — $65</option>
+            <option value="3">{t.sofa3} — $85</option>
+            <option value="sect-s">{t.sectS} — $110</option>
+            <option value="sect-m">{t.sectM} — $140</option>
+            <option value="sect-l">{t.sectL} — $170</option>
           </select>
         </Row>
 
         {/* ── CHAIRS & MATTRESSES ── */}
-        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">Chairs & Mattresses</p>
-
-        <Row label="Chairs" sub="avg $15/chair">
+        <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest pt-2">{t.chairsMatt}</p>
+        <Row label={t.chairs} sub="avg $15/chair">
           <Counter value={chairs} onChange={setChairs} max={12} />
         </Row>
-
-        <Row label="Mattresses" sub="avg $45/side">
+        <Row label={t.mattresses} sub="avg $45/side">
           <Counter value={mattresses} onChange={setMattresses} max={5} />
         </Row>
       </div>
@@ -256,23 +298,35 @@ function PriceCalculator() {
       {/* Total */}
       <div className="mt-5 pt-4 border-t border-neutral-200 flex items-center justify-between">
         <div>
-          <p className="text-xs text-neutral-400">Estimated Total</p>
-          {minApplies && <p className="text-[10px] text-neutral-400">Minimum order applies</p>}
+          <p className="text-xs text-neutral-400">{t.estimated}</p>
+          {minApplies && <p className="text-[10px] text-neutral-400">{t.minOrder}</p>}
         </div>
         <p className="text-3xl font-black text-[#10a37f]">{total === 0 ? '$0' : `$${total}`}</p>
       </div>
 
+      {/* Reset button */}
+      <button
+        onClick={reset}
+        className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl border border-neutral-200 bg-white hover:bg-neutral-100 text-neutral-500 font-medium text-sm transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        {t.reset}
+      </button>
+
+      {/* WhatsApp */}
       {total > 0 && (
         <a
           href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${whatsappQuote}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-[#25D366] hover:bg-[#20b858] text-white font-semibold text-sm transition-colors"
+          className="mt-3 w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-[#25D366] hover:bg-[#20b858] text-white font-semibold text-sm transition-colors"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
           </svg>
-          Send Quote via WhatsApp
+          {t.send}
         </a>
       )}
     </div>
