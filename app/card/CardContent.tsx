@@ -143,7 +143,7 @@ function Row({ label, sub, children }: { label: string; sub: string; children: R
 
 const T = {
   en: {
-    title: 'Price Calculator',
+    title: 'Instant Price Estimate',
     carpets: 'Carpets', upholstery: 'Upholstery', chairsMatt: 'Chairs & Mattresses',
     rooms: 'Rooms', stairs: 'Stairs', hallway: 'Hallway', livingRoom: 'Living Room',
     sofa: 'Sofa', chairs: 'Chairs', mattresses: 'Mattresses',
@@ -163,7 +163,7 @@ const T = {
     sofa1: '1-seat', sofa2: '2-seat', sofa3: '3-seat', sectS: 'Sectional S', sectM: 'Sectional M', sectL: 'Sectional L',
   },
   es: {
-    title: 'Calculadora de Precios',
+    title: 'Calcula tu Precio al Instante',
     carpets: 'Alfombras', upholstery: 'Tapicería', chairsMatt: 'Sillas y Colchones',
     rooms: 'Cuartos', stairs: 'Escaleras', hallway: 'Pasillo', livingRoom: 'Sala',
     sofa: 'Sofá', chairs: 'Sillas', mattresses: 'Colchones',
@@ -223,15 +223,11 @@ function PriceCalculator() {
   return (
     <div className="bg-neutral-50 rounded-3xl p-6 border border-neutral-100">
       {/* Header */}
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🧮</span>
-          <h2 className="text-lg font-bold text-neutral-900">{t.title}</h2>
-        </div>
-        {/* Language switch */}
+      <div className="flex flex-col items-center gap-2 mb-6">
+        <h2 className="text-xl font-bold text-neutral-900 tracking-tight text-center">{t.title}</h2>
         <button
           onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
-          className="flex items-center gap-1 bg-white border border-neutral-200 rounded-full px-3 py-1.5 text-xs font-bold text-neutral-700 hover:border-[#10a37f] hover:text-[#10a37f] transition-colors"
+          className="flex items-center gap-1 bg-white border border-neutral-200 rounded-full px-3 py-1 text-xs font-bold text-neutral-700 hover:border-[#10a37f] hover:text-[#10a37f] transition-colors"
         >
           <span className={lang === 'en' ? 'text-[#10a37f]' : 'text-neutral-400'}>EN</span>
           <span className="text-neutral-300">|</span>
