@@ -149,7 +149,7 @@ const T = {
     sofa: 'Sofa', chairs: 'Chairs', mattresses: 'Mattresses',
     none: 'None', small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Extra large',
     estimated: 'Estimated Total', minOrder: 'Minimum order applies',
-    reset: 'Reset', send: 'Send Quote via WhatsApp',
+    reset: 'Clear All', send: 'Send Quote via WhatsApp',
     msgIntro: "Hi! I'd like a quote for:",
     msgRooms: (n: number) => `• Carpet rooms: ${n} × $30 = $${n * 30}`,
     msgStairs: (p: number) => `• Stairs: $${p}`,
@@ -169,7 +169,7 @@ const T = {
     sofa: 'Sofá', chairs: 'Sillas', mattresses: 'Colchones',
     none: 'Ninguno', small: 'Pequeño', medium: 'Mediano', large: 'Grande', xlarge: 'Extra grande',
     estimated: 'Total Estimado', minOrder: 'Aplica orden mínima',
-    reset: 'Reiniciar', send: 'Enviar Cotización por WhatsApp',
+    reset: 'Limpiar todo', send: 'Enviar Cotización por WhatsApp',
     msgIntro: '¡Hola! Me gustaría una cotización para:',
     msgRooms: (n: number) => `• Cuartos de alfombra: ${n} × $30 = $${n * 30}`,
     msgStairs: (p: number) => `• Escaleras: $${p}`,
@@ -307,7 +307,7 @@ function PriceCalculator() {
       {/* Reset button */}
       <button
         onClick={reset}
-        className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl border border-neutral-200 bg-white hover:bg-neutral-100 text-neutral-500 font-medium text-sm transition-colors"
+        className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
