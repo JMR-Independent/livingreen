@@ -487,7 +487,7 @@ export default function CardContent() {
                   onClick={() => setSelectedService(service)}
                   className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-neutral-100 bg-white hover:border-primary hover:shadow-2xl transition-all duration-300 text-left w-full p-0 m-0"
                 >
-                  <div className="relative w-full h-[130px] flex-shrink-0 rounded-t-[22px] overflow-hidden">
+                  <div className="relative w-full h-[110px] flex-shrink-0 rounded-t-[22px] overflow-hidden">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -495,12 +495,9 @@ export default function CardContent() {
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className="flex flex-col flex-1 items-center text-center p-4">
-                    <h3 className="font-bold text-neutral-900 mb-2 text-base">{service.title}</h3>
-                    <p className="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
-                      {service.shortDescription}
-                    </p>
-                    <div className="mt-auto w-full">
+                  <div className="flex flex-col items-center text-center px-4 pt-3 pb-4">
+                    <h3 className="font-bold text-neutral-900 text-sm mb-2">{service.title}</h3>
+                    <div className="w-full">
                       <div className="bg-primary/10 text-primary font-bold text-sm py-2 px-4 rounded-xl">
                         {service.price}
                       </div>
