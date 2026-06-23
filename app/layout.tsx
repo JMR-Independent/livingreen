@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import ConditionalLayout from '@/components/ConditionalLayout';
 import PageTransition from '@/components/PageTransition';
@@ -62,6 +63,9 @@ export default function RootLayout({
           {children}
         </ConditionalLayout>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
