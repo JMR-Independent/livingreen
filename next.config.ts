@@ -16,6 +16,22 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      // Short, memorable review link. Points to the Google review page so a QR
+      // code or "livingreen.life/review" never breaks even if the Google URL changes.
+      {
+        source: '/review',
+        destination: 'https://g.page/r/CfJBJ2SxcNbXEBM/review',
+        permanent: true,
+      },
+      {
+        source: '/reviews-google',
+        destination: 'https://g.page/r/CfJBJ2SxcNbXEBM/review',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
