@@ -1,19 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+const PLACE_ID = 'ChIJhT4mvLUncCsR8kEnZLFw1tc';
+// Canonical "write a review" web link (works in any browser; one tap to the form).
+const WEB_REVIEW = `https://search.google.com/local/writereview?placeid=${PLACE_ID}`;
+// Universal link to the business in Google Maps — opens the Google Maps app when
+// installed, where the customer is already signed in (no Safari login friction).
+const APP_REVIEW = `https://www.google.com/maps/search/?api=1&query=LivinGreen&query_place_id=${PLACE_ID}`;
 
-const REVIEW_URL = 'https://g.page/r/CfJBJ2SxcNbXEBM/review';
-
-// Full-screen branded splash that covers the site chrome, then bounces the
-// visitor to the Google review page. Renders instantly; redirects on mount.
+// Branded review chooser. We do NOT auto-redirect, so customers who are not signed
+// into Google in Safari can instead open the Google Maps app where they are signed in.
 export default function ReviewRedirect() {
-  useEffect(() => {
-    const t = setTimeout(() => {
-      window.location.href = REVIEW_URL;
-    }, 600);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <div
       style={{
@@ -27,34 +23,57 @@ export default function ReviewRedirect() {
         color: '#fff',
         textAlign: 'center',
         padding: 24,
+        overflowY: 'auto',
       }}
     >
-      <div style={{ maxWidth: 420 }}>
+      <div style={{ maxWidth: 440, width: '100%' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="LivinGreen" style={{ height: 60, marginBottom: 28 }} />
-        <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.2, margin: '0 0 12px' }}>
+        <img src="/logo.png" alt="LivinGreen" style={{ height: 56, marginBottom: 24 }} />
+        <h1 style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.2, margin: '0 0 10px' }}>
           Loved your clean couch?
         </h1>
-        <p style={{ fontSize: 34, color: '#7fb539', letterSpacing: 4, margin: '0 0 16px' }}>★★★★★</p>
-        <p style={{ fontSize: 17, opacity: 0.85, margin: '0 0 32px' }}>
-          Leave us a quick Google review. It really helps our small business. Thank you!
+        <p style={{ fontSize: 32, color: '#7fb539', letterSpacing: 4, margin: '0 0 14px' }}>★★★★★</p>
+        <p style={{ fontSize: 16, opacity: 0.85, margin: '0 0 30px' }}>
+          A quick Google review really helps our small business. Thank you!
         </p>
+
         <a
-          href={REVIEW_URL}
+          href={WEB_REVIEW}
           style={{
-            display: 'inline-block',
+            display: 'block',
             background: '#7fb539',
             color: '#fff',
             textDecoration: 'none',
             fontWeight: 600,
             fontSize: 18,
-            padding: '16px 40px',
+            padding: '16px 28px',
+            borderRadius: 999,
+            marginBottom: 14,
+          }}
+        >
+          Leave a Review ⭐
+        </a>
+
+        <a
+          href={APP_REVIEW}
+          style={{
+            display: 'block',
+            background: 'rgba(255,255,255,0.10)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            color: '#fff',
+            textDecoration: 'none',
+            fontWeight: 500,
+            fontSize: 16,
+            padding: '14px 28px',
             borderRadius: 999,
           }}
         >
-          Leave a Review →
+          Open in the Google Maps app
         </a>
-        <p style={{ fontSize: 13, opacity: 0.5, marginTop: 24 }}>Redirecting you to Google…</p>
+
+        <p style={{ fontSize: 13, opacity: 0.55, marginTop: 22 }}>
+          Not signed in? Tap “Open in the Google Maps app” — you’re already signed in there.
+        </p>
       </div>
     </div>
   );
