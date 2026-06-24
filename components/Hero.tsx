@@ -7,32 +7,32 @@ import { COMPANY_INFO } from '@/lib/constants';
 
 const heroSlides = [
   {
+    image: '/images/hero-3.jpg',
+    title: 'Expert',
+    titleHighlight: 'Upholstery & Couch',
+    subtitle: 'Cleaning',
+    description: 'Sofas, couches, sectionals & loveseats brought back to life — fast-drying & eco-friendly',
+  },
+  {
     image: '/images/hero-1.jpg',
-    title: 'Professional',
-    titleHighlight: 'Cleaning',
-    subtitle: 'Services',
-    description: 'Experience the pleasure of walking on clean carpets',
+    title: 'Lasting',
+    titleHighlight: 'Fabric & Stain',
+    subtitle: 'Protection',
+    description: 'Scotchgard-style protection that keeps your furniture looking new',
   },
   {
     image: '/images/hero-2.jpg',
-    title: 'Expert',
-    titleHighlight: 'Carpet',
+    title: 'Deep',
+    titleHighlight: 'Carpet & Rug',
     subtitle: 'Cleaning',
-    description: 'Deep cleaning that restores your rugs to their original beauty',
-  },
-  {
-    image: '/images/hero-3.jpg',
-    title: 'Trusted',
-    titleHighlight: 'Upholstery',
-    subtitle: 'Care',
-    description: 'Professional furniture cleaning for a healthier home',
+    description: 'Steam cleaning that lifts dirt, allergens, pet stains and odors',
   },
   {
     image: '/images/hero-4.jpg',
-    title: 'Certified',
-    titleHighlight: 'Cleaning',
-    subtitle: 'Experts',
-    description: 'Over 7 years serving Utah families and businesses',
+    title: 'Trusted Across',
+    titleHighlight: 'Utah County',
+    subtitle: '& Salt Lake',
+    description: 'Serving every city from Santaquin to Salt Lake City · 5-star rated',
   },
 ];
 

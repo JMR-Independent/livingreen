@@ -3,15 +3,18 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import ConditionalLayout from '@/components/ConditionalLayout';
 import PageTransition from '@/components/PageTransition';
+import JsonLd from '@/components/JsonLd';
+import { localBusinessSchema } from '@/lib/seo';
 import { COMPANY_INFO } from '@/lib/constants';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(COMPANY_INFO.url),
   title: {
     default: `${COMPANY_INFO.name} | ${COMPANY_INFO.tagline}`,
     template: `%s | ${COMPANY_INFO.name}`,
   },
-  description: 'Professional cleaning services for carpets, upholstery, mattresses, and car interiors in Utah. Expert cleaning from Santaquin to Salt Lake City. Fast drying, eco-friendly, 99.9% allergen elimination.',
-  keywords: ['carpet cleaning', 'upholstery cleaning', 'mattress cleaning', 'car interior cleaning', 'Utah', 'Santaquin', 'Salt Lake City', 'Provo', 'Orem', 'LivinGreen'],
+  description: 'Utah County upholstery, couch & sofa cleaning specialists. Sectionals, loveseats, recliners + fabric & stain protection. Also carpet, mattress & car interior cleaning. Eco-friendly, fast-drying, 5-star rated. Serving Santaquin to Salt Lake City. Free estimates.',
+  keywords: ['upholstery cleaning', 'couch cleaning', 'sofa cleaning', 'sectional cleaning', 'fabric protection', 'scotchgard', 'furniture cleaning', 'carpet cleaning', 'mattress cleaning', 'car interior cleaning', 'Utah County', 'Provo', 'Orem', 'Lehi', 'Salt Lake City', 'LivinGreen'],
   authors: [{ name: COMPANY_INFO.name }],
   creator: COMPANY_INFO.name,
   icons: {
@@ -58,6 +61,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif' }}>
+        <JsonLd data={localBusinessSchema()} />
         <PageTransition />
         <ConditionalLayout>
           {children}

@@ -73,6 +73,11 @@ export default function Footer() {
             <h3 className="font-semibold text-neutral-900 mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li>
+                <Link href="/locations" className="text-sm text-neutral-600 hover:text-primary transition-colors duration-300">
+                  Service Areas
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-sm text-neutral-600 hover:text-primary transition-colors duration-300">
                   About Us
                 </Link>

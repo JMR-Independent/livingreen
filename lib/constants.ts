@@ -1,19 +1,22 @@
 export const COMPANY_INFO = {
   name: 'LivinGreen',
-  tagline: 'Professional Cleaning Services',
+  tagline: 'Upholstery, Couch & Fabric Protection Specialists',
+  url: 'https://livingreen.life',
   phone: '+13854825694',
   phoneDisplay: '+1 (385) 482-5694',
   whatsapp: '13854825694',
   email: 'info@livingreen.com',
+  rating: { value: 5.0, count: 7 },
   address: {
     street: '123 Main Street',
     city: 'Santaquin',
     state: 'Utah',
+    stateCode: 'UT',
     zip: '84655',
     full: '123 Main Street, Santaquin, UT 84655'
   },
-  serviceArea: 'Serving from Santaquin to Salt Lake City',
-  cities: ['Santaquin', 'Spanish Fork', 'Provo', 'Orem', 'Salt Lake City'],
+  serviceArea: 'Serving Utah County & Salt Lake County — from Santaquin to Salt Lake City',
+  cities: ['Santaquin', 'Spanish Fork', 'Provo', 'Orem', 'Lehi', 'Salt Lake City'],
   hours: {
     weekdays: 'Mon - Fri: 9:00 AM - 6:00 PM',
     saturday: 'Sat: 9:00 AM - 6:00 PM',
@@ -26,30 +29,73 @@ export const COMPANY_INFO = {
   }
 };
 
-export const SERVICES = [
-  {
-    id: 'carpet-cleaning',
-    title: 'Carpet Cleaning',
-    slug: 'carpet-cleaning',
-    shortDescription: 'Professional cleaning for all types of carpets',
-    description: 'Deep cleaning for rooms, hallways, stairs, and living areas. Minimum order $90. Serving from Santaquin to Salt Lake City.',
-    image: '/images/services/carpet-cleaning.jpg',
-    features: [
-      'Rooms: $30 each',
-      'Hallways: $10 to $30',
-      'Living rooms: $30 to $60',
-      'Stairs: $45 to $55',
-      'Odor removal: $20 per area',
-      'Minimum order: $90'
-    ],
-    price: 'Starting at $30/room',
-  },
+// All service-area cities (Utah County + Salt Lake County) — powers the /locations SEO pages.
+export interface City {
+  name: string;
+  slug: string;
+  county: 'Utah County' | 'Salt Lake County';
+}
+
+export const CITIES: City[] = [
+  // Utah County — from Santaquin north
+  { name: 'Santaquin', slug: 'santaquin', county: 'Utah County' },
+  { name: 'Genola', slug: 'genola', county: 'Utah County' },
+  { name: 'Payson', slug: 'payson', county: 'Utah County' },
+  { name: 'Salem', slug: 'salem', county: 'Utah County' },
+  { name: 'Spanish Fork', slug: 'spanish-fork', county: 'Utah County' },
+  { name: 'Springville', slug: 'springville', county: 'Utah County' },
+  { name: 'Mapleton', slug: 'mapleton', county: 'Utah County' },
+  { name: 'Provo', slug: 'provo', county: 'Utah County' },
+  { name: 'Orem', slug: 'orem', county: 'Utah County' },
+  { name: 'Vineyard', slug: 'vineyard', county: 'Utah County' },
+  { name: 'Lindon', slug: 'lindon', county: 'Utah County' },
+  { name: 'Pleasant Grove', slug: 'pleasant-grove', county: 'Utah County' },
+  { name: 'American Fork', slug: 'american-fork', county: 'Utah County' },
+  { name: 'Cedar Hills', slug: 'cedar-hills', county: 'Utah County' },
+  { name: 'Highland', slug: 'highland', county: 'Utah County' },
+  { name: 'Alpine', slug: 'alpine', county: 'Utah County' },
+  { name: 'Lehi', slug: 'lehi', county: 'Utah County' },
+  { name: 'Saratoga Springs', slug: 'saratoga-springs', county: 'Utah County' },
+  { name: 'Eagle Mountain', slug: 'eagle-mountain', county: 'Utah County' },
+  // Salt Lake County — continuing north to Salt Lake City
+  { name: 'Bluffdale', slug: 'bluffdale', county: 'Salt Lake County' },
+  { name: 'Riverton', slug: 'riverton', county: 'Salt Lake County' },
+  { name: 'Herriman', slug: 'herriman', county: 'Salt Lake County' },
+  { name: 'South Jordan', slug: 'south-jordan', county: 'Salt Lake County' },
+  { name: 'West Jordan', slug: 'west-jordan', county: 'Salt Lake County' },
+  { name: 'Draper', slug: 'draper', county: 'Salt Lake County' },
+  { name: 'Sandy', slug: 'sandy', county: 'Salt Lake County' },
+  { name: 'Midvale', slug: 'midvale', county: 'Salt Lake County' },
+  { name: 'Murray', slug: 'murray', county: 'Salt Lake County' },
+  { name: 'Taylorsville', slug: 'taylorsville', county: 'Salt Lake County' },
+  { name: 'West Valley City', slug: 'west-valley-city', county: 'Salt Lake County' },
+  { name: 'Cottonwood Heights', slug: 'cottonwood-heights', county: 'Salt Lake County' },
+  { name: 'Holladay', slug: 'holladay', county: 'Salt Lake County' },
+  { name: 'Salt Lake City', slug: 'salt-lake-city', county: 'Salt Lake County' },
+];
+
+export interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  focus?: boolean;
+  shortDescription: string;
+  description: string;
+  keywords: string[];
+  image: string;
+  features: string[];
+  price: string;
+}
+
+export const SERVICES: Service[] = [
   {
     id: 'upholstery-cleaning',
-    title: 'Upholstery Cleaning',
+    title: 'Upholstery & Couch Cleaning',
     slug: 'upholstery-cleaning',
-    shortDescription: 'Expert cleaning for sofas, chairs, and furniture',
-    description: 'Professional upholstery cleaning with vacuum, stain removal, deep extraction, and steam cleaning. Fast drying with fans included.',
+    focus: true,
+    shortDescription: 'Deep cleaning for sofas, couches, sectionals & furniture',
+    description: 'Professional upholstery and couch cleaning with deep vacuum, stain removal, hot-water extraction, and steam cleaning. We clean sofas, loveseats, sectionals, armchairs and recliners — fast drying with fans included.',
+    keywords: ['upholstery cleaning', 'couch cleaning', 'sofa cleaning', 'sectional cleaning', 'loveseat cleaning', 'recliner cleaning', 'armchair cleaning', 'chaise lounge cleaning', 'ottoman cleaning', 'settee cleaning', 'futon cleaning', 'sleeper sofa cleaning', 'divan cleaning', 'microfiber couch cleaning', 'leather sofa cleaning', 'fabric couch cleaning', 'furniture cleaning', 'pet stain removal upholstery'],
     image: '/images/services/upholstery-cleaning.jpg',
     features: [
       '1-seat sofa: $35',
@@ -62,11 +108,31 @@ export const SERVICES = [
     price: 'Starting at $35',
   },
   {
+    id: 'protection',
+    title: 'Fabric & Stain Protection',
+    slug: 'protection',
+    focus: true,
+    shortDescription: 'Scotchgard-style shield for upholstery & furniture',
+    description: 'Professional fabric and stain protection that repels spills, stains and dirt, keeping your couch and furniture looking new and extending its life. Recommended after every upholstery cleaning.',
+    keywords: ['fabric protection', 'stain protection', 'scotchgard service', 'upholstery protection', 'couch fabric protector', 'water repellent treatment'],
+    image: '/images/services/protection.webp',
+    features: [
+      'Upholstery/Sofas: Starting at $30',
+      'Carpets: Starting at $20',
+      'Scotchgard-style protection',
+      'Water and stain repellent',
+      'UV protection',
+      'Extends fabric life'
+    ],
+    price: 'Starting at $30',
+  },
+  {
     id: 'chair-cleaning',
-    title: 'Chairs Cleaning',
+    title: 'Chair & Dining Set Cleaning',
     slug: 'chair-cleaning',
-    shortDescription: 'Professional cleaning for dining and office chairs',
-    description: 'Specialized cleaning service for all types of chairs, from dining room sets to office furniture, restoring comfort and appearance.',
+    shortDescription: 'Fabric & leather cleaning for dining and office chairs',
+    description: 'Specialized cleaning for all types of chairs, from dining room sets to office furniture, restoring comfort and appearance with deep stain and odor removal.',
+    keywords: ['chair cleaning', 'dining chair cleaning', 'office chair cleaning', 'recliner cleaning', 'leather chair cleaning'],
     image: '/images/services/chair-cleaning.jpg',
     features: [
       'Chairs: $10 to $20 (depending on size)',
@@ -83,7 +149,8 @@ export const SERVICES = [
     title: 'Mattress Cleaning',
     slug: 'mattress-cleaning',
     shortDescription: 'Deep sanitization for healthier sleep',
-    description: 'Professional vacuum, steam disinfection, and stain removal per side. Minimum $90 per visit. Can combine with other services.',
+    description: 'Professional vacuum, steam disinfection, and stain removal per side. Removes dust mites, allergens, sweat and stains. Minimum $90 per visit. Can combine with other services.',
+    keywords: ['mattress cleaning', 'mattress sanitizing', 'dust mite removal', 'mattress stain removal'],
     image: '/images/services/mattress-cleaning.jpg',
     features: [
       'Twin (per side): $40',
@@ -96,11 +163,30 @@ export const SERVICES = [
     price: 'Starting at $40/side',
   },
   {
+    id: 'carpet-cleaning',
+    title: 'Carpet Cleaning',
+    slug: 'carpet-cleaning',
+    shortDescription: 'Deep steam cleaning for all types of carpets',
+    description: 'Deep cleaning for rooms, hallways, stairs, and living areas. Removes dirt, allergens, pet stains and odors. Eco-friendly and fast-drying. Minimum order $90.',
+    keywords: ['carpet cleaning', 'steam carpet cleaning', 'carpet stain removal', 'pet stain removal carpet', 'area rug cleaning'],
+    image: '/images/services/carpet-cleaning.jpg',
+    features: [
+      'Rooms: $30 each',
+      'Hallways: $10 to $30',
+      'Living rooms: $30 to $60',
+      'Stairs: $45 to $55',
+      'Odor removal: $20 per area',
+      'Minimum order: $90'
+    ],
+    price: 'Starting at $30/room',
+  },
+  {
     id: 'car-interior',
-    title: 'Car Interior Detailing',
+    title: 'Car Interior & Auto Upholstery Detailing',
     slug: 'car-interior',
     shortDescription: 'Complete interior cleaning and detailing',
-    description: 'At-home service taking 1-4 hours. We bring all equipment, just need electrical connection. Basic ($100-$130) or complete ($160-$200) cleaning available.',
+    description: 'At-home auto upholstery and interior detailing taking 1-4 hours. We bring all equipment, just need an electrical connection. Basic ($100-$130) or complete ($160-$200) cleaning available.',
+    keywords: ['car interior cleaning', 'auto upholstery cleaning', 'car seat cleaning', 'car detailing', 'interior detailing'],
     image: '/images/services/car-interior.jpg',
     features: [
       'Basic cleaning: $100-$130',
@@ -112,23 +198,54 @@ export const SERVICES = [
     ],
     price: 'Starting at $100',
   },
-  {
-    id: 'protection',
-    title: 'Protection & Waterproofing',
-    slug: 'protection',
-    shortDescription: 'Shield your carpets and upholstery',
-    description: 'Professional fabric protection treatment to repel stains, spills, and dirt, extending the life of your carpets and upholstery.',
-    image: '/images/services/protection.webp',
-    features: [
-      'Carpets: Starting at $20',
-      'Upholstery/Sofas: Starting at $30',
-      'Scotchgard protection',
-      'Water and stain repellent',
-      'UV protection',
-      'Extends fabric life'
-    ],
-    price: 'Starting at $20',
-  },
+];
+
+// Every common name people use for upholstered furniture — woven into pages so we
+// rank no matter how a customer phrases their search (couch vs sofa vs sectional…).
+export const UPHOLSTERY_TYPES = [
+  'Couches',
+  'Sofas',
+  'Sectionals',
+  'Loveseats',
+  'Recliners',
+  'Armchairs',
+  'Accent chairs',
+  'Chaise lounges',
+  'Ottomans',
+  'Settees',
+  'Futons',
+  'Sleeper sofas',
+  'Divans',
+  'Microfiber couches',
+  'Leather sofas',
+  'Fabric couches',
+  'Dining chairs',
+  'Bar stools',
+  'Headboards',
+  'Mattresses',
+];
+
+// Curated REAL photos of couches/sofas/upholstery work only (no carpet, mattress, car, stairs).
+// Used across the upholstery-focused pages — original images rank better than stock (SEO).
+export const COUCH_IMAGES = [
+  '/images/gallery/gallery-3.jpg',
+  '/images/gallery/gallery-5.jpg',
+  '/images/gallery/gallery-7.jpg',
+  '/images/gallery/gallery-10.jpg',
+  '/images/gallery/gallery-11.jpg',
+  '/images/gallery/gallery-12.jpg',
+  '/images/gallery/gallery-13.jpg',
+  '/images/gallery/gallery-15.jpg',
+  '/images/gallery/gallery-16.jpg',
+  '/images/gallery/gallery-18.jpg',
+  '/images/gallery/gallery-19.jpg',
+  '/images/gallery/gallery-20.jpg',
+  '/images/gallery/gallery-21.jpg',
+  '/images/gallery/gallery-24.jpg',
+  '/images/gallery/gallery-26.jpg',
+  '/images/gallery/gallery-28.jpg',
+  '/images/gallery/gallery-29.jpg',
+  '/images/gallery/gallery-30.jpg',
 ];
 
 export const FAQS = [

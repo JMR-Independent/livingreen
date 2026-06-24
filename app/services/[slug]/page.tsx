@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SERVICES, COMPANY_INFO } from '@/lib/constants';
+import type { Metadata } from 'next';
+import { SERVICES, COMPANY_INFO, CITIES } from '@/lib/constants';
+import { serviceSchema, breadcrumbSchema } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -13,19 +16,24 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: ServicePageProps) {
+export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = SERVICES.find((s) => s.slug === slug);
 
   if (!service) {
-    return {
-      title: 'Service Not Found',
-    };
+    return { title: 'Service Not Found' };
   }
 
+  const title = `${service.title} in Utah County & Salt Lake | LivinGreen`;
+  const description = `${service.description} Serving Provo, Orem, Lehi, Spanish Fork, Salt Lake City and nearby. Free estimates — call ${COMPANY_INFO.phoneDisplay}.`;
+  const url = `${COMPANY_INFO.url}/services/${service.slug}`;
+
   return {
-    title: service.title,
-    description: service.description,
+    title,
+    description,
+    keywords: service.keywords,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: 'website' },
   };
 }
 
@@ -44,6 +52,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+          { name: service.title, url: `/services/${service.slug}` },
+        ])}
+      />
+
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -151,6 +168,28 @@ export default async function ServicePage({ params }: ServicePageProps) {
             >
               Call {COMPANY_INFO.phoneDisplay}
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Cities — internal linking to location pages */}
+      <section className="section-padding bg-neutral-50">
+        <div className="container-custom max-w-5xl text-center">
+          <h2 className="text-display-md mb-4">{service.title} Across Utah</h2>
+          <p className="text-lg text-neutral-600 mb-10 max-w-2xl mx-auto">
+            We bring professional {service.title.toLowerCase()} to your door from Santaquin to Salt
+            Lake City. Find your city:
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {CITIES.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/locations/${c.slug}`}
+                className="px-4 py-2 bg-white rounded-full text-neutral-700 hover:bg-primary hover:text-white transition-colors duration-300 shadow-sm text-sm"
+              >
+                {c.name}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
