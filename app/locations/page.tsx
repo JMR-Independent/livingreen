@@ -5,7 +5,7 @@ import JsonLd from '@/components/JsonLd';
 import LocationsContent from '@/components/locations/LocationsContent';
 
 export const metadata: Metadata = {
-  title: 'Service Areas | Upholstery & Couch Cleaning Across Utah | LivinGreen',
+  title: 'Service Areas | Upholstery & Couch Cleaning Across Utah',
   description:
     'LivinGreen provides upholstery, couch, sofa and carpet cleaning plus fabric protection across Utah County and Salt Lake County, from Santaquin to Salt Lake City. Find your city.',
   alternates: { canonical: `${COMPANY_INFO.url}/locations` },

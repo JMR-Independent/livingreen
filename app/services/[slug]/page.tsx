@@ -24,16 +24,17 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     return { title: 'Service Not Found' };
   }
 
-  const title = `${service.title} in Utah County & Salt Lake | LivinGreen`;
+  const titleBase = `${service.title} in Utah County & Salt Lake`;
+  const titleFull = `${titleBase} | ${COMPANY_INFO.name}`;
   const description = `${service.description} Serving Provo, Orem, Lehi, Spanish Fork, Salt Lake City and nearby. Free estimates — call ${COMPANY_INFO.phoneDisplay}.`;
   const url = `${COMPANY_INFO.url}/services/${service.slug}`;
 
   return {
-    title,
+    title: titleBase,
     description,
     keywords: service.keywords,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'website' },
+    openGraph: { title: titleFull, description, url, type: 'website' },
   };
 }
 

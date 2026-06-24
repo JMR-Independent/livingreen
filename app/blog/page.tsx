@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { BLOG_POSTS } from '@/lib/blog';
+import { publishedPosts } from '@/lib/blog';
 import { COMPANY_INFO } from '@/lib/constants';
 import { breadcrumbSchema } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
@@ -9,7 +9,7 @@ import Reveal from '@/components/Reveal';
 
 
 export const metadata: Metadata = {
-  title: 'Upholstery & Couch Cleaning Tips | LivinGreen Blog',
+  title: 'Upholstery & Couch Cleaning Tips — Blog',
   description:
     'Helpful guides on couch cleaning, pet stain removal, fabric protection and keeping your upholstery fresh, from Utah’s upholstery cleaning specialists.',
   alternates: { canonical: `${COMPANY_INFO.url}/blog` },
@@ -22,7 +22,7 @@ function formatDate(iso: string) {
 }
 
 export default function BlogPage() {
-  const posts = [...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date));
+  const posts = publishedPosts();
 
   return (
     <div>

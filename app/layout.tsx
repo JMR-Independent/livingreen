@@ -21,26 +21,29 @@ export const metadata: Metadata = {
     icon: '/images/icon-512x512.png',
     apple: '/images/icon-512x512.png',
   },
+  alternates: {
+    canonical: COMPANY_INFO.url,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: COMPANY_INFO.name,
     title: `${COMPANY_INFO.name} | ${COMPANY_INFO.tagline}`,
-    description: 'Professional cleaning services in Utah',
+    description: 'Utah County upholstery, couch & sofa cleaning specialists. Fabric & stain protection, plus carpet, mattress and car interior cleaning. Eco-friendly, fast-drying, 5-star rated. Serving Santaquin to Salt Lake City. Free estimates.',
     images: [
       {
-        url: '/images/icon-512x512.png',
-        width: 512,
-        height: 512,
-        alt: `${COMPANY_INFO.name} Logo`,
+        url: '/images/og-social.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'LivinGreen — Upholstery & Carpet Cleaning in Utah',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: COMPANY_INFO.name,
-    description: 'Professional cleaning services in Utah',
-    images: ['/images/icon-512x512.png'],
+    title: `${COMPANY_INFO.name} | ${COMPANY_INFO.tagline}`,
+    description: 'Utah County upholstery, couch & sofa cleaning specialists. Fabric & stain protection, plus carpet, mattress and car interior cleaning. Eco-friendly, fast-drying, 5-star rated. Serving Santaquin to Salt Lake City. Free estimates.',
+    images: ['/images/og-social.jpg'],
   },
   robots: {
     index: true,

@@ -12,11 +12,18 @@ export interface BlogPost {
   title: string;
   metaTitle: string;
   excerpt: string;
-  date: string; // ISO date
+  date: string; // ISO date — articles with a FUTURE date are queued and appear automatically once their date arrives (revealed by the weekly Vercel cron rebuild).
   image: string;
   readTime: string;
   keywords: string[];
   body: BlogBlock[];
+}
+
+// Only posts whose date has arrived are live. Future-dated posts are a publishing
+// queue: the weekly Vercel cron rebuild reveals the next one automatically.
+export function publishedPosts(): BlogPost[] {
+  const today = new Date().toISOString().slice(0, 10);
+  return BLOG_POSTS.filter((p) => p.date <= today).sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -202,6 +209,173 @@ export const BLOG_POSTS: BlogPost[] = [
       { type: 'p', text: 'Spills, pet accidents and marks that will not wipe away need professional treatment to remove fully.' },
       { type: 'h2', text: '5. It has been over a year' },
       { type: 'p', text: 'If you cannot remember the last time it was cleaned, it is overdue. Book a free quote and we will bring it back to life.' },
+    ],
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  // QUEUED ARTICLES — future-dated. Each appears automatically on its date when
+  // the weekly Vercel cron rebuilds the site. One new article goes live each week.
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'how-to-remove-coffee-wine-stains-from-couch',
+    title: 'How to Remove Coffee, Wine and Ink Stains From a Couch',
+    metaTitle: 'How to Remove Coffee, Wine & Ink Stains From a Couch | LivinGreen',
+    excerpt: 'Quick first steps for the three most common couch stains, and when a stain needs a professional.',
+    date: '2026-06-29',
+    image: '/images/gallery/gallery-11.jpg',
+    readTime: '4 min read',
+    keywords: ['remove coffee stain couch', 'wine stain sofa', 'ink stain upholstery'],
+    body: [
+      { type: 'p', text: 'Spills happen. With the three most common couch stains, the trick is to act fast and blot, never rub. Here is what to do for each.' },
+      { type: 'h2', text: 'Coffee' },
+      { type: 'p', text: 'Blot up as much as you can with a dry cloth. Mix a little dish soap with cool water, dab gently, then blot dry. Avoid hot water, which can set the stain.' },
+      { type: 'h2', text: 'Red wine' },
+      { type: 'p', text: 'Blot immediately. Sprinkle a little salt to absorb the liquid, then dab with cool water. Do not scrub, which spreads the color deeper into the fibers.' },
+      { type: 'h2', text: 'Ink' },
+      { type: 'p', text: 'Ink is the toughest. Dab very lightly with a tiny amount of rubbing alcohol on a white cloth and blot. Test a hidden spot first, and stop if color transfers.' },
+      { type: 'h2', text: 'When to call a pro' },
+      { type: 'p', text: 'If the stain is large, old, or does not lift after a gentle attempt, stop before you set it. Our professional treatment removes most stains safely without damaging the fabric.' },
+    ],
+  },
+  {
+    slug: 'professional-vs-diy-couch-cleaning',
+    title: 'Professional vs DIY Couch Cleaning: What Is Worth It?',
+    metaTitle: 'Professional vs DIY Couch Cleaning: What Is Worth It? | LivinGreen',
+    excerpt: 'When a rental machine or home spray is enough, and when professional cleaning actually saves you money.',
+    date: '2026-07-06',
+    image: '/images/gallery/gallery-12.jpg',
+    readTime: '3 min read',
+    keywords: ['diy couch cleaning', 'professional upholstery cleaning worth it'],
+    body: [
+      { type: 'p', text: 'You can clean a couch yourself, but it is not always the best choice. Here is an honest look at when DIY works and when a professional is worth it.' },
+      { type: 'h2', text: 'When DIY is fine' },
+      { type: 'p', text: 'A small fresh spill, light dust, or a quick freshen-up before guests. A vacuum and a gentle fabric-safe spray handle these well.' },
+      { type: 'h2', text: 'When a professional pays off' },
+      { type: 'ul', items: ['Set-in stains or pet odors', 'Allergies or asthma in the home', 'A large sectional or delicate fabric', 'Furniture you want to last many more years'] },
+      { type: 'h2', text: 'The hidden risk of DIY' },
+      { type: 'p', text: 'Over-wetting is the most common mistake. Too much water leaves rings, takes days to dry, and can grow mildew inside the cushion. Professional extraction pulls the moisture back out, so it dries in hours.' },
+      { type: 'p', text: 'Not sure which your couch needs? Get a free quote and we will give you an honest answer.' },
+    ],
+  },
+  {
+    slug: 'how-to-get-pet-smell-out-of-couch',
+    title: 'How to Get the Pet Smell Out of Your Couch for Good',
+    metaTitle: 'How to Get Pet Smell Out of a Couch for Good | LivinGreen Utah',
+    excerpt: 'Why pet odors keep coming back, and the only way to remove them at the source.',
+    date: '2026-07-13',
+    image: '/images/gallery/gallery-16.jpg',
+    readTime: '3 min read',
+    keywords: ['pet smell couch', 'dog smell sofa', 'pet odor removal upholstery'],
+    body: [
+      { type: 'p', text: 'You love your dog, but not the smell it leaves on the couch. If the odor keeps returning no matter what you spray, here is why and what actually works.' },
+      { type: 'h2', text: 'Why the smell comes back' },
+      { type: 'p', text: 'Pet oils and accidents soak past the fabric into the cushion and padding. Sprays only mask the top layer, so the smell returns within days as it rises back up.' },
+      { type: 'h2', text: 'What actually removes it' },
+      { type: 'p', text: 'The odor has to be neutralized at the source, deep in the fibers and padding. Hot water extraction flushes it out instead of covering it, which is why the result lasts.' },
+      { type: 'h2', text: 'Keeping it fresh' },
+      { type: 'p', text: 'After cleaning, fabric protection makes future accidents easier to wipe up before they soak in. For homes with pets, a deep clean every six months keeps things fresh.' },
+      { type: 'p', text: 'Tired of the pet smell? Book a free quote and we will get rid of it at the source.' },
+    ],
+  },
+  {
+    slug: 'how-to-care-for-different-couch-fabrics',
+    title: 'How to Care for Different Couch Fabrics',
+    metaTitle: 'How to Care for Microfiber, Linen, Velvet & Leather Couches | LivinGreen',
+    excerpt: 'A simple care guide for the most common couch fabrics so you do not accidentally ruin yours.',
+    date: '2026-07-20',
+    image: '/images/gallery/gallery-18.jpg',
+    readTime: '4 min read',
+    keywords: ['couch fabric care', 'microfiber care', 'velvet couch cleaning', 'linen sofa'],
+    body: [
+      { type: 'p', text: 'Different couch fabrics need different care. Using the wrong method is the fastest way to leave a water ring or damage the material. Here is a quick guide.' },
+      { type: 'h2', text: 'Microfiber' },
+      { type: 'p', text: 'Durable but shows water marks. Vacuum often and blot spills right away. Use minimal moisture so it dries evenly.' },
+      { type: 'h2', text: 'Linen and cotton' },
+      { type: 'p', text: 'Breathable but prone to shrinking and water stains. These respond well to professional extraction but are easy to over-wet at home.' },
+      { type: 'h2', text: 'Velvet' },
+      { type: 'p', text: 'Beautiful but delicate. Brush in the direction of the pile and never scrub. Velvet usually needs a professional to avoid crushing the nap.' },
+      { type: 'h2', text: 'Leather' },
+      { type: 'p', text: 'Never use water extraction. Leather needs gentle cleaning and conditioning so it stays soft and does not crack.' },
+      { type: 'p', text: 'Not sure what your couch is made of? We identify the fabric and use the safe method for it. Get a free quote today.' },
+    ],
+  },
+  {
+    slug: 'what-to-expect-couch-cleaning-appointment',
+    title: 'What to Expect During a Couch Cleaning Appointment',
+    metaTitle: 'What to Expect During a Couch Cleaning Appointment | LivinGreen',
+    excerpt: 'A step-by-step of how an at-home upholstery cleaning works, how long it takes, and how to prepare.',
+    date: '2026-07-27',
+    image: '/images/gallery/gallery-20.jpg',
+    readTime: '3 min read',
+    keywords: ['couch cleaning appointment', 'what to expect upholstery cleaning'],
+    body: [
+      { type: 'p', text: 'Booking your first professional couch cleaning? Here is exactly what happens so there are no surprises.' },
+      { type: 'h2', text: 'Before we arrive' },
+      { type: 'p', text: 'Just clear small items off the couch and give us a clear path to it. We bring everything else and only need access to an electrical outlet.' },
+      { type: 'h2', text: 'The cleaning' },
+      { type: 'ul', items: ['We inspect the fabric and identify any stains', 'Deep vacuum to lift loose dirt and pet hair', 'Pre-treat stains and high-use areas', 'Hot water extraction to flush out the rest', 'Optional fabric protection to finish'] },
+      { type: 'h2', text: 'How long and drying' },
+      { type: 'p', text: 'Most couches take 30 to 60 minutes. Thanks to low-moisture extraction, they are usually dry in 4 to 6 hours, so you can use the room the same day.' },
+      { type: 'p', text: 'Ready to book? Get a free quote and pick a time that works for you.' },
+    ],
+  },
+  {
+    slug: 'extend-the-life-of-your-sofa',
+    title: 'How to Extend the Life of Your Sofa',
+    metaTitle: 'How to Extend the Life of Your Sofa | LivinGreen Utah',
+    excerpt: 'Simple habits that keep a couch comfortable and good-looking for years longer.',
+    date: '2026-08-03',
+    image: '/images/gallery/gallery-24.jpg',
+    readTime: '3 min read',
+    keywords: ['extend sofa life', 'make couch last longer', 'sofa maintenance'],
+    body: [
+      { type: 'p', text: 'A good sofa is an investment. With a few easy habits, you can keep it comfortable and looking great for many more years.' },
+      { type: 'h2', text: 'Vacuum weekly' },
+      { type: 'p', text: 'Dust and crumbs act like sandpaper inside the fibers. A quick weekly vacuum prevents that slow wear and keeps the fabric fresh.' },
+      { type: 'h2', text: 'Rotate and fluff cushions' },
+      { type: 'p', text: 'Rotating cushions spreads out the wear so one spot does not sag first. Fluffing keeps them full and comfortable.' },
+      { type: 'h2', text: 'Treat spills immediately' },
+      { type: 'p', text: 'Blot right away. The longer a spill sits, the deeper it sets. Fabric protection buys you precious extra minutes.' },
+      { type: 'h2', text: 'Deep clean once or twice a year' },
+      { type: 'p', text: 'A professional clean removes the buildup a vacuum cannot reach, restoring color and freshness. Book a free quote to keep yours like new.' },
+    ],
+  },
+  {
+    slug: 'allergies-and-your-upholstery',
+    title: 'Allergies and Your Upholstery: What You Should Know',
+    metaTitle: 'Allergies and Your Upholstery: What You Should Know | LivinGreen',
+    excerpt: 'How couches and mattresses trap allergens, and how a deep clean helps you breathe easier at home.',
+    date: '2026-08-10',
+    image: '/images/gallery/gallery-3.jpg',
+    readTime: '3 min read',
+    keywords: ['upholstery allergens', 'couch dust mites', 'allergy furniture cleaning'],
+    body: [
+      { type: 'p', text: 'If your allergies feel worse at home than outside, your furniture may be part of the problem. Here is what to know.' },
+      { type: 'h2', text: 'What couches trap' },
+      { type: 'p', text: 'Sofas and mattresses collect dust mites, pet dander, pollen and skin cells deep in the fibers. Every time you sit down, some of it puffs back into the air you breathe.' },
+      { type: 'h2', text: 'Why vacuuming is not enough' },
+      { type: 'p', text: 'A vacuum only reaches the surface. Dust mites and allergens live deeper, where regular cleaning cannot remove them.' },
+      { type: 'h2', text: 'How a deep clean helps' },
+      { type: 'p', text: 'Hot water extraction flushes allergens out of the deep fibers, which can noticeably reduce sneezing and congestion at home. For allergy sufferers, every 4 to 6 months is ideal.' },
+      { type: 'p', text: 'Breathe easier at home. Book a free quote for upholstery and mattress cleaning today.' },
+    ],
+  },
+  {
+    slug: 'spring-cleaning-your-furniture-utah',
+    title: 'Spring Cleaning Your Furniture in Utah: A Checklist',
+    metaTitle: 'Spring Cleaning Your Furniture in Utah: A Checklist | LivinGreen',
+    excerpt: 'A simple seasonal checklist to refresh your couches, mattresses and carpets after a long Utah winter.',
+    date: '2026-08-17',
+    image: '/images/gallery/gallery-28.jpg',
+    readTime: '3 min read',
+    keywords: ['spring cleaning furniture', 'seasonal upholstery cleaning utah'],
+    body: [
+      { type: 'p', text: 'After a long Utah winter of closed windows and indoor living, your furniture has collected a season of dust and allergens. Here is a simple refresh checklist.' },
+      { type: 'h2', text: 'The furniture checklist' },
+      { type: 'ul', items: ['Vacuum every couch, chair and mattress', 'Spot-treat any stains before they set further', 'Deep clean upholstery that sees daily use', 'Add fabric protection before spill season', 'Refresh area rugs and high-traffic carpet'] },
+      { type: 'h2', text: 'Why spring is the right time' },
+      { type: 'p', text: 'Cleaning now clears out the winter buildup of dust and allergens, and protected fabric is ready for summer guests, open windows and busier days.' },
+      { type: 'p', text: 'Make it easy. Book a free quote and we will handle the deep cleaning while you enjoy the spring.' },
     ],
   },
 ];

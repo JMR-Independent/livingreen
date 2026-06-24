@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { COMPANY_INFO } from '@/lib/constants';
 
 const heroSlides = [
   {
     image: '/images/hero-3.jpg',
+    alt: 'Professional upholstery and couch cleaning service in Utah County',
     title: 'Expert',
     titleHighlight: 'Upholstery & Couch',
     subtitle: 'Cleaning',
@@ -15,6 +17,7 @@ const heroSlides = [
   },
   {
     image: '/images/hero-1.jpg',
+    alt: 'Fabric and stain protection applied to upholstered sofa in Utah',
     title: 'Lasting',
     titleHighlight: 'Fabric & Stain',
     subtitle: 'Protection',
@@ -22,6 +25,7 @@ const heroSlides = [
   },
   {
     image: '/images/hero-2.jpg',
+    alt: 'Deep carpet cleaning with steam extraction in Utah County home',
     title: 'Deep',
     titleHighlight: 'Carpet & Rug',
     subtitle: 'Cleaning',
@@ -29,6 +33,7 @@ const heroSlides = [
   },
   {
     image: '/images/hero-4.jpg',
+    alt: 'LivinGreen cleaning technician serving Provo, Orem and Salt Lake City Utah',
     title: 'Trusted Across',
     titleHighlight: 'Utah County',
     subtitle: '& Salt Lake',
@@ -221,11 +226,13 @@ export default function Hero() {
             className="absolute inset-0"
             style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${heroSlides[currentSlide].image})`,
-              }}
+            <Image
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].alt}
+              fill
+              className="object-cover"
+              priority={currentSlide === 0}
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/70 to-neutral-900/50" />
           </motion.div>

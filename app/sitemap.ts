@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { CITIES, SERVICES, COMPANY_INFO } from '@/lib/constants';
-import { BLOG_POSTS } from '@/lib/blog';
+import { publishedPosts } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = COMPANY_INFO.url;
@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const blogPages = BLOG_POSTS.map((p) => ({
+  const blogPages = publishedPosts().map((p) => ({
     url: `${base}/blog/${p.slug}`,
     lastModified: new Date(p.date),
     changeFrequency: 'monthly' as const,

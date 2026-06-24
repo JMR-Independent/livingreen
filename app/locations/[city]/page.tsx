@@ -18,15 +18,16 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   const city = CITIES.find((c) => c.slug === slug);
   if (!city) return { title: 'Location Not Found' };
 
-  const title = `Upholstery & Couch Cleaning in ${city.name}, UT | LivinGreen`;
+  const titleBase = `Upholstery & Couch Cleaning in ${city.name}, UT`;
+  const titleFull = `${titleBase} | ${COMPANY_INFO.name}`;
   const description = `Professional upholstery, couch, sofa and sectional cleaning plus fabric protection in ${city.name}, Utah. Eco-friendly, fast drying, 5-star rated. Carpet, mattress and car interior cleaning too. Free estimates, call ${COMPANY_INFO.phoneDisplay}.`;
   const url = `${COMPANY_INFO.url}/locations/${city.slug}`;
 
   return {
-    title,
+    title: titleBase,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'website' },
+    openGraph: { title: titleFull, description, url, type: 'website' },
   };
 }
 

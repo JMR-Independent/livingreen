@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { BLOG_POSTS } from '@/lib/blog';
+import { BLOG_POSTS, publishedPosts } from '@/lib/blog';
 import { COMPANY_INFO } from '@/lib/constants';
 import { articleSchema, breadcrumbSchema } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
@@ -14,7 +14,7 @@ interface PostProps {
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  return publishedPosts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
@@ -22,8 +22,9 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) return { title: 'Article Not Found' };
   const url = `${COMPANY_INFO.url}/blog/${post.slug}`;
+  const titleBase = post.metaTitle.replace(/\s*\|\s*LivinGreen(\s+Utah)?$/, '');
   return {
-    title: post.metaTitle,
+    title: titleBase,
     description: post.excerpt,
     keywords: post.keywords,
     alternates: { canonical: url },
@@ -40,9 +41,10 @@ function formatDate(iso: string) {
 export default async function BlogPostPage({ params }: PostProps) {
   const { slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
-  if (!post) notFound();
+  const todayStr = new Date().toISOString().slice(0, 10);
+  if (!post || post.date > todayStr) notFound();
 
-  const more = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
+  const more = publishedPosts().filter((p) => p.slug !== slug).slice(0, 3);
   const whatsapp = encodeURIComponent('Hi! I read your blog and I would like a free quote for couch cleaning.');
 
   return (
