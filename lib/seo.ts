@@ -128,6 +128,28 @@ export function faqSchema(faqs: { question: string; answer: string }[]): Record<
   };
 }
 
+export function articleSchema(post: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  image: string;
+}): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    image: `${BASE}${post.image}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    url: `${BASE}/blog/${post.slug}`,
+    author: { '@type': 'Organization', name: COMPANY_INFO.name },
+    publisher: { '@id': BUSINESS_ID },
+    mainEntityOfPage: `${BASE}/blog/${post.slug}`,
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',

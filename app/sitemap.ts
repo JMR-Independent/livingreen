@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { CITIES, SERVICES, COMPANY_INFO } from '@/lib/constants';
+import { BLOG_POSTS } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = COMPANY_INFO.url;
   const now = new Date();
 
-  const staticPages = ['', '/services', '/locations', '/about', '/gallery', '/reviews', '/faq', '/contact'].map(
+  const staticPages = ['', '/services', '/locations', '/blog', '/about', '/gallery', '/reviews', '/faq', '/contact'].map(
     (path) => ({
       url: `${base}${path}`,
       lastModified: now,
@@ -28,5 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...servicePages, ...cityPages];
+  const blogPages = BLOG_POSTS.map((p) => ({
+    url: `${base}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...servicePages, ...cityPages, ...blogPages];
 }
