@@ -16,7 +16,6 @@ import {
 import Reveal from '@/components/Reveal';
 import { cityFaqs } from '@/lib/seo';
 
-const FONT = "'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif";
 
 export default function CityPageContent({ city }: { city: City }) {
   const cityIndex = Math.max(0, CITIES.findIndex((c) => c.slug === city.slug));
@@ -33,7 +32,7 @@ export default function CityPageContent({ city }: { city: City }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div style={{ fontFamily: FONT }}>
+    <div>
       {/* HERO */}
       <section className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden bg-black">
         <motion.div

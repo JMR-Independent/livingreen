@@ -8,7 +8,6 @@ import { articleSchema, breadcrumbSchema } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
 
-const FONT = "'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif";
 
 interface PostProps {
   params: Promise<{ slug: string }>;
@@ -47,7 +46,7 @@ export default async function BlogPostPage({ params }: PostProps) {
   const whatsapp = encodeURIComponent('Hi! I read your blog and I would like a free quote for couch cleaning.');
 
   return (
-    <div style={{ fontFamily: FONT }}>
+    <div>
       <JsonLd data={articleSchema(post)} />
       <JsonLd
         data={breadcrumbSchema([

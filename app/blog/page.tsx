@@ -7,7 +7,6 @@ import { breadcrumbSchema } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
 
-const FONT = "'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif";
 
 export const metadata: Metadata = {
   title: 'Upholstery & Couch Cleaning Tips | LivinGreen Blog',
@@ -26,7 +25,7 @@ export default function BlogPage() {
   const posts = [...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <div style={{ fontFamily: FONT }}>
+    <div>
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', url: '/' },

@@ -11,14 +11,14 @@ const heroSlides = [
     title: 'Expert',
     titleHighlight: 'Upholstery & Couch',
     subtitle: 'Cleaning',
-    description: 'Sofas, couches, sectionals & loveseats brought back to life — fast-drying & eco-friendly',
+    description: 'Sofas, couches, sectionals and loveseats brought back to life. Fast drying and eco friendly.',
   },
   {
     image: '/images/hero-1.jpg',
     title: 'Lasting',
     titleHighlight: 'Fabric & Stain',
     subtitle: 'Protection',
-    description: 'Scotchgard-style protection that keeps your furniture looking new',
+    description: 'Scotchgard style protection that keeps your furniture looking new',
   },
   {
     image: '/images/hero-2.jpg',
@@ -32,7 +32,7 @@ const heroSlides = [
     title: 'Trusted Across',
     titleHighlight: 'Utah County',
     subtitle: '& Salt Lake',
-    description: 'Serving every city from Santaquin to Salt Lake City · 5-star rated',
+    description: 'Serving every city from Santaquin to Salt Lake City. 5 star rated.',
   },
 ];
 

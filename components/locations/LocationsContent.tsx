@@ -6,13 +6,12 @@ import { motion } from 'framer-motion';
 import { CITIES, COMPANY_INFO, COUCH_IMAGES } from '@/lib/constants';
 import Reveal from '@/components/Reveal';
 
-const FONT = "'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif";
 
 export default function LocationsContent() {
   const counties = ['Utah County', 'Salt Lake County'] as const;
 
   return (
-    <div style={{ fontFamily: FONT }}>
+    <div>
       {/* HERO */}
       <section className="relative h-[70vh] min-h-[480px] flex items-center justify-center overflow-hidden bg-black">
         <motion.div initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: 'easeOut' }} className="absolute inset-0">
