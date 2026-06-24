@@ -67,7 +67,12 @@ export function localBusinessSchema(): Record<string, unknown> {
         closes: '18:00',
       },
     ],
-    sameAs: [COMPANY_INFO.social.facebook, COMPANY_INFO.social.instagram, COMPANY_INFO.social.linkedin],
+    sameAs: [
+      COMPANY_INFO.social.facebook,
+      COMPANY_INFO.social.instagram,
+      COMPANY_INFO.social.linkedin,
+      'https://g.page/r/CfJBJ2SxcNbXEBM', // Google Business Profile (bidirectional citation)
+    ],
   };
 }
 

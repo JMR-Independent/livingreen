@@ -14,6 +14,7 @@ import {
   City,
 } from '@/lib/constants';
 import Reveal from '@/components/Reveal';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { cityFaqs } from '@/lib/seo';
 
 
@@ -96,6 +97,14 @@ export default function CityPageContent({ city }: { city: City }) {
         </motion.div>
       </section>
 
+      <Breadcrumbs
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Service Areas', url: '/locations' },
+          { name: `${city.name}, UT`, url: `/locations/${city.slug}` },
+        ]}
+      />
+
       {/* TRUST BAR */}
       <section className="bg-neutral-950 text-white">
         <div className="container-custom py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
@@ -128,10 +137,26 @@ export default function CityPageContent({ city }: { city: City }) {
             </h2>
             <div className="space-y-4 text-lg text-neutral-600 leading-relaxed">
               <p>
-                When your couch starts looking tired, you do not need to replace it. Our deep hot water extraction lifts out dirt, stains, odors and allergens from sofas, sectionals, loveseats and recliners, then leaves them soft, fresh and dry in just a few hours.
+                When your couch starts looking tired, you do not need to replace it. Our{' '}
+                <Link href="/services/upholstery-cleaning" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                  upholstery and couch cleaning
+                </Link>{' '}
+                uses deep hot water extraction to lift out dirt, stains, odors and allergens from sofas, sectionals, loveseats and recliners, then leaves them soft, fresh and dry in just a few hours.
               </p>
               <p>
-                We come to you anywhere in {city.name} and across {city.county} with everything we need. After cleaning we can add a fabric and stain protector so spills bead up instead of soaking in, keeping your furniture looking new for longer.
+                We come to you anywhere in {city.name} and across {city.county} with everything we need. After cleaning we can add{' '}
+                <Link href="/services/protection" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                  fabric and stain protection
+                </Link>{' '}
+                so spills bead up instead of soaking in, keeping your furniture looking new for longer. We also handle{' '}
+                <Link href="/services/carpet-cleaning" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                  carpet cleaning
+                </Link>{' '}
+                and{' '}
+                <Link href="/services/mattress-cleaning" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                  mattress cleaning
+                </Link>{' '}
+                throughout {city.county}.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">

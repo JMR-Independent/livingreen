@@ -103,6 +103,25 @@ export default async function BlogPostPage({ params }: PostProps) {
             })}
           </article>
 
+          {/* Contextual links to service + location pages (internal linking) */}
+          <div className="mt-12 pt-8 border-t border-neutral-100 text-lg text-neutral-700 leading-relaxed">
+            <p>
+              Ready to book? Explore our{' '}
+              <Link href="/services/upholstery-cleaning" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                upholstery and couch cleaning
+              </Link>{' '}
+              and{' '}
+              <Link href="/services/protection" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                fabric protection
+              </Link>{' '}
+              services, or find{' '}
+              <Link href="/locations" className="text-primary font-semibold underline decoration-primary/30 hover:decoration-primary">
+                couch cleaning in your city
+              </Link>{' '}
+              across Utah County and Salt Lake County.
+            </p>
+          </div>
+
           {/* Inline CTA */}
           <div className="mt-14 bg-neutral-50 rounded-3xl p-8 md:p-10 text-center border border-neutral-100">
             <h3 className="text-2xl font-bold text-neutral-900 mb-3">Need your couch cleaned?</h3>
