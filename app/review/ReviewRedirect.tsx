@@ -56,6 +56,14 @@ export default function ReviewRedirect() {
         <p className="text-xs text-white/55 mt-6 max-w-xs">
           Not signed in? Tap “Open in the Google Maps app” — you’re already signed in there.
         </p>
+
+        {/* Visit website */}
+        <a
+          href="https://livingreen.life"
+          className="inline-flex items-center gap-2 mt-7 text-white/80 hover:text-white text-sm font-medium border-b border-white/30 hover:border-white pb-0.5 transition-colors"
+        >
+          🌿 Visit our website
+        </a>
       </div>
     </div>
   );
