@@ -39,8 +39,8 @@ async function saveContact() {
     'VERSION:3.0',
     'FN:LivinGreen',
     'ORG:LivinGreen',
-    'TEL;TYPE=CELL:+13854825694',
-    'TEL;TYPE=WORK:+13854825694',
+    'TEL;TYPE=CELL:+18016824507',
+    'TEL;TYPE=WORK:+13853363170',
     'EMAIL:info@livingreen.com',
     'URL:https://www.livingreen.life/',
     'X-SOCIALPROFILE;type=instagram:https://www.instagram.com/livingreen_life/',
@@ -360,8 +360,98 @@ function Reviews() {
   );
 }
 
+function BookingForm() {
+  const [propertyType, setPropertyType] = useState<'house' | 'apartment' | 'business'>('house');
+  const [floor, setFloor] = useState('1');
+  const floorCharge = Number(floor) >= 3 ? 30 : 0;
+
+  function submitRequest(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const lines = [
+      'New appointment request / Nueva solicitud de cita',
+      `Name / Nombre: ${form.get('name')}`,
+      `Phone / Teléfono: ${form.get('phone')}`,
+      `Service / Servicio: ${form.get('service')}`,
+      `Preferred date / Fecha: ${form.get('date') || 'To confirm'}`,
+      `Preferred time / Hora: ${form.get('time') || 'To confirm'}`,
+      `Address / Dirección: ${form.get('address')}`,
+      `City / Ciudad: ${form.get('city')}`,
+      propertyType === 'apartment' ? `Building / Edificio: ${form.get('building')}` : '',
+      propertyType === 'apartment' ? `Apartment / Apartamento: ${form.get('unit')}` : '',
+      `Floor / Piso: ${floor}${floorCharge ? ' (+$30 equipment carry charge)' : ''}`,
+      `Details / Detalles: ${form.get('details') || '—'}`,
+    ].filter(Boolean);
+    window.open(`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer');
+  }
+
+  return (
+    <section id="cita" className="scroll-mt-20 space-y-4">
+      <div className="rounded-3xl bg-[#073b2d] text-white p-6">
+        <p className="text-xs font-bold tracking-widest uppercase text-[#5eead4]">Book your cleaning · Reserva tu limpieza</p>
+        <h2 className="text-2xl font-black mt-2">Request an appointment</h2>
+        <p className="text-white/80 text-sm mt-2">Complete the details below. We confirm availability and your final appointment by WhatsApp or phone.</p>
+      </div>
+
+      <form onSubmit={submitRequest} className="rounded-3xl border border-neutral-200 bg-white p-5 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field label="Name / Nombre" name="name" required placeholder="Full name" />
+          <Field label="Phone / Teléfono" name="phone" required type="tel" placeholder="(801) 555-0100" />
+        </div>
+        <label className="block text-sm font-bold text-neutral-800">Service / Servicio
+          <select required name="service" className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
+            <option value="">Select a service / Elige un servicio</option>
+            <option>Carpet cleaning / Alfombras</option>
+            <option>Couch or upholstery / Sillón o tapicería</option>
+            <option>Car interior / Interior de auto</option>
+            <option>Mattress / Colchón</option>
+            <option>Other / Otro</option>
+          </select>
+        </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field label="Preferred date / Fecha preferida" name="date" type="date" />
+          <Field label="Preferred time / Hora preferida" name="time" type="time" />
+        </div>
+        <Field label="Exact address / Dirección exacta" name="address" required placeholder="Street number and street / Número y calle" />
+        <Field label="City / Ciudad" name="city" required placeholder="Example: Orem" />
+        <label className="block text-sm font-bold text-neutral-800">Property type / Tipo de propiedad
+          <select value={propertyType} onChange={(e) => setPropertyType(e.target.value as typeof propertyType)} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
+            <option value="house">House / Casa</option>
+            <option value="apartment">Apartment / Apartamento</option>
+            <option value="business">Business / Negocio</option>
+          </select>
+        </label>
+        {propertyType === 'apartment' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+            <Field label="Building / Edificio" name="building" required placeholder="Building name or number" />
+            <Field label="Apartment number / Nº de apartamento" name="unit" required placeholder="Example: Apt 304" />
+          </div>
+        )}
+        <label className="block text-sm font-bold text-neutral-800">Floor / Piso
+          <select value={floor} onChange={(e) => setFloor(e.target.value)} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
+            <option value="1">1st floor / primer piso</option>
+            <option value="2">2nd floor / segundo piso</option>
+            <option value="3">3rd floor / tercer piso (+$30)</option>
+            <option value="4">4th floor or higher / cuarto o más (+$30)</option>
+          </select>
+        </label>
+        {floorCharge > 0 && <p className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-sm text-amber-900">A $30 charge is added for carrying equipment to the {floor === '3' ? '3rd' : '4th or higher'} floor. / Se agregan $30 por subir las máquinas.</p>}
+        <label className="block text-sm font-bold text-neutral-800">Cleaning details / Detalles de limpieza
+          <textarea name="details" rows={4} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm" placeholder="Rooms, stairs, sofa size, stains, parking or access notes..." />
+        </label>
+        <button type="submit" className="w-full rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] py-4 px-5 text-white font-bold transition-colors">Send appointment request by WhatsApp · Enviar solicitud</button>
+        <p className="text-center text-xs text-neutral-500">Your appointment is confirmed only after we verify availability. / Confirmamos la cita después de verificar disponibilidad.</p>
+      </form>
+    </section>
+  );
+}
+
+function Field({ label, name, required, type = 'text', placeholder }: { label: string; name: string; required?: boolean; type?: string; placeholder?: string }) {
+  return <label className="block text-sm font-bold text-neutral-800">{label}<input required={required} name={name} type={type} placeholder={placeholder} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm font-normal" /></label>;
+}
+
 // ── Main CardContent ─────────────────────────────────────────────
-type Tab = 'servicios' | 'precio' | 'resenas';
+type Tab = 'servicios' | 'precio' | 'cita' | 'resenas';
 
 export default function CardContent() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
@@ -373,12 +463,29 @@ export default function CardContent() {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    const queryTab = new URLSearchParams(window.location.search).get('tab');
+    if (queryTab === 'precio' || window.location.hash === '#cotizador') {
+      setTab('precio');
+      requestAnimationFrame(() => {
+        document.getElementById('cotizador')?.scrollIntoView({ block: 'start' });
+      });
+    }
+    if (queryTab === 'cita' || window.location.hash === '#cita') {
+      setTab('cita');
+      requestAnimationFrame(() => {
+        document.getElementById('cita')?.scrollIntoView({ block: 'start' });
+      });
+    }
+  }, []);
+
   const whatsappMessage = encodeURIComponent(`Hi! I'm interested in your cleaning services.`);
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: 'servicios', label: 'Services' },
-    { id: 'precio',    label: 'Price' },
-    { id: 'resenas',   label: 'Reviews' },
+    { id: 'servicios', label: 'Servicios' },
+    { id: 'precio',    label: 'Cotizar' },
+    { id: 'cita',      label: 'Pedir cita' },
+    { id: 'resenas',   label: 'Reseñas' },
   ];
 
   return (
@@ -454,6 +561,12 @@ export default function CardContent() {
                 </svg>
                 Call
               </a>
+            </div>
+
+            <div className={`grid grid-cols-2 gap-2 w-full max-w-xs ${mounted ? 'anim-s3' : 'opacity-0'}`}>
+              <button onClick={() => setTab('precio')} className="rounded-xl bg-[#10a37f] hover:bg-[#0d8f6e] py-2.5 text-sm font-bold text-white transition-colors">Cotizar ahora</button>
+              <button onClick={() => setTab('cita')} className="rounded-xl bg-white text-[#0b3f31] hover:bg-neutral-100 py-2.5 text-sm font-bold transition-colors">Pedir cita</button>
+              <button onClick={() => setTab('servicios')} className="col-span-2 rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 py-2.5 text-sm font-semibold text-white transition-colors">Ver servicios y precios</button>
             </div>
 
             {/* Social icons row */}
@@ -557,13 +670,25 @@ export default function CardContent() {
           )}
 
           {tab === 'precio' && (
-            <div key="precio" className="tab-content space-y-8">
+            <div id="cotizador" key="precio" className="tab-content space-y-8 scroll-mt-20">
+              <div className="text-center">
+                <p className="text-xs font-bold uppercase tracking-widest text-[#10a37f]">Step 1 · Paso 1</p>
+                <h2 className="text-2xl font-black text-neutral-900 mt-1">Choose your areas and get your estimate</h2>
+                <p className="text-sm text-neutral-500 mt-2">Selecciona las áreas. Luego envía el total por WhatsApp o solicita una cita.</p>
+              </div>
               <PriceCalculator />
+              <button onClick={() => setTab('cita')} className="w-full rounded-2xl border-2 border-[#10a37f] py-3.5 text-sm font-bold text-[#0d8f6e]">Already know what you need? Request an appointment →</button>
               <div>
                 <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-4 text-center">Before & After</p>
                 <BeforeAfterSlider before="/images/before-after/before-1.jpg" after="/images/before-after/after-1.jpg" />
                 <p className="text-center text-xs text-neutral-400 mt-3">← Drag to compare →</p>
               </div>
+            </div>
+          )}
+
+          {tab === 'cita' && (
+            <div key="cita" className="tab-content">
+              <BookingForm />
             </div>
           )}
 
