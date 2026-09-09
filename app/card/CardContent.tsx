@@ -461,7 +461,7 @@ type Tab = 'servicios' | 'precio' | 'cita' | 'resenas';
 export default function CardContent() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [tab, setTab] = useState<Tab>('servicios');
+  const [tab, setTab] = useState<Tab>('precio');
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
@@ -487,9 +487,9 @@ export default function CardContent() {
   const whatsappMessage = encodeURIComponent(`Hi! I'm interested in your cleaning services.`);
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: 'servicios', label: 'Servicios' },
-    { id: 'precio',    label: 'Cotizar' },
-    { id: 'cita',      label: 'Pedir cita' },
+    { id: 'precio',    label: '1. Cotizar' },
+    { id: 'servicios', label: '2. Servicios' },
+    { id: 'cita',      label: '3. Cita' },
     { id: 'resenas',   label: 'Reseñas' },
   ];
 
@@ -539,6 +539,7 @@ export default function CardContent() {
             <div className={`text-center mb-5 ${mounted ? 'anim-s1' : 'opacity-0'}`}>
               <h1 className="text-2xl font-black text-white tracking-tight">LivinGreen</h1>
               <p className="text-[#5eead4] text-sm font-medium mt-0.5">Professional Cleaning Services · Utah</p>
+              <p className="text-white/85 text-xs mt-2 font-semibold">Get your price and request your appointment in minutes</p>
               <div className="flex items-center justify-center gap-1 mt-2">
                 <span className="text-yellow-400 text-xs">★★★★★</span>
                 <span className="text-white/70 text-xs">5.0 · 500+ reviews</span>
@@ -568,10 +569,15 @@ export default function CardContent() {
               </a>
             </div>
 
-            <div className={`grid grid-cols-2 gap-2 w-full max-w-xs ${mounted ? 'anim-s3' : 'opacity-0'}`}>
-              <button onClick={() => setTab('precio')} className="rounded-xl bg-[#10a37f] hover:bg-[#0d8f6e] py-2.5 text-sm font-bold text-white transition-colors">Cotizar ahora</button>
-              <button onClick={() => setTab('cita')} className="rounded-xl bg-white text-[#0b3f31] hover:bg-neutral-100 py-2.5 text-sm font-bold transition-colors">Pedir cita</button>
-              <button onClick={() => setTab('servicios')} className="col-span-2 rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 py-2.5 text-sm font-semibold text-white transition-colors">Ver servicios y precios</button>
+            <div className={`w-full max-w-xs space-y-2 ${mounted ? 'anim-s3' : 'opacity-0'}`}>
+              <button onClick={() => setTab('precio')} className="w-full rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] px-4 py-4 text-left text-white shadow-lg shadow-black/20 transition-colors">
+                <span className="block text-base font-black">Cotiza tu limpieza en 1 minuto</span>
+                <span className="block text-xs text-white/85 mt-0.5">Get your instant estimate →</span>
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={() => setTab('servicios')} className="rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 py-3 text-xs font-bold text-white transition-colors">Ver servicios</button>
+                <button onClick={() => setTab('cita')} className="rounded-xl bg-white text-[#0b3f31] hover:bg-neutral-100 py-3 text-xs font-bold transition-colors">Solicitar cita</button>
+              </div>
             </div>
 
             {/* Social icons row */}
@@ -648,7 +654,12 @@ export default function CardContent() {
 
               {/* Services Grid */}
               <div>
-                <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-4">Our Services</p>
+                <div className="rounded-2xl bg-neutral-100 p-4 mb-5">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#10a37f]">Step 2 · Paso 2</p>
+                  <h2 className="text-xl font-black text-neutral-900 mt-1">Choose the service you need</h2>
+                  <p className="text-sm text-neutral-600 mt-1">El cotizador incluye alfombras, sillones, sillas y colchones. Para precio final de sillones, envíanos una foto.</p>
+                </div>
+                <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-4">Servicios y precios</p>
                 <div className="grid grid-cols-2 gap-4">
                   {SERVICES.map((service) => (
                     <button
@@ -678,11 +689,11 @@ export default function CardContent() {
             <div id="cotizador" key="precio" className="tab-content space-y-8 scroll-mt-20">
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-widest text-[#10a37f]">Step 1 · Paso 1</p>
-                <h2 className="text-2xl font-black text-neutral-900 mt-1">Choose your areas and get your estimate</h2>
-                <p className="text-sm text-neutral-500 mt-2">Selecciona las áreas. Luego envía el total por WhatsApp o solicita una cita.</p>
+                <h2 className="text-3xl font-black text-neutral-900 mt-1">Cotiza tu limpieza ahora</h2>
+                <p className="text-sm text-neutral-600 mt-2">Elige las áreas y ve tu total al instante. Luego puedes enviarlo por WhatsApp o solicitar una cita.</p>
               </div>
               <PriceCalculator />
-              <button onClick={() => setTab('cita')} className="w-full rounded-2xl border-2 border-[#10a37f] py-3.5 text-sm font-bold text-[#0d8f6e]">Already know what you need? Request an appointment →</button>
+              <button onClick={() => setTab('cita')} className="w-full rounded-2xl bg-[#073b2d] py-4 text-sm font-bold text-white">¿Ya sabes lo que necesitas? Solicita tu cita →</button>
               <div>
                 <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-4 text-center">Before & After</p>
                 <BeforeAfterSlider before="/images/before-after/before-1.jpg" after="/images/before-after/after-1.jpg" />
