@@ -127,13 +127,14 @@ const T = {
   en: {
     title: 'Instant Price Estimate',
     carpets: 'Carpets', upholstery: 'Upholstery', chairsMatt: 'Chairs & Mattresses',
-    rooms: 'Rooms', stairs: 'Stairs', hallway: 'Hallway', livingRoom: 'Living Room',
+    rooms: 'Rooms', odorRemoval: 'Odor removal', stairs: 'Stairs', hallway: 'Hallway', livingRoom: 'Living Room',
     sofa: 'Sofa', chairs: 'Chairs', mattresses: 'Mattresses',
     none: 'None', small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Extra large',
     estimated: 'Estimated Total', minOrder: 'Minimum order applies',
     reset: 'Clear All', send: 'Send Quote via WhatsApp',
     msgIntro: "Hi! I'd like a quote for:",
     msgRooms: (n: number) => `• Carpet rooms: ${n} × $30 = $${n * 30}`,
+    msgOdor: (n: number) => `• Odor removal: ${n} area${n === 1 ? '' : 's'} × $20 = $${n * 20}`,
     msgStairs: (p: number) => `• Stairs: $${p}`,
     msgHallway: (p: number) => `• Hallway: $${p}`,
     msgLiving: (p: number) => `• Living room: $${p}`,
@@ -147,13 +148,14 @@ const T = {
   es: {
     title: 'Calcula tu Precio al Instante',
     carpets: 'Alfombras', upholstery: 'Tapicería', chairsMatt: 'Sillas y Colchones',
-    rooms: 'Cuartos', stairs: 'Escaleras', hallway: 'Pasillo', livingRoom: 'Sala',
+    rooms: 'Cuartos', odorRemoval: 'Eliminación de olores', stairs: 'Escaleras', hallway: 'Pasillo', livingRoom: 'Sala',
     sofa: 'Sofá', chairs: 'Sillas', mattresses: 'Colchones',
     none: 'Ninguno', small: 'Pequeño', medium: 'Mediano', large: 'Grande', xlarge: 'Extra grande',
     estimated: 'Total Estimado', minOrder: 'Aplica orden mínima',
     reset: 'Limpiar todo', send: 'Enviar Cotización por WhatsApp',
     msgIntro: '¡Hola! Me gustaría una cotización para:',
     msgRooms: (n: number) => `• Cuartos de alfombra: ${n} × $30 = $${n * 30}`,
+    msgOdor: (n: number) => `• Eliminación de olores: ${n} área${n === 1 ? '' : 's'} × $20 = $${n * 20}`,
     msgStairs: (p: number) => `• Escaleras: $${p}`,
     msgHallway: (p: number) => `• Pasillo: $${p}`,
     msgLiving: (p: number) => `• Sala: $${p}`,
@@ -169,6 +171,7 @@ const T = {
 function PriceCalculator() {
   const [lang, setLang] = useState<'en' | 'es'>('en');
   const [rooms, setRooms] = useState(0);
+  const [odorAreas, setOdorAreas] = useState(0);
   const [stairs, setStairs] = useState('none');
   const [hallway, setHallway] = useState('none');
   const [livingRoom, setLivingRoom] = useState('none');
@@ -183,15 +186,16 @@ function PriceCalculator() {
   const hallwayPrice: Record<string, number> = { none: 0, '10': 10, '15': 15, '20': 20, '25': 25 };
   const livingRoomPrice: Record<string, number> = { none: 0, '30': 30, '40': 40, '50': 50, '60': 60 };
 
-  const subtotal = rooms * 30 + stairsPrice[stairs] + hallwayPrice[hallway] + livingRoomPrice[livingRoom] + sofaPrice[sofa] + chairs * 15 + mattresses * 45;
+  const subtotal = rooms * 30 + odorAreas * 20 + stairsPrice[stairs] + hallwayPrice[hallway] + livingRoomPrice[livingRoom] + sofaPrice[sofa] + chairs * 15 + mattresses * 45;
   const total = subtotal > 0 && subtotal < 90 ? 90 : subtotal;
   const minApplies = subtotal > 0 && subtotal < 90;
 
-  const reset = () => { setRooms(0); setStairs('none'); setHallway('none'); setLivingRoom('none'); setSofa('none'); setChairs(0); setMattresses(0); };
+  const reset = () => { setRooms(0); setOdorAreas(0); setStairs('none'); setHallway('none'); setLivingRoom('none'); setSofa('none'); setChairs(0); setMattresses(0); };
 
   const sofaLabel: Record<string, string> = { '1': t.sofa1, '2': t.sofa2, '3': t.sofa3, 'sect-s': t.sectS, 'sect-m': t.sectM, 'sect-l': t.sectL };
   const lines: string[] = [t.msgIntro];
   if (rooms > 0) lines.push(t.msgRooms(rooms));
+  if (odorAreas > 0) lines.push(t.msgOdor(odorAreas));
   if (stairs !== 'none') lines.push(t.msgStairs(stairsPrice[stairs]));
   if (hallway !== 'none') lines.push(t.msgHallway(hallwayPrice[hallway]));
   if (livingRoom !== 'none') lines.push(t.msgLiving(livingRoomPrice[livingRoom]));
@@ -219,6 +223,7 @@ function PriceCalculator() {
       <div className="space-y-4">
         <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">{t.carpets}</p>
         <Row label={t.rooms} sub="$30/room"><Counter value={rooms} onChange={setRooms} /></Row>
+        <Row label={t.odorRemoval} sub="$20/area"><Counter value={odorAreas} onChange={setOdorAreas} /></Row>
         <Row label={t.stairs} sub="$45–$55">
           <select value={stairs} onChange={(e) => setStairs(e.target.value)} className={SELECT_CLS}>
             <option value="none">{t.none}</option>
