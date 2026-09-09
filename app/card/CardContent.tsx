@@ -168,8 +168,7 @@ const T = {
   },
 };
 
-function PriceCalculator() {
-  const [lang, setLang] = useState<'en' | 'es'>('en');
+function PriceCalculator({ lang, setLang }: { lang: 'en' | 'es'; setLang: (lang: 'en' | 'es') => void }) {
   const [rooms, setRooms] = useState(0);
   const [odorAreas, setOdorAreas] = useState(0);
   const [stairs, setStairs] = useState('none');
@@ -365,10 +364,11 @@ function Reviews() {
   );
 }
 
-function BookingForm() {
+function BookingForm({ lang }: { lang: 'en' | 'es' }) {
   const [propertyType, setPropertyType] = useState<'house' | 'apartment' | 'business'>('house');
   const [floor, setFloor] = useState('1');
   const floorCharge = Number(floor) >= 3 ? 30 : 0;
+  const es = lang === 'es';
 
   function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -393,59 +393,59 @@ function BookingForm() {
   return (
     <section id="cita" className="scroll-mt-20 space-y-4">
       <div className="rounded-3xl bg-[#073b2d] text-white p-6">
-        <p className="text-xs font-bold tracking-widest uppercase text-[#5eead4]">Book your cleaning · Reserva tu limpieza</p>
-        <h2 className="text-2xl font-black mt-2">Request an appointment</h2>
-        <p className="text-white/80 text-sm mt-2">Complete the details below. We confirm availability and your final appointment by WhatsApp or phone.</p>
+        <p className="text-xs font-bold tracking-widest uppercase text-[#5eead4]">{es ? 'Paso 2 · Reserva tu limpieza' : 'Step 2 · Book your cleaning'}</p>
+        <h2 className="text-2xl font-black mt-2">{es ? 'Agenda tu servicio' : 'Schedule your service'}</h2>
+        <p className="text-white/80 text-sm mt-2">{es ? 'Completa los datos y confirmaremos disponibilidad por WhatsApp o teléfono.' : 'Complete your details and we will confirm availability by WhatsApp or phone.'}</p>
       </div>
 
       <form onSubmit={submitRequest} className="rounded-3xl border border-neutral-200 bg-white p-5 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Name / Nombre" name="name" required placeholder="Full name" />
-          <Field label="Phone / Teléfono" name="phone" required type="tel" placeholder="(801) 555-0100" />
+          <Field label={es ? 'Nombre completo' : 'Full name'} name="name" required placeholder={es ? 'Tu nombre' : 'Your name'} />
+          <Field label={es ? 'Teléfono' : 'Phone'} name="phone" required type="tel" placeholder="(801) 555-0100" />
         </div>
-        <label className="block text-sm font-bold text-neutral-800">Service / Servicio
+        <label className="block text-sm font-bold text-neutral-800">{es ? 'Servicio' : 'Service'}
           <select required name="service" className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
-            <option value="">Select a service / Elige un servicio</option>
-            <option>Carpet cleaning / Alfombras</option>
-            <option>Couch or upholstery / Sillón o tapicería</option>
-            <option>Car interior / Interior de auto</option>
-            <option>Mattress / Colchón</option>
-            <option>Other / Otro</option>
+            <option value="">{es ? 'Elige un servicio' : 'Select a service'}</option>
+            <option>{es ? 'Limpieza de alfombras' : 'Carpet cleaning'}</option>
+            <option>{es ? 'Sillón o tapicería' : 'Couch or upholstery'}</option>
+            <option>{es ? 'Interior de auto' : 'Car interior'}</option>
+            <option>{es ? 'Colchón' : 'Mattress'}</option>
+            <option>{es ? 'Otro' : 'Other'}</option>
           </select>
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Preferred date / Fecha preferida" name="date" type="date" />
-          <Field label="Preferred time / Hora preferida" name="time" type="time" />
+          <Field label={es ? 'Fecha preferida' : 'Preferred date'} name="date" type="date" />
+          <Field label={es ? 'Hora preferida' : 'Preferred time'} name="time" type="time" />
         </div>
-        <Field label="Exact address / Dirección exacta" name="address" required placeholder="Street number and street / Número y calle" />
-        <Field label="City / Ciudad" name="city" required placeholder="Example: Orem" />
-        <label className="block text-sm font-bold text-neutral-800">Property type / Tipo de propiedad
+        <Field label={es ? 'Dirección exacta' : 'Exact address'} name="address" required placeholder={es ? 'Número y calle' : 'Street number and name'} />
+        <Field label={es ? 'Ciudad' : 'City'} name="city" required placeholder={es ? 'Ejemplo: Orem' : 'Example: Orem'} />
+        <label className="block text-sm font-bold text-neutral-800">{es ? 'Tipo de propiedad' : 'Property type'}
           <select value={propertyType} onChange={(e) => setPropertyType(e.target.value as typeof propertyType)} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
-            <option value="house">House / Casa</option>
-            <option value="apartment">Apartment / Apartamento</option>
-            <option value="business">Business / Negocio</option>
+            <option value="house">{es ? 'Casa' : 'House'}</option>
+            <option value="apartment">{es ? 'Apartamento' : 'Apartment'}</option>
+            <option value="business">{es ? 'Negocio' : 'Business'}</option>
           </select>
         </label>
         {propertyType === 'apartment' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-2xl bg-amber-50 border border-amber-200 p-4">
-            <Field label="Building / Edificio" name="building" required placeholder="Building name or number" />
-            <Field label="Apartment number / Nº de apartamento" name="unit" required placeholder="Example: Apt 304" />
+            <Field label={es ? 'Edificio' : 'Building'} name="building" required placeholder={es ? 'Nombre o número' : 'Name or number'} />
+            <Field label={es ? 'Número de apartamento' : 'Apartment number'} name="unit" required placeholder="Example: Apt 304" />
           </div>
         )}
-        <label className="block text-sm font-bold text-neutral-800">Floor / Piso
+        <label className="block text-sm font-bold text-neutral-800">{es ? 'Piso' : 'Floor'}
           <select value={floor} onChange={(e) => setFloor(e.target.value)} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm">
-            <option value="1">1st floor / primer piso</option>
-            <option value="2">2nd floor / segundo piso</option>
-            <option value="3">3rd floor / tercer piso (+$30)</option>
-            <option value="4">4th floor or higher / cuarto o más (+$30)</option>
+            <option value="1">{es ? 'Primer piso' : '1st floor'}</option>
+            <option value="2">{es ? 'Segundo piso' : '2nd floor'}</option>
+            <option value="3">{es ? 'Tercer piso (+$30)' : '3rd floor (+$30)'}</option>
+            <option value="4">{es ? 'Cuarto piso o más (+$30)' : '4th floor or higher (+$30)'}</option>
           </select>
         </label>
-        {floorCharge > 0 && <p className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-sm text-amber-900">A $30 charge is added for carrying equipment to the {floor === '3' ? '3rd' : '4th or higher'} floor. / Se agregan $30 por subir las máquinas.</p>}
-        <label className="block text-sm font-bold text-neutral-800">Cleaning details / Detalles de limpieza
-          <textarea name="details" rows={4} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm" placeholder="Rooms, stairs, sofa size, stains, parking or access notes..." />
+        {floorCharge > 0 && <p className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-sm text-amber-900">{es ? 'Se agregan $30 por subir las máquinas al tercer piso o superior.' : 'A $30 charge is added for carrying equipment to the 3rd floor or higher.'}</p>}
+        <label className="block text-sm font-bold text-neutral-800">{es ? 'Detalles de limpieza' : 'Cleaning details'}
+          <textarea name="details" rows={4} className="mt-1.5 w-full rounded-xl border border-neutral-300 px-3 py-3 text-sm" placeholder={es ? 'Cuartos, escaleras, tamaño del sillón, manchas, estacionamiento o acceso...' : 'Rooms, stairs, sofa size, stains, parking or access notes...'} />
         </label>
-        <button type="submit" className="w-full rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] py-4 px-5 text-white font-bold transition-colors">Send appointment request by WhatsApp · Enviar solicitud</button>
-        <p className="text-center text-xs text-neutral-500">Your appointment is confirmed only after we verify availability. / Confirmamos la cita después de verificar disponibilidad.</p>
+        <button type="submit" className="w-full rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] py-4 px-5 text-white font-bold transition-colors">{es ? 'Enviar solicitud por WhatsApp' : 'Send request by WhatsApp'}</button>
+        <p className="text-center text-xs text-neutral-500">{es ? 'Confirmamos la cita después de verificar disponibilidad.' : 'We confirm your appointment after verifying availability.'}</p>
       </form>
     </section>
   );
@@ -462,6 +462,7 @@ export default function CardContent() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
   const [mounted, setMounted] = useState(false);
   const [tab, setTab] = useState<Tab>('precio');
+  const [lang, setLang] = useState<'en' | 'es'>('es');
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
@@ -487,10 +488,10 @@ export default function CardContent() {
   const whatsappMessage = encodeURIComponent(`Hi! I'm interested in your cleaning services.`);
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: 'precio',    label: '1. Cotizar' },
-    { id: 'servicios', label: '2. Servicios' },
-    { id: 'cita',      label: '3. Cita' },
-    { id: 'resenas',   label: 'Reseñas' },
+    { id: 'precio',    label: lang === 'es' ? '1. Cotizar' : '1. Quote' },
+    { id: 'servicios', label: lang === 'es' ? '2. Servicios' : '2. Services' },
+    { id: 'cita',      label: lang === 'es' ? '3. Cita' : '3. Book' },
+    { id: 'resenas',   label: lang === 'es' ? 'Reseñas' : 'Reviews' },
   ];
 
   return (
@@ -539,7 +540,10 @@ export default function CardContent() {
             <div className={`text-center mb-5 ${mounted ? 'anim-s1' : 'opacity-0'}`}>
               <h1 className="text-2xl font-black text-white tracking-tight">LivinGreen</h1>
               <p className="text-[#5eead4] text-sm font-medium mt-0.5">Professional Cleaning Services · Utah</p>
-              <p className="text-white/85 text-xs mt-2 font-semibold">Get your price and request your appointment in minutes</p>
+              <div className="mt-3 inline-flex rounded-full border border-white/25 bg-black/10 p-1 text-xs font-bold">
+                <button onClick={() => setLang('es')} className={`rounded-full px-3 py-1.5 transition-colors ${lang === 'es' ? 'bg-white text-[#073b2d]' : 'text-white/80'}`}>Español</button>
+                <button onClick={() => setLang('en')} className={`rounded-full px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-white text-[#073b2d]' : 'text-white/80'}`}>English</button>
+              </div>
               <div className="flex items-center justify-center gap-1 mt-2">
                 <span className="text-yellow-400 text-xs">★★★★★</span>
                 <span className="text-white/70 text-xs">5.0 · 500+ reviews</span>
@@ -569,15 +573,10 @@ export default function CardContent() {
               </a>
             </div>
 
-            <div className={`w-full max-w-xs space-y-2 ${mounted ? 'anim-s3' : 'opacity-0'}`}>
-              <button onClick={() => setTab('precio')} className="w-full rounded-2xl bg-[#10a37f] hover:bg-[#0d8f6e] px-4 py-4 text-left text-white shadow-lg shadow-black/20 transition-colors">
-                <span className="block text-base font-black">Cotiza tu limpieza en 1 minuto</span>
-                <span className="block text-xs text-white/85 mt-0.5">Get your instant estimate →</span>
-              </button>
-              <div className="grid grid-cols-2 gap-2">
-                <button onClick={() => setTab('servicios')} className="rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 py-3 text-xs font-bold text-white transition-colors">Ver servicios</button>
-                <button onClick={() => setTab('cita')} className="rounded-xl bg-white text-[#0b3f31] hover:bg-neutral-100 py-3 text-xs font-bold transition-colors">Solicitar cita</button>
-              </div>
+            <div className={`flex gap-5 text-sm font-semibold text-white/90 ${mounted ? 'anim-s3' : 'opacity-0'}`}>
+              <button onClick={() => setTab('precio')} className="hover:text-white transition-colors">{lang === 'es' ? 'Cotizar' : 'Get a quote'}</button>
+              <button onClick={() => setTab('servicios')} className="hover:text-white transition-colors">{lang === 'es' ? 'Servicios' : 'Services'}</button>
+              <button onClick={() => setTab('cita')} className="hover:text-white transition-colors">{lang === 'es' ? 'Agendar' : 'Book'}</button>
             </div>
 
             {/* Social icons row */}
@@ -688,12 +687,12 @@ export default function CardContent() {
           {tab === 'precio' && (
             <div id="cotizador" key="precio" className="tab-content space-y-8 scroll-mt-20">
               <div className="text-center">
-                <p className="text-xs font-bold uppercase tracking-widest text-[#10a37f]">Step 1 · Paso 1</p>
-                <h2 className="text-3xl font-black text-neutral-900 mt-1">Cotiza tu limpieza ahora</h2>
-                <p className="text-sm text-neutral-600 mt-2">Elige las áreas y ve tu total al instante. Luego puedes enviarlo por WhatsApp o solicitar una cita.</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#10a37f]">{lang === 'es' ? 'Paso 1 · Cotización' : 'Step 1 · Estimate'}</p>
+                <h2 className="text-3xl font-black text-neutral-900 mt-1">{lang === 'es' ? 'Cotiza tu limpieza ahora' : 'Get your instant estimate'}</h2>
+                <p className="text-sm text-neutral-600 mt-2">{lang === 'es' ? 'Elige las áreas, revisa el total y agenda aquí mismo cuando estés listo.' : 'Choose your areas, review the total, and book right here when you are ready.'}</p>
               </div>
-              <PriceCalculator />
-              <button onClick={() => setTab('cita')} className="w-full rounded-2xl bg-[#073b2d] py-4 text-sm font-bold text-white">¿Ya sabes lo que necesitas? Solicita tu cita →</button>
+              <PriceCalculator lang={lang} setLang={setLang} />
+              <BookingForm lang={lang} />
               <div>
                 <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-4 text-center">Before & After</p>
                 <BeforeAfterSlider before="/images/before-after/before-1.jpg" after="/images/before-after/after-1.jpg" />
@@ -704,7 +703,7 @@ export default function CardContent() {
 
           {tab === 'cita' && (
             <div key="cita" className="tab-content">
-              <BookingForm />
+              <BookingForm lang={lang} />
             </div>
           )}
 
