@@ -101,10 +101,10 @@ export default function ServicesPage() {
               Get a Free Quote
             </Link>
             <a
-              href="tel:+18015550100"
+              href="tel:+13854825694"
               className="btn-outline text-lg px-10 py-4"
             >
-              Call (801) 555-0100
+              Call (385) 482-5694
             </a>
           </div>
         </div>
